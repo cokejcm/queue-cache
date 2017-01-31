@@ -22,7 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.springframework.boot.test.OutputCapture;
+import org.springframework.boot.test.rule.OutputCapture;
 
 import com.demo.app.Application;
 
@@ -48,8 +48,7 @@ public class SampleSimpleApplicationTests {
 	public void after() {
 		if (this.profiles != null) {
 			System.setProperty("spring.profiles.active", this.profiles);
-		}
-		else {
+		} else {
 			System.clearProperty("spring.profiles.active");
 		}
 	}
