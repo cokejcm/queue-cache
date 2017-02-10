@@ -30,6 +30,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Autodiscover MongoDb parameters -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+	    </dependency>		
 		<!-- Hot swap after changes in the code -->
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -39,7 +44,7 @@
     		<groupId>org.glassfish.jersey.core</groupId>
     		<artifactId>jersey-common</artifactId>
     		<version>${jersey.version}</version>
-		</dependency>
+		</dependency>		
 		<!-- Allows Dependency Injection into Jersey resources -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.ext</groupId>
@@ -51,6 +56,12 @@
 		  <artifactId>jersey-media-moxy</artifactId>
 		  <version>${jersey.version}</version>
 		</dependency>
+		<!-- DAO Access -->
+	    <dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-mongodb</artifactId>
+	    </dependency>		
+		<!--  -->		
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>
