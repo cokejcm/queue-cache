@@ -18,6 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>2.26-b01</jersey.version>
         <mockito.version>1.10.19</mockito.version>
+        <datafaker.version>1.2.5</datafaker.version>
 	</properties>
 	
 	<dependencies>
@@ -61,7 +62,12 @@
 	        <groupId>org.springframework.data</groupId>
 	        <artifactId>spring-data-mongodb</artifactId>
 	    </dependency>		
-		<!--  -->		
+		<!-- Fake Data -->	
+		<dependency>
+		    <groupId>com.github.blocoio</groupId>
+		    <artifactId>faker</artifactId>
+		    <version>${datafaker.version}</version>
+		</dependency>	
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>
@@ -80,8 +86,15 @@
 		    <artifactId>mockito-all</artifactId>
 		    <version>${mockito.version}</version>
 		    <scope>test</scope>
-		</dependency>												
+		</dependency>
 	</dependencies>	
+	<repositories>
+		<!-- Fake Data Test -->
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>

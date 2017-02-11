@@ -15,7 +15,6 @@ public class MessageDao {
 	private MessageRepository messageRepository;
 
 	public List<Message> getMessagesByAuthor(String author) {
-
 		return messageRepository.findByAuthor(author);
 	}
 

@@ -1,0 +1,38 @@
+package com.demo.app.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.demo.app.domain.Person;
+import com.demo.app.repository.PersonRepository;
+
+import io.bloco.faker.Faker;
+
+@Repository
+public class PersonDao {
+
+	@Autowired
+	private PersonRepository personRepository;
+
+	private void generateData(int numRows) {
+		for (int i = 0; i < numRows; i++) {
+			Faker faker = new Faker();
+			Person p = new Person();
+			p.setId(i);
+			p.setAddress(faker.address.streetAddress());
+			p.setEmail(faker.internet.email());
+			p.setName(faker.name.firstName());
+			p.setCompany(faker.company.name());
+			savePerson(p);
+		}
+	}
+
+	public void savePerson(Person person) {
+		personRepository.save(person);
+	}
+
+	public void generateFake(int numItems) {
+		generateData(numItems);
+	}
+
+}
