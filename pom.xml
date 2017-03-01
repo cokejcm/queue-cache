@@ -67,7 +67,12 @@
 		    <groupId>com.github.blocoio</groupId>
 		    <artifactId>faker</artifactId>
 		    <version>${datafaker.version}</version>
-		</dependency>	
+		</dependency>
+		<!-- Cache -->
+		<dependency>
+		    <groupId>com.hazelcast</groupId>
+		    <artifactId>hazelcast</artifactId>
+		</dependency>			
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>
