@@ -25,22 +25,20 @@ public class MessageService {
 		cacheDao.setType(Message.class);
 	}
 
-	/*
-	 * public List<Message> getMessages() { return
-	 * cacheDao.findOne(key)messageDao.getMessages(); }
-	 */
+	public List<Message> getMessages() {
+		return cacheDao.findAll();
+	}
 
 	public Message getMessage(String id) {
 		return cacheDao.findOne(id);
 	}
 
-	/*
-	 * public List<Message> getMessagesByAuthor(String author) { return
-	 * messageDao.getMessagesByAuthor(author); }
-	 */
-
 	public void saveMessage(Message message) {
 		cacheDao.saveOne(message);
+	}
+
+	public void updateMessage(Message message) {
+		cacheDao.updateOne(message);
 	}
 
 }

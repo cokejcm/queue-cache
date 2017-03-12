@@ -1,5 +1,7 @@
 package com.demo.app.controller;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,35 +25,19 @@ public class MessageRest {
 	@Autowired
 	private MessageService messageService;
 
-	/*
-	 * @GET
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @Path("/messages") public List<Message> messages() { return
-	 * messageService.getMessages();
-	 * 
-	 * }
-	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/messages")
+	public List<Message> messages() {
+		return messageService.getMessages();
+	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/message/{id}")
 	public Message messageById(@PathParam("id") String id) {
-		// log.info("Get by Author");
 		return messageService.getMessage(id);
 	}
-
-	/*
-	 * @GET
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @Path("/messageAuthor/{author}") public List<Message>
-	 * messageByAuthor(@PathParam("author") String author) { //
-	 * log.info("Get by Author"); return
-	 * messageService.getMessagesByAuthor(author); }
-	 */
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

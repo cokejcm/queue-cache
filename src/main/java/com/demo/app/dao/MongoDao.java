@@ -28,7 +28,6 @@ public class MongoDao<T extends Entity<K>, K extends Serializable> implements Da
 	@Override
 	public void deleteOne(K key) {
 		mongoGenericRepository.delete(key);
-
 	}
 
 	@Override

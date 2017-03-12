@@ -38,8 +38,11 @@ public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K>
 
 	@Override
 	public List<T> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cacheActive()) {
+			// return
+			// (List<T>)instance.getMap(getType().getSimpleName()).getAll();
+		}
+		return dao.findAll();
 	}
 
 	@Override
@@ -53,13 +56,18 @@ public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K>
 
 	@Override
 	public void deleteOne(K key) {
-		// TODO Auto-generated method stub
+		if (cacheActive()) {
+			instance.getMap(getType().getSimpleName()).remove(key);
+		}
 
 	}
 
 	@Override
 	public void updateOne(T item) {
-		// TODO Auto-generated method stub
+		if (cacheActive()) {
+			dao.updateOne(item);
+			instance.getMap(getType().getSimpleName()).put(item.getId(), item);
+		}
 
 	}
 
@@ -69,7 +77,6 @@ public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K>
 		if (cacheActive()) {
 			instance.getMap(getType().getSimpleName()).put(item.getId(), item);
 		}
-
 	}
 
 }

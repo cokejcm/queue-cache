@@ -6,11 +6,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "message") // optional
 public class Message extends Entity<String> {
 
-	private static final long serialVersionUID = 2033215599775171440L;
+	private static final long serialVersionUID = -7155764620974043870L;
+
 	@Id
 	private String _id;
 	private String author;
 	private String contents;
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 
 	@Override
 	public String getId() {
