@@ -3,29 +3,23 @@ package com.demo.app.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="person") //optional
-public class Message {
+@Document(collection = "message") // optional
+public class Message extends Entity<String> {
 
+	private static final long serialVersionUID = 2033215599775171440L;
 	@Id
-	private String id;
-
+	private String _id;
 	private String author;
 	private String contents;
 
-	public Message() {
-	}
-
-	public Message(String author, String contents) {
-		this.author = author;
-		this.contents = contents;
-	}
-
+	@Override
 	public String getId() {
-		return id;
+		return this._id;
 	}
 
+	@Override
 	public void setId(String id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	public String getAuthor() {

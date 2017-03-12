@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demo.app.dao.MessageDao;
+import com.demo.app.dao.CacheDao;
 import com.demo.app.domain.Message;
 
 @Service
@@ -18,20 +18,29 @@ public class MessageService {
 	List<Message> messages = Collections.synchronizedList(new ArrayList<Message>());
 
 	@Autowired
-	MessageDao messageDao;
+	CacheDao<Message, String> cacheDao;
 
 	@PostConstruct
 	public void init() {
-		messages.add(new Message("Joe", "Hello"));
-		messages.add(new Message("Jane", "Spring boot is cool !"));
+		cacheDao.setType(Message.class);
 	}
 
-	public List<Message> getMessages() {
-		return messages;
+	/*
+	 * public List<Message> getMessages() { return
+	 * cacheDao.findOne(key)messageDao.getMessages(); }
+	 */
+
+	public Message getMessage(String id) {
+		return cacheDao.findOne(id);
 	}
 
-	public List<Message> getMessagesByAuthor(String author) {
-		return messageDao.getMessagesByAuthor(author);
+	/*
+	 * public List<Message> getMessagesByAuthor(String author) { return
+	 * messageDao.getMessagesByAuthor(author); }
+	 */
+
+	public void saveMessage(Message message) {
+		cacheDao.saveOne(message);
 	}
 
 }

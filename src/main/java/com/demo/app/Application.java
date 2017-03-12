@@ -25,6 +25,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.demo.app.configuration.JerseyConfig;
 
@@ -32,6 +33,7 @@ import com.demo.app.configuration.JerseyConfig;
 @EnableAutoConfiguration
 @ComponentScan
 @EnableCaching
+@EnableAspectJAutoProxy
 public class Application {
 
 	public static void main(String[] args) throws Exception {
