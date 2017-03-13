@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Repository;
 
 import com.demo.app.domain.Entity;
 import com.hazelcast.core.HazelcastInstance;
 
-@Repository
-public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
+public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 
 	private Class<?> c;
 
@@ -21,6 +19,14 @@ public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K>
 	private Environment environment;
 	@Autowired
 	private Dao<T, K> dao;
+
+	public Dao<T, K> getDao() {
+		return dao;
+	}
+
+	public void setDao(Dao<T, K> dao) {
+		this.dao = dao;
+	}
 
 	public boolean cacheActive() {
 		return Arrays.asList(this.environment.getActiveProfiles()).contains("cache");
@@ -42,7 +48,7 @@ public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K>
 			// return
 			// (List<T>)instance.getMap(getType().getSimpleName()).getAll();
 		}
-		return dao.findAll();
+		return getDao().findAll();
 	}
 
 	@Override
@@ -51,29 +57,28 @@ public class HazelcastCacheDao<T extends Entity<K>, K> implements CacheDao<T, K>
 		if (cacheActive()) {
 			return (T) instance.getMap(getType().getSimpleName()).get(key);
 		}
-		return dao.findOne(key);
+		return getDao().findOne(key);
 	}
 
 	@Override
 	public void deleteOne(K key) {
+		getDao().deleteOne(key);
 		if (cacheActive()) {
 			instance.getMap(getType().getSimpleName()).remove(key);
 		}
-
 	}
 
 	@Override
 	public void updateOne(T item) {
+		getDao().updateOne(item);
 		if (cacheActive()) {
-			dao.updateOne(item);
 			instance.getMap(getType().getSimpleName()).put(item.getId(), item);
 		}
-
 	}
 
 	@Override
 	public void saveOne(T item) {
-		dao.saveOne(item);
+		getDao().saveOne(item);
 		if (cacheActive()) {
 			instance.getMap(getType().getSimpleName()).put(item.getId(), item);
 		}

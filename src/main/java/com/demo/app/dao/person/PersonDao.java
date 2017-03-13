@@ -1,4 +1,4 @@
-package com.demo.app.dao;
+package com.demo.app.dao.person;
 
 import org.springframework.stereotype.Repository;
 

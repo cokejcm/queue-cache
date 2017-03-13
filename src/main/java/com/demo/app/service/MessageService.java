@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demo.app.dao.CacheDao;
+import com.demo.app.dao.message.HzMessageCacheDao;
 import com.demo.app.domain.Message;
 
 @Service
@@ -18,7 +18,7 @@ public class MessageService {
 	List<Message> messages = Collections.synchronizedList(new ArrayList<Message>());
 
 	@Autowired
-	CacheDao<Message, String> cacheDao;
+	HzMessageCacheDao cacheDao;
 
 	@PostConstruct
 	public void init() {
