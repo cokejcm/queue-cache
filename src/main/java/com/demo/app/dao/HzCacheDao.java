@@ -24,10 +24,6 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 		return dao;
 	}
 
-	public void setDao(Dao<T, K> dao) {
-		this.dao = dao;
-	}
-
 	public boolean cacheActive() {
 		return Arrays.asList(this.environment.getActiveProfiles()).contains("cache");
 	}
