@@ -20,8 +20,6 @@ import com.demo.app.service.MessageService;
 @Component
 public class MessageRest {
 
-	// static Logger log = Logger.getLogger(MessageRest.class.getName());
-
 	@Autowired
 	private MessageService messageService;
 

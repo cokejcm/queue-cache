@@ -1,19 +1,36 @@
 package com.demo.app.domain;
 
-public class Person {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-	private Integer id;
+@Document(collection = "person")
+public class Person extends Entity<Integer> {
+
+	private static final long serialVersionUID = 5376810403351001287L;
+
+	@Id
+	private Integer _id;
 	private String name;
 	private String address;
 	private String email;
 	private String company;
 
-	public Integer getId() {
-		return id;
+	public Integer get_id() {
+		return _id;
 	}
 
+	public void set_id(Integer _id) {
+		this._id = _id;
+	}
+
+	@Override
+	public Integer getId() {
+		return this._id;
+	}
+
+	@Override
 	public void setId(Integer id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	public String getName() {

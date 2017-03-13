@@ -4,11 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Repository;
 
 import com.demo.app.domain.Entity;
 import com.hazelcast.core.HazelcastInstance;
 
+@Repository
 public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 
 	private Class<?> c;
@@ -18,6 +21,7 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 	@Autowired
 	private Environment environment;
 	@Autowired
+	@Qualifier("mongoDao")
 	private Dao<T, K> dao;
 
 	public Dao<T, K> getDao() {

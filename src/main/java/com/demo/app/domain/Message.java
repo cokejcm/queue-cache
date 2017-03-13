@@ -3,7 +3,7 @@ package com.demo.app.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "message") // optional
+@Document(collection = "message")
 public class Message extends Entity<String> {
 
 	private static final long serialVersionUID = -7155764620974043870L;
