@@ -53,7 +53,8 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 	@SuppressWarnings("unchecked")
 	public T findOne(K key) {
 		if (cacheActive()) {
-			return (T) instance.getMap(getType().getSimpleName()).get(key);
+			T item =  (T) instance.getMap(getType().getSimpleName()).get(key);
+			return item == null ? getDao().findOne(key) : item ;
 		}
 		return getDao().findOne(key);
 	}
@@ -70,7 +71,7 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 	public void updateOne(T item) {
 		getDao().updateOne(item);
 		if (cacheActive()) {
-			instance.getMap(getType().getSimpleName()).put(item.getId(), item);
+			instance.getMap(getType().getSimpleName()).replace(item.getId(), item);
 		}
 	}
 
@@ -78,7 +79,7 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 	public void saveOne(T item) {
 		getDao().saveOne(item);
 		if (cacheActive()) {
-			instance.getMap(getType().getSimpleName()).put(item.getId(), item);
+			instance.getMap(getType().getSimpleName()).set(item.getId(), item);
 		}
 	}
 
