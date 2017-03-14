@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
@@ -21,11 +20,10 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 	@Autowired
 	private Environment environment;
 	@Autowired
-	@Qualifier("mongoDao")
-	private Dao<T, K> dao;
+	private CacheDao<T, K> dao;
 
-	public Dao<T, K> getDao() {
-		return dao;
+	public CacheDao<T, K> getDao() {
+		return this.dao;
 	}
 
 	public boolean cacheActive() {

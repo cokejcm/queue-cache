@@ -24,7 +24,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.demo.app.configuration.JerseyConfig;
-import com.demo.app.controller.PersonRest;
+import com.demo.app.controller.PersonController;
 import com.demo.app.service.PersonService;
 
 
@@ -35,7 +35,7 @@ import com.demo.app.service.PersonService;
 public class PersonRestTest extends JerseyTest {
 
 	@InjectMocks
-	private PersonRest restResource;
+	private PersonController restResource;
 	@Mock
 	private PersonService personService;
 

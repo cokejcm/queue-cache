@@ -5,17 +5,31 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.demo.app.domain.Entity;
 import com.demo.app.repository.MongoGenericRepository;
 
+@Primary
 @Repository
-public class MongoDao<T extends Entity<K>, K extends Serializable> implements Dao<T, K> {
+public class MongoDao<T extends Entity<K>, K extends Serializable> implements CacheDao<T, K> {
 
 	@Autowired
 	@Qualifier("mongoGenericRepository")
 	MongoGenericRepository<T, K> mongoRepository;
+
+	private Class<?> c;
+
+	@Override
+	public void setType(Class<?> c) {
+		this.c = c;
+	}
+
+	@Override
+	public Class<?> getType() {
+		return this.c;
+	}
 
 	public MongoGenericRepository<T, K> getMongoRepository() {
 		return this.mongoRepository;

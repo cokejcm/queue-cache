@@ -19,7 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.demo.app.configuration.JerseyConfig;
-import com.demo.app.controller.MessageRest;
+import com.demo.app.controller.MessageController;
 import com.demo.app.service.MessageService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +29,7 @@ import com.demo.app.service.MessageService;
 public class MessageRestTest extends JerseyTest {
 
 	@InjectMocks
-	private MessageRest restResource;
+	private MessageController restResource;
 	@Mock
 	private MessageService messageService;
 

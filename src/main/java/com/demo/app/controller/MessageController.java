@@ -18,7 +18,7 @@ import com.demo.app.service.MessageService;
 
 @Path("/")
 @Component
-public class MessageRest {
+public class MessageController {
 
 	@Autowired
 	private MessageService messageService;

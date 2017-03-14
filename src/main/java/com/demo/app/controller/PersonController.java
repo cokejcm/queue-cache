@@ -13,7 +13,7 @@ import com.demo.app.service.PersonService;
 
 @Path("/")
 @Component
-public class PersonRest {
+public class PersonController {
 
 	@Autowired
 	private PersonService personService;
