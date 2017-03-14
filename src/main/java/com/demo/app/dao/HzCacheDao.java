@@ -1,5 +1,6 @@
 package com.demo.app.dao;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,20 +42,27 @@ public class HzCacheDao<T extends Entity<K>, K> implements CacheDao<T, K> {
 	}
 
 	@Override
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<T> findAll() {
 		if (cacheActive()) {
-			// return
-			// (List<T>)instance.getMap(getType().getSimpleName()).getAll();
+			return new ArrayList(instance.getMap(getType().getSimpleName()).values());
 		}
 		return getDao().findAll();
+	}
+
+	// @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void cacheAll() {
+		if (cacheActive()) {
+			// buscar todo lo cacheable en domain en bd y traerlo a memoria
+		}
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public T findOne(K key) {
 		if (cacheActive()) {
-			T item =  (T) instance.getMap(getType().getSimpleName()).get(key);
-			return item == null ? getDao().findOne(key) : item ;
+			T item = (T) instance.getMap(getType().getSimpleName()).get(key);
+			return item == null ? getDao().findOne(key) : item;
 		}
 		return getDao().findOne(key);
 	}
