@@ -1,44 +1,44 @@
 package com.demo.app.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.app.dao.HzCacheDao;
 import com.demo.app.dao.message.HzMessageCacheDao;
 import com.demo.app.domain.Message;
 
 @Service
-public class MessageService {
-
-	List<Message> messages = Collections.synchronizedList(new ArrayList<Message>());
+public class MessageService  extends com.demo.app.service.Service<Message, String> {
 
 	@Autowired
 	HzMessageCacheDao cacheDao;
 
-	@PostConstruct
-	public void init() {
-		cacheDao.setType(Message.class);
+	@Override
+	public Class<?> getType() {
+		return Message.class;
+	}
+
+	@Override
+	public HzCacheDao<Message, String> getCacheDao() {
+		return this.cacheDao;
 	}
 
 	public List<Message> getMessages() {
-		return cacheDao.findAll();
+		return getCacheDao().findAll();
 	}
 
 	public Message getMessage(String id) {
-		return cacheDao.findOne(id);
+		return getCacheDao().findOne(id);
 	}
 
 	public void saveMessage(Message message) {
-		cacheDao.saveOne(message);
+		getCacheDao().saveOne(message);
 	}
 
 	public void updateMessage(Message message) {
-		cacheDao.updateOne(message);
+		getCacheDao().updateOne(message);
 	}
 
 }

@@ -20,6 +20,7 @@
         <mockito.version>1.10.19</mockito.version>
         <datafaker.version>1.2.5</datafaker.version>
        	<persistence.version>1.0.2</persistence.version>
+       	<reflections.version>0.9.10</reflections.version>
 	</properties>
 	
 	<dependencies>
@@ -96,10 +97,16 @@
 		</dependency>
 		<dependency>
 		<!-- JPA @MappedSuperclass  -->
-	    <groupId>javax.persistence</groupId>
-	    <artifactId>persistence-api</artifactId>
-	    <version>${persistence.version}</version>
-</dependency>						
+		    <groupId>javax.persistence</groupId>
+		    <artifactId>persistence-api</artifactId>
+		    <version>${persistence.version}</version>
+		</dependency>
+		<!-- JPA @MappedSuperclass  -->
+		<dependency>
+		    <groupId>org.reflections</groupId>
+		    <artifactId>reflections</artifactId>
+		    <version>${reflections.version}</version>
+		</dependency>								
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>

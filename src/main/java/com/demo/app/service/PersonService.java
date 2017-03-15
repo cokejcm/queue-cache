@@ -1,7 +1,5 @@
 package com.demo.app.service;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,18 +7,24 @@ import com.demo.app.dao.HzCacheDao;
 import com.demo.app.domain.Person;
 
 @Service
-public class PersonService {
+public class PersonService extends com.demo.app.service.Service<Person, Integer> {
 
 	@Autowired
-	HzCacheDao<Person, Integer> personDao;
+	private HzCacheDao<Person, Integer> cacheDao;
 
-	@PostConstruct
-	public void init() {
-		personDao.setType(Person.class);
+	@Override
+	public Class<?> getType() {
+		return Person.class;
+	}
+
+	@Override
+	public HzCacheDao<Person, Integer> getCacheDao() {
+		return this.cacheDao;
+
 	}
 
 	public void savePerson(Person person) {
-		personDao.saveOne(person);
+		getCacheDao().saveOne(person);
 	}
 
 }

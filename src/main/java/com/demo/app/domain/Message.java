@@ -3,6 +3,9 @@ package com.demo.app.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.demo.app.configuration.Cacheable;
+
+@Cacheable
 @Document(collection = "message")
 public class Message extends Entity<String> {
 
