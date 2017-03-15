@@ -20,4 +20,8 @@ public abstract class Service<T extends Entity<K>, K extends Serializable> {
 	public void init() {
 		getCacheDao().setType(getType());
 	}
+
+	public void cacheAll(){
+		getCacheDao().cacheAll();
+	}
 }
