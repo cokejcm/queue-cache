@@ -13,7 +13,7 @@ import com.demo.app.repository.MongoGenericRepository;
 
 @Primary
 @Repository
-public class MongoDao<T extends Entity<K>, K extends Serializable> implements CacheDao<T, K> {
+public class MongoDao<T extends Entity, K extends Serializable> implements CacheDao<T, K> {
 
 	@Autowired
 	@Qualifier("mongoGenericRepository")

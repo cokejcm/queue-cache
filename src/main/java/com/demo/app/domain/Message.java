@@ -1,30 +1,17 @@
 package com.demo.app.domain;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.demo.app.configuration.Cacheable;
 
 @Cacheable
 @Document(collection = "message")
-public class Message extends Entity<String> {
+public class Message extends Entity {
 
 	private static final long serialVersionUID = -7155764620974043870L;
 
-	@Id
-	private String id;
 	private String author;
 	private String contents;
-
-	@Override
-	public String getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getAuthor() {
 		return author;
@@ -41,4 +28,10 @@ public class Message extends Entity<String> {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
+
+	@Override
+	public String toString() {
+		return "Message [id= " + this.getId() + ", author=" + author + ", contents=" + contents + "]";
+	}
+
 }

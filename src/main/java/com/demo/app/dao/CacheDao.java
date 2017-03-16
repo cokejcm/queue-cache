@@ -2,13 +2,15 @@ package com.demo.app.dao;
 
 import java.util.List;
 
+import com.demo.app.domain.Entity;
+
 /**
  *
  * @author coke Dao Generic Interface
  * @param <T>
  * @param <K>
  */
-public interface CacheDao<T, K> {
+public interface CacheDao<T extends Entity, K> {
 
 	public List<T> findAll();
 

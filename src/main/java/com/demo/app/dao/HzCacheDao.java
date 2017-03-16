@@ -15,7 +15,7 @@ import com.demo.app.util.Util;
 import com.hazelcast.core.HazelcastInstance;
 
 @Repository
-public class HzCacheDao<T extends Entity<K>, K extends Serializable> implements CacheDao<T, K> {
+public class HzCacheDao<T extends Entity, K extends Serializable> implements CacheDao<T, K> {
 
 	private Class<?> c;
 
@@ -35,7 +35,7 @@ public class HzCacheDao<T extends Entity<K>, K extends Serializable> implements 
 	}
 
 	public boolean isCacheable() {
-		return cacheActive()  && c.isAnnotationPresent(Cacheable.class);
+		return cacheActive() && c.isAnnotationPresent(Cacheable.class);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class HzCacheDao<T extends Entity<K>, K extends Serializable> implements 
 	public List<T> findAll() {
 		if (isCacheable()) {
 			List<T> elements = new ArrayList(instance.getMap(getType().getSimpleName()).values());
-			if (!elements.isEmpty()){
+			if (!elements.isEmpty()) {
 				return elements;
 			}
 		}
@@ -61,7 +61,7 @@ public class HzCacheDao<T extends Entity<K>, K extends Serializable> implements 
 	}
 
 	public void cacheAll() {
-		if (isCacheable()){
+		if (isCacheable()) {
 			instance.getMap(getType().getSimpleName()).putAll(Util.ListToMap(getDao().findAll()));
 		}
 	}

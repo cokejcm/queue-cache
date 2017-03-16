@@ -8,9 +8,9 @@ import com.demo.app.domain.Entity;
 
 public class Util {
 
-	public static <K> Map<K,? extends Entity<K>> ListToMap (List<? extends Entity<K>> list){
-		Map<K, Entity <K>> map = new HashMap<>();
-		for (Entity<K> entity : list) {
+	public static Map<String, ? extends Entity> ListToMap(List<? extends Entity> list) {
+		Map<String, Entity> map = new HashMap<>();
+		for (Entity entity : list) {
 			map.put(entity.getId(), entity);
 		}
 		return map;

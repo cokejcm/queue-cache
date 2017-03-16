@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.demo.app.domain.Entity;
 
 @Repository
-public interface MongoGenericRepository<T extends Entity<K>, K extends Serializable> extends MongoRepository<T, K> {
+public interface MongoGenericRepository<T extends Entity, K extends Serializable> extends MongoRepository<T, K> {
 
 }
