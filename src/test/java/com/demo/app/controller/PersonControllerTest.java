@@ -1,6 +1,9 @@
-package Controller;
+package com.demo.app.controller;
 
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.test.DeploymentContext;
@@ -8,7 +11,9 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.ServletDeploymentContext;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
@@ -19,19 +24,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.demo.app.configuration.JerseyConfig;
-import com.demo.app.controller.MessageController;
-import com.demo.app.service.MessageService;
+import com.demo.app.controller.PersonController;
+import com.demo.app.service.PersonService;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MessageRestTest extends JerseyTest {
+public class PersonControllerTest extends JerseyTest {
 
 	@InjectMocks
-	private MessageController restResource;
+	private PersonController restResource;
 	@Mock
-	private MessageService messageService;
+	private PersonService personService;
 
 	@Override
 	protected TestContainerFactory getTestContainerFactory() {
@@ -44,13 +50,9 @@ public class MessageRestTest extends JerseyTest {
 		return ServletDeploymentContext.forServlet(new ServletContainer(new JerseyConfig().register(restResource))).build();
 	}
 
-	/*
-	 * @Test public void testMessages() { List<Message> messages = new
-	 * ArrayList<Message>(); Message message = new Message("Jane",
-	 * "Spring boot is cool !"); messages.add(message);
-	 * Mockito.when(messageService.getMessages()).thenReturn(messages); final
-	 * String messageOutput = target("messages").request().get(String.class);
-	 * Assert.assertTrue(messageOutput.contains(message.getAuthor()) &&
-	 * messageOutput.contains(message.getContents())); }
-	 */
+	@Test
+	public void testGenerate2FakePeople() {
+		Response response = target("person/generateFake/2").request().put(Entity.entity(new Integer(0), MediaType.TEXT_PLAIN));
+		Assert.assertEquals(response.readEntity(String.class), "2 Items of type Person inserted");
+	}
 }

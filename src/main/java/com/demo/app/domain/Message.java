@@ -12,26 +12,18 @@ public class Message extends Entity<String> {
 	private static final long serialVersionUID = -7155764620974043870L;
 
 	@Id
-	private String _id;
+	private String id;
 	private String author;
 	private String contents;
 
-	public String get_id() {
-		return _id;
-	}
-
-	public void set_id(String _id) {
-		this._id = _id;
-	}
-
 	@Override
 	public String getId() {
-		return this._id;
+		return id;
 	}
 
 	@Override
 	public void setId(String id) {
-		this._id = id;
+		this.id = id;
 	}
 
 	public String getAuthor() {

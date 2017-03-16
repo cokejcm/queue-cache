@@ -1,9 +1,9 @@
-package Controller;
+package com.demo.app.controller;
 
-import javax.ws.rs.client.Entity;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.test.DeploymentContext;
@@ -18,26 +18,27 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.demo.app.configuration.JerseyConfig;
-import com.demo.app.controller.PersonController;
-import com.demo.app.service.PersonService;
-
+import com.demo.app.controller.MessageController;
+import com.demo.app.domain.Message;
+import com.demo.app.service.MessageService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PersonRestTest extends JerseyTest {
+public class MessageControllerTest extends JerseyTest {
 
 	@InjectMocks
-	private PersonController restResource;
+	private MessageController restResource;
 	@Mock
-	private PersonService personService;
+	private MessageService messageService;
 
 	@Override
 	protected TestContainerFactory getTestContainerFactory() {
@@ -51,8 +52,16 @@ public class PersonRestTest extends JerseyTest {
 	}
 
 	@Test
-	public void testGenerate2FakePeople() {
-		Response response = target("person/generateFake/2").request().put(Entity.entity(new Integer(0), MediaType.TEXT_PLAIN));
-		Assert.assertEquals(response.readEntity(String.class), "2 Items of type Person inserted");
+	public void testMessages() {
+		List<Message> messages = new ArrayList<Message>();
+		Message message = new Message();
+		message.setAuthor("Author");
+		message.setContents("Content");
+		messages.add(message);
+		Mockito.when(messageService.getMessages()).thenReturn(messages);
+		final String messageOutput = target("messages").request().get(String.class);
+		Assert.assertTrue(messageOutput.contains(message.getAuthor()) && messageOutput.contains(message.getContents()));
 	}
+
+
 }
