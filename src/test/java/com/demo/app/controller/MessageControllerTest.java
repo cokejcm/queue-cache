@@ -1,4 +1,4 @@
-package Controller;
+package com.demo.app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +25,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.demo.app.configuration.JerseyConfig;
-import com.demo.app.controller.MessageRest;
+import com.demo.app.controller.MessageController;
 import com.demo.app.domain.Message;
 import com.demo.app.service.MessageService;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MessageRestTest extends JerseyTest {
+public class MessageControllerTest extends JerseyTest {
 
 	@InjectMocks
-	private MessageRest restResource;
+	private MessageController restResource;
 	@Mock
 	private MessageService messageService;
 
@@ -55,10 +54,14 @@ public class MessageRestTest extends JerseyTest {
 	@Test
 	public void testMessages() {
 		List<Message> messages = new ArrayList<Message>();
-		Message message = new Message("Jane", "Spring boot is cool !");
+		Message message = new Message();
+		message.setAuthor("Author");
+		message.setContents("Content");
 		messages.add(message);
 		Mockito.when(messageService.getMessages()).thenReturn(messages);
 		final String messageOutput = target("messages").request().get(String.class);
 		Assert.assertTrue(messageOutput.contains(message.getAuthor()) && messageOutput.contains(message.getContents()));
 	}
+
+
 }

@@ -21,15 +21,19 @@ import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.demo.app.configuration.JerseyConfig;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
+@EnableCaching
+@EnableAspectJAutoProxy
 public class Application {
 
 	public static void main(String[] args) throws Exception {
