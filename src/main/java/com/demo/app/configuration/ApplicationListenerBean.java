@@ -11,7 +11,7 @@ import com.demo.app.service.Service;
 import com.demo.app.util.Constants;
 
 @Component
-public class ApplicationListenerBean implements ApplicationListener<ContextRefreshedEvent>{
+public class ApplicationListenerBean implements ApplicationListener<ContextRefreshedEvent> {
 
 	/**
 	 * Repopulate the cache after a reload event
@@ -19,7 +19,7 @@ public class ApplicationListenerBean implements ApplicationListener<ContextRefre
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		// For every Cacheable service bean, populate the cache with its data
+		// For every Cacheable domain bean, populate the cache with its data
 		Reflections reflections = new Reflections(Constants.SERVICE_PACKAGE);
 		Set<Class<? extends Service>> allClasses = reflections.getSubTypesOf(Service.class);
 		for (Class<? extends Service> clazz : allClasses) {

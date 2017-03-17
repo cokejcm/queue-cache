@@ -1,8 +1,10 @@
 package com.demo.app.controller;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,13 @@ public class PersonController {
 	@Path("/savePerson")
 	public void savePerson(Person person) {
 		personService.savePerson(person);
+	}
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/deletePerson/{id}")
+	public void deletePerson(@PathParam("id") String id) {
+		personService.deletePerson(id);
 	}
 
 }

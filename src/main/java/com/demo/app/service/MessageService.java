@@ -10,7 +10,7 @@ import com.demo.app.dao.message.HzMessageCacheDao;
 import com.demo.app.domain.Message;
 
 @Service
-public class MessageService  extends com.demo.app.service.Service<Message, String> {
+public class MessageService extends com.demo.app.service.Service<Message, String> {
 
 	@Autowired
 	HzMessageCacheDao cacheDao;
@@ -31,6 +31,10 @@ public class MessageService  extends com.demo.app.service.Service<Message, Strin
 
 	public Message getMessage(String id) {
 		return getCacheDao().findOne(id);
+	}
+
+	public void deleteMessage(String id) {
+		getCacheDao().deleteOne(id);
 	}
 
 	public void saveMessage(Message message) {

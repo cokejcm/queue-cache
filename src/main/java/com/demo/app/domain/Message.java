@@ -13,6 +13,17 @@ public class Message extends Entity {
 	private String author;
 	private String contents;
 
+	public Message(String id, String author, String contents) {
+		super();
+		this.setId(id);
+		this.author = author;
+		this.contents = contents;
+	}
+
+	public Message() {
+		super();
+	}
+
 	public String getAuthor() {
 		return author;
 	}

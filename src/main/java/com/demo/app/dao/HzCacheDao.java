@@ -69,11 +69,19 @@ public class HzCacheDao<T extends Entity, K extends Serializable> implements Cac
 	@Override
 	@SuppressWarnings("unchecked")
 	public T findOne(K key) {
+		T item;
 		if (isCacheable()) {
-			T item = (T) instance.getMap(getType().getSimpleName()).get(key);
-			return item == null ? getDao().findOne(key) : item;
+			item = (T) instance.getMap(getType().getSimpleName()).get(key);
+			if (item == null) {
+				item = getDao().findOne(key);
+				if (item != null) {
+					instance.getMap(getType().getSimpleName()).set(item.getId(), item);
+				}
+			}
+		} else {
+			item = getDao().findOne(key);
 		}
-		return getDao().findOne(key);
+		return item;
 	}
 
 	@Override

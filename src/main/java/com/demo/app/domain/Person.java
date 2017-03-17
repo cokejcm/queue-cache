@@ -2,7 +2,10 @@ package com.demo.app.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.demo.app.configuration.Cacheable;
+
 @Document(collection = "person")
+@Cacheable
 public class Person extends Entity {
 
 	private static final long serialVersionUID = 5376810403351001287L;
@@ -11,6 +14,19 @@ public class Person extends Entity {
 	private String address;
 	private String email;
 	private String company;
+
+	public Person(String id, String name, String address, String email, String company) {
+		super();
+		this.setId(id);
+		this.name = name;
+		this.address = address;
+		this.email = email;
+		this.company = company;
+	}
+
+	public Person() {
+		super();
+	}
 
 	public String getName() {
 		return name;

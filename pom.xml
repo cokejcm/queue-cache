@@ -21,6 +21,7 @@
         <datafaker.version>1.2.5</datafaker.version>
        	<persistence.version>1.0.2</persistence.version>
        	<reflections.version>0.9.10</reflections.version>
+       	<log4j.version>1.2.17</log4j.version>
 	</properties>
 	
 	<dependencies>
@@ -90,6 +91,11 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>${log4j.version}</version>		    
+		</dependency>		
 		<!-- AOP  -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -101,7 +107,7 @@
 		    <artifactId>persistence-api</artifactId>
 		    <version>${persistence.version}</version>
 		</dependency>
-		<!-- JPA @MappedSuperclass  -->
+		<!-- Reflections  -->
 		<dependency>
 		    <groupId>org.reflections</groupId>
 		    <artifactId>reflections</artifactId>

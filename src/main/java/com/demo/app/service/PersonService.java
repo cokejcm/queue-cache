@@ -7,10 +7,10 @@ import com.demo.app.dao.HzCacheDao;
 import com.demo.app.domain.Person;
 
 @Service
-public class PersonService extends com.demo.app.service.Service<Person, Integer> {
+public class PersonService extends com.demo.app.service.Service<Person, String> {
 
 	@Autowired
-	private HzCacheDao<Person, Integer> cacheDao;
+	private HzCacheDao<Person, String> cacheDao;
 
 	@Override
 	public Class<?> getType() {
@@ -18,13 +18,17 @@ public class PersonService extends com.demo.app.service.Service<Person, Integer>
 	}
 
 	@Override
-	public HzCacheDao<Person, Integer> getCacheDao() {
+	public HzCacheDao<Person, String> getCacheDao() {
 		return this.cacheDao;
 
 	}
 
 	public void savePerson(Person person) {
 		getCacheDao().saveOne(person);
+	}
+
+	public void deletePerson(String id) {
+		getCacheDao().deleteOne(id);
 	}
 
 }
