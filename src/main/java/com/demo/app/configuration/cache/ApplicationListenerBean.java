@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.cache;
 
 import java.util.Set;
 
@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.demo.app.configuration.ContextProvider;
 import com.demo.app.service.Service;
 import com.demo.app.util.Constants;
 

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
-import com.demo.app.configuration.Cacheable;
+import com.demo.app.configuration.cache.Cacheable;
 import com.demo.app.domain.Entity;
 import com.demo.app.util.Util;
 import com.hazelcast.core.HazelcastInstance;
