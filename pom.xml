@@ -22,6 +22,7 @@
        	<persistence.version>1.0.2</persistence.version>
        	<reflections.version>0.9.10</reflections.version>
        	<log4j.version>1.2.17</log4j.version>
+       	<jjwt.version>0.7.0</jjwt.version>
 	</properties>
 	
 	<dependencies>
@@ -114,18 +115,19 @@
 		    <version>${reflections.version}</version>
 		</dependency>
 		<!-- Security  -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-jwt</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.security.oauth</groupId>
-		    <artifactId>spring-security-oauth2</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>		
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>		
 		<!-- jdbc -->
 		<dependency>
 		    <groupId>org.postgresql</groupId>
@@ -160,10 +162,6 @@
 	</repositories>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
 		    <plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-compiler-plugin</artifactId>
@@ -180,16 +178,6 @@
 	                <addResources>true</addResources>
 	            </configuration>
 	        </plugin>		    			
-		</plugins>
-	    <resources>
-	    	<!-- Security Configuration -->
-	        <resource>
-	            <directory>src/main/resources</directory>
-	            <filtering>true</filtering>
-	            <excludes>
-	                <exclude>*.jks</exclude>
-	            </excludes>
-	        </resource>
-	    </resources>		
+		</plugins>		
 	</build>
 </project>
