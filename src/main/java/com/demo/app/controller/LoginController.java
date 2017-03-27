@@ -24,26 +24,10 @@ public class LoginController {
 	@Autowired
 	TokenAuthenticationService tokenAuthenticationService;
 
-	/*
-	 * @POST
-	 *
-	 * @Consumes(MediaType.APPLICATION_JSON)
-	 *
-	 * @Path("/login") public void authenticate(@Context HttpServletResponse
-	 * response, User user) { System.out.println("hola"); // Validate the
-	 * credentials against the Db User userDb; try { userDb =
-	 * userService.loadUserByUsername(user.getUsername()); // Login that user
-	 * UserAuthentication authentication = new UserAuthentication(userDb);
-	 * tokenAuthenticationService.addAuthentication(response, authentication); }
-	 * catch (Exception e) {
-	 * response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); } }
-	 */
-
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public void authenticate(@Context HttpServletResponse response, User user) {
-		System.out.println("hola");
 		// Validate the credentials against the Db
 		org.springframework.security.core.userdetails.User userDb;
 		try {

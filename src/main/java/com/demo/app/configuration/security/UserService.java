@@ -17,13 +17,15 @@ public class UserService implements org.springframework.security.core.userdetail
 	public final User loadUserByUsername(String username) throws UsernameNotFoundException {
 		final User user = userMap.get(username);
 		if (user == null) {
-			throw new UsernameNotFoundException("user not found");
+			throw new UsernameNotFoundException("User not found");
 		}
-		detailsChecker.check(user);
+		detailsChecker.check(user); //Check locked, enabled, expired
 		return user;
 	}
 
 	public void addUser(User user) {
 		userMap.put(user.getUsername(), user);
 	}
+
+
 }
