@@ -21,19 +21,17 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
 	private final TokenAuthenticationService tokenAuthenticationService;
 
 	public StatelessAuthenticationFilter(TokenAuthenticationService tokenAuthenticationService) {
-		System.out.println("filter constructor");
 		this.tokenAuthenticationService = Preconditions.checkNotNull(tokenAuthenticationService);
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-			throws IOException, ServletException {
-		System.out.println("filter");
+	throws IOException, ServletException {
 		Authentication authentication = tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
 		SecurityContextHolder.getContext()
-				.setAuthentication(authentication);
+		.setAuthentication(authentication);
 		filterChain.doFilter(request, response);
 		SecurityContextHolder.getContext()
-				.setAuthentication(null);
+		.setAuthentication(null);
 	}
 }
