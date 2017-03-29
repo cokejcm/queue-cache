@@ -14,6 +14,7 @@ import com.demo.app.configuration.security.TokenAuthenticationService;
 import com.demo.app.configuration.security.User;
 import com.demo.app.configuration.security.UserAuthentication;
 import com.demo.app.configuration.security.UserService;
+import com.demo.app.repository.security.UserRepository;
 
 @Path("/")
 @Component
@@ -23,11 +24,15 @@ public class LoginController {
 	UserService userService;
 	@Autowired
 	TokenAuthenticationService tokenAuthenticationService;
+	@Autowired
+	UserRepository userRepository;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public void authenticate(@Context HttpServletResponse response, User user) {
+		boolean enabled = userRepository.validateUser(user);
+		System.out.println(enabled);
 		// Validate the credentials against the Db
 		org.springframework.security.core.userdetails.User userDb;
 		try {
