@@ -10,10 +10,12 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.demo.app.configuration.ContextProvider;
 import com.demo.app.configuration.security.TokenAuthenticationService;
 import com.demo.app.configuration.security.User;
 import com.demo.app.configuration.security.UserAuthentication;
 import com.demo.app.configuration.security.UserService;
+import com.demo.app.repository.MongoGenericRepository;
 import com.demo.app.repository.security.UserRepository;
 
 @Path("/")
@@ -24,15 +26,19 @@ public class LoginController {
 	UserService userService;
 	@Autowired
 	TokenAuthenticationService tokenAuthenticationService;
-	@Autowired
-	UserRepository userRepository;
+	//@Autowired
+	//UserRepository userRepository;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public void authenticate(@Context HttpServletResponse response, User user) {
-		boolean enabled = userRepository.validateUser(user);
-		System.out.println(enabled);
+		UserRepository u = ContextProvider.getBean(UserRepository.class);
+		MongoGenericRepository m = ContextProvider.getBean(MongoGenericRepository.class);
+		System.out.println(u);
+		System.out.println(m);
+		//boolean enabled = userRepository.validateUser(user);
+		//System.out.println(enabled);
 		// Validate the credentials against the Db
 		org.springframework.security.core.userdetails.User userDb;
 		try {

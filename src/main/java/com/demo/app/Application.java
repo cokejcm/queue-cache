@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.demo.app.configuration.JerseyConfig;
 
@@ -34,6 +35,7 @@ import com.demo.app.configuration.JerseyConfig;
 @ComponentScan
 @EnableCaching
 @EnableAspectJAutoProxy
+@EnableJpaRepositories(basePackages = {"com.demo.app.repository"})
 public class Application {
 
 	public static void main(String[] args) throws Exception {
