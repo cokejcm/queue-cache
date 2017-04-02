@@ -1,21 +1,24 @@
 CREATE SCHEMA IF NOT EXISTS security;
 
 CREATE TABLE IF NOT EXISTS security.users (
-  username varchar(50) NOT NULL,
-  password varchar(50) NOT NULL,
-  enabled boolean NOT NULL,
+  USERNAME TEXT NOT NULL,
+  PASSWORD TEXT NOT NULL,
+  ENABLED boolean NOT NULL,
+  ACCOUNT_NON_EXPIRED boolean,
+  ACCOUNT_NON_LOCKED  boolean, 
   PRIMARY KEY (username));
 
-INSERT INTO security.users (username, password, enabled) VALUES
-	('krishna', '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', true),
-	('sudama', '904752ad9c4ae4186c4b4897321c517de0618702', true); 
+INSERT INTO security.users (USERNAME, PASSWORD, ENABLED, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED) VALUES
+	('krishna', '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', true, true, true),
+	('sudama', '904752ad9c4ae4186c4b4897321c517de0618702', true, true, true); 
 	
 CREATE TABLE IF NOT EXISTS security.user_authorities (
-  username varchar(50) NOT NULL,
-  authority varchar(50) NOT NULL,
-  UNIQUE (username,authority),
-  CONSTRAINT fk_authorities_users FOREIGN KEY (username) REFERENCES security.users (username));
+  ID TEXT NOT NULL,
+  USERNAME TEXT NOT NULL,
+  AUTHORITY TEXT NOT NULL,
+  UNIQUE (USERNAME, AUTHORITY),
+  CONSTRAINT fk_authorities_users FOREIGN KEY (USERNAME) REFERENCES security.users (USERNAME));
 
-INSERT INTO security.user_authorities (username, authority) VALUES
-	('krishna', 'ROLE_ADMIN'),
-	('sudama', 'ROLE_USER');
+INSERT INTO security.user_authorities (ID, USERNAME, AUTHORITY) VALUES
+	('1', 'krishna', 'ROLE_ADMIN'),
+	('2', 'sudama', 'ROLE_USER');

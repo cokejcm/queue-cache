@@ -1,31 +1,28 @@
 package com.demo.app.configuration.security;
 
-import java.util.HashMap;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import com.demo.app.domain.security.User;
+import com.demo.app.repository.security.UserRepository;
 
 @Component
 public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
 	private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
-	private final HashMap<String, User> userMap = new HashMap<>();
+	@Autowired
+	UserRepository userRepository;
 
 	@Override
-	public final User loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userMap.get(username);
+	public final org.springframework.security.core.userdetails.User loadUserByUsername(String username) throws UsernameNotFoundException {
+		final User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found");
 		}
-		detailsChecker.check(user); //Check locked, enabled, expired
-		return user;
+		org.springframework.security.core.userdetails.User springUser = user.createSpringUser();
+		detailsChecker.check(springUser); // Check locked, enabled, expired
+		return springUser;
 	}
-
-	public void addUser(User user) {
-		userMap.put(user.getUsername(), user);
-	}
-
-
 }

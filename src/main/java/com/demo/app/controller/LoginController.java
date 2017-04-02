@@ -4,17 +4,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.demo.app.configuration.security.TokenAuthenticationService;
-import com.demo.app.configuration.security.User;
 import com.demo.app.configuration.security.UserAuthentication;
 import com.demo.app.configuration.security.UserService;
-import com.demo.app.repository.security.UserRepository;
 
 @Path("/")
 @Component
@@ -25,23 +27,25 @@ public class LoginController {
 	@Autowired
 	TokenAuthenticationService tokenAuthenticationService;
 	@Autowired
-	UserRepository userRepository;
+	BCryptPasswordEncoder passwordEncoder;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
-	public void authenticate(@Context HttpServletResponse response, User user) {
-		boolean enabled = userRepository.validateUser(user);
-		System.out.println(enabled);
+	public void authenticate(@Context HttpServletResponse response, String username, String password) {
 		// Validate the credentials against the Db
-		org.springframework.security.core.userdetails.User userDb;
+		User user;
 		try {
-			userDb = userService.loadUserByUsername(user.getUsername());
-			// Login that user
-			UserAuthentication authentication = new UserAuthentication(userDb);
-			tokenAuthenticationService.addAuthentication(response, authentication);
+			user = userService.loadUserByUsername(username);
+			if (passwordEncoder.matches(password, user.getPassword())) {
+				// Login that user
+				UserAuthentication authentication = new UserAuthentication(user);
+				tokenAuthenticationService.addAuthentication(response, authentication);
+			} else {
+				throw new WebApplicationException(Response.status(HttpServletResponse.SC_UNAUTHORIZED).entity("").build());
+			}
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			throw new WebApplicationException(Response.status(HttpServletResponse.SC_UNAUTHORIZED).entity("").build());
 		}
 	}
 

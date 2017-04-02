@@ -25,20 +25,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.anonymous().and() 						//Allows Authentication Object null (for /login)
-		.authorizeRequests()
-		.antMatchers("/**/login").permitAll()   // Login screen
-		.anyRequest().authenticated()			// Rest of the requests
-		.and()
-		.logout().logoutSuccessUrl("/login?logout")
-		.and()
-		.exceptionHandling().accessDeniedPage("/403")
-		.and();
+		http.anonymous().and() // Allows Authentication Object null (for /login)
+				.authorizeRequests().antMatchers("/**/login").permitAll() // Login
+																			// screen
+				.anyRequest().authenticated() // Rest of the requests
+				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and();
 
 	}
 
-	//Debug Spring Security
+	// Debug Spring Security
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.debug(true);
@@ -46,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService()).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
@@ -64,6 +59,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public TokenAuthenticationService tokenAuthenticationService() {
 		return tokenAuthenticationService;
+	}
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
