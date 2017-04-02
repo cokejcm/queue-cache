@@ -9,7 +9,8 @@ public final class Constants {
 	public static final String DOMAIN_PACKAGE = "com.demo.app.domain";
 	// Token expiration time in days
 	public static int EXPIRATION_DAYS = 365;
-
+	// Token secret key
+	public static final String TOKEN_KEY = "?ymsj4xmwmth*uWNtmV{C]8kg8f&kU";
 	// Hazelcast
 	public static final MaxSizeConfig MAX_SIZE_CONFIG = new MaxSizeConfig(20, MaxSizeConfig.MaxSizePolicy.FREE_HEAP_PERCENTAGE);
 

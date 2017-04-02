@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.demo.app.util.Constants;
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,7 +22,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	public SpringSecurityConfig() {
 		super(true);
 		this.userService = new UserService();
-		tokenAuthenticationService = new TokenAuthenticationService("tooManySecrets", userService);
+		tokenAuthenticationService = new TokenAuthenticationService(Constants.TOKEN_KEY, userService);
 	}
 
 	@Override
