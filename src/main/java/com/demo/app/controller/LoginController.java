@@ -32,13 +32,13 @@ public class LoginController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
-	public void authenticate(@Context HttpServletResponse response, String username, String password) {
+	public void authenticate(@Context HttpServletResponse response, com.demo.app.domain.security.User userForm) {
 		// Validate the credentials against the Db
 		User user;
 		try {
-			user = userService.loadUserByUsername(username);
-			if (passwordEncoder.matches(password, user.getPassword())) {
-				// Login that user
+			user = userService.loadUserByUsername(userForm.getUsername());
+			if (passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {
+				// Generate the token and send it back in the header
 				UserAuthentication authentication = new UserAuthentication(user);
 				tokenAuthenticationService.addAuthentication(response, authentication);
 			} else {
@@ -46,6 +46,9 @@ public class LoginController {
 			}
 		} catch (Exception e) {
 			throw new WebApplicationException(Response.status(HttpServletResponse.SC_UNAUTHORIZED).entity("").build());
+		} finally {
+			userForm = null;
+			user = null;
 		}
 	}
 

@@ -27,7 +27,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.anonymous().and() // Allows Authentication Object null (for /login)
 				.authorizeRequests().antMatchers("/**/login").permitAll() // Login
-																			// screen
 				.anyRequest().authenticated() // Rest of the requests
 				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and();
 

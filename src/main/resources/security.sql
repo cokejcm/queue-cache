@@ -9,8 +9,9 @@ CREATE TABLE IF NOT EXISTS security.users (
   PRIMARY KEY (username));
 
 INSERT INTO security.users (USERNAME, PASSWORD, ENABLED, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED) VALUES
-	('krishna', '21a4ed0a0cf607e77e93bf7604e2bb1ad07757c5', true, true, true),
-	('sudama', '904752ad9c4ae4186c4b4897321c517de0618702', true, true, true); 
+	('krishna', '$2a$10$bwG9f.T16qMfnegO.1CX0.hflrX3mrnK0n9saWipFppbyXu8O26Lm', true, true, true),
+	('sudama', '$2a$10$bwG9f.T16qMfnegO.1CX0.hflrX3mrnK0n9saWipFppbyXu8O26Lm', true, true, true), 
+	('cokejcm@email.com','$2a$10$bwG9f.T16qMfnegO.1CX0.hflrX3mrnK0n9saWipFppbyXu8O26Lm', true,true,true);
 	
 CREATE TABLE IF NOT EXISTS security.user_authorities (
   ID TEXT NOT NULL,
@@ -21,4 +22,5 @@ CREATE TABLE IF NOT EXISTS security.user_authorities (
 
 INSERT INTO security.user_authorities (ID, USERNAME, AUTHORITY) VALUES
 	('1', 'krishna', 'ROLE_ADMIN'),
-	('2', 'sudama', 'ROLE_USER');
+	('2', 'sudama', 'ROLE_USER'),
+	('3', 'cokejcm@email.com', 'ROLE_USER');
