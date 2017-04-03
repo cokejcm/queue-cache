@@ -11,6 +11,8 @@ public final class Constants {
 	public static int EXPIRATION_DAYS = 365;
 	// Token secret key
 	public static final String TOKEN_KEY = "?ymsj4xmwmth*uWNtmV{C]8kg8f&kU";
+	// Token header attribute
+	public static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
 	// Hazelcast
 	public static final MaxSizeConfig MAX_SIZE_CONFIG = new MaxSizeConfig(20, MaxSizeConfig.MaxSizePolicy.FREE_HEAP_PERCENTAGE);
 

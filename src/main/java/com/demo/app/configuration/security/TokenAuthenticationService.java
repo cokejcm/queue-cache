@@ -7,10 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import com.demo.app.util.Constants;
+
 @Component
 public class TokenAuthenticationService {
-
-	private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
 
 	private final TokenHandler tokenHandler;
 
@@ -21,12 +21,12 @@ public class TokenAuthenticationService {
 	public String addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
 		final User user = authentication.getDetails();
 		String token = tokenHandler.createTokenForUser(user);
-		response.addHeader(AUTH_HEADER_NAME, token);
+		response.addHeader(Constants.AUTH_HEADER_NAME, token);
 		return token;
 	}
 
 	public Authentication getAuthentication(HttpServletRequest request) {
-		final String token = request.getHeader(AUTH_HEADER_NAME);
+		final String token = request.getHeader(Constants.AUTH_HEADER_NAME);
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);
 			if (user != null) {
