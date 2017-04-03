@@ -1,4 +1,4 @@
-package com.demo.app.controller;
+package com.demo.app.controller.unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +62,4 @@ public class MessageControllerTest extends JerseyTest {
 		final String messageOutput = target("messages").request().get(String.class);
 		Assert.assertTrue(messageOutput.contains(message.getAuthor()) && messageOutput.contains(message.getContents()));
 	}
-
-
 }

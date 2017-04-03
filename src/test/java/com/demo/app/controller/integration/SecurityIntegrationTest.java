@@ -1,4 +1,4 @@
-package com.demo.app.controller;
+package com.demo.app.controller.integration;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -33,11 +33,10 @@ public class SecurityIntegrationTest {
 	@Autowired
 	private UserService userService;
 
-
 	@Test
-	public void A_WhenLoginOkThenGenerateToken(){
+	public void A_WhenLoginOkThenGenerateToken() {
 		User user = new User();
-		user.setUsername("cokejcm@email.com");
+		user.setUsername("krishna");
 		user.setPassword("12345");
 		ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/login", user, User.class);
 		// Response code 204
@@ -46,12 +45,12 @@ public class SecurityIntegrationTest {
 		TokenHandler tokenHandler = new TokenHandler(Constants.TOKEN_KEY, userService);
 		// User encrypted in the token is the same as the one originally sent
 		Assert.assertEquals(user.getUsername(), tokenHandler.parseUserFromToken(token).getUsername());
-		//The token will be reused by other tests
+		// The token will be reused by other tests
 		SecurityIntegrationTest.token = token;
 	}
 
 	@Test
-	public void B_WhenNoTokenThenForbidden(){
+	public void B_WhenNoTokenThenForbidden() {
 		Message m1 = new Message("5000", "Author1", "Content1");
 		ResponseEntity<Message> responseEntity = restTemplate.postForEntity("/app/rest/saveMessage", m1, Message.class);
 		// Response code 403 Forbidden
@@ -59,19 +58,21 @@ public class SecurityIntegrationTest {
 	}
 
 	@Test
-	public void C_WhenTokenThenInsertOkNoContent(){
+	public void C_WhenTokenThenInsertOkNoContent() {
 		Message m1 = new Message("5000", "Author1", "Content1");
-		//Set the token in the header
+		// Set the token in the header
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.set(Constants.AUTH_HEADER_NAME, SecurityIntegrationTest.token);
-		HttpEntity<Message> entity = new HttpEntity<Message>(m1,headers);
+		HttpEntity<Message> entity = new HttpEntity<Message>(m1, headers);
 		ResponseEntity<Message> responseEntity = restTemplate.postForEntity("/app/rest/saveMessage", entity, Message.class);
 		Assert.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
 	}
 
-	//Send a Expired a token
+	// Send a Expired a token
 
-	//Check roles of the user
+	// Check roles of the user
+
+	// Send invalid credentials
 
 }
