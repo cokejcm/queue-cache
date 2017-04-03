@@ -7,7 +7,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.demo.app.util.Constants;
 
@@ -26,11 +28,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.anonymous().and() // Allows Authentication Object null (for /login)
-		.authorizeRequests().antMatchers("/**/login").permitAll() // Login
-		.anyRequest().authenticated() // Rest of the requests
-		.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and();
-
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //Stateless
+		.anonymous().and() 																	  // Allows Authentication Object null (for /login)
+		.authorizeRequests().antMatchers("/**/login").permitAll() 							  // Login
+		.anyRequest().authenticated() 														  // Rest of the requests
+		.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
+		.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); //JWT Filter
 	}
 
 	// Debug Spring Security

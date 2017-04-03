@@ -59,7 +59,7 @@ public class SecurityIntegrationTest {
 	}
 
 	@Test
-	public void C_WhenTokenThenOk(){
+	public void C_WhenTokenThenInsertOkNoContent(){
 		Message m1 = new Message("5000", "Author1", "Content1");
 		//Set the token in the header
 		HttpHeaders headers = new HttpHeaders();
@@ -67,7 +67,11 @@ public class SecurityIntegrationTest {
 		headers.set(Constants.AUTH_HEADER_NAME, SecurityIntegrationTest.token);
 		HttpEntity<Message> entity = new HttpEntity<Message>(m1,headers);
 		ResponseEntity<Message> responseEntity = restTemplate.postForEntity("/app/rest/saveMessage", entity, Message.class);
-		System.out.println(responseEntity.getStatusCode());
+		Assert.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
 	}
+
+	//Send a Expired a token
+
+	//Check roles of the user
 
 }
