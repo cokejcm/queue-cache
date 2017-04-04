@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.cache;
 
 import java.util.Set;
 

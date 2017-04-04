@@ -2,7 +2,7 @@ package com.demo.app.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.demo.app.configuration.Cacheable;
+import com.demo.app.configuration.cache.Cacheable;
 
 @Document(collection = "person")
 @Cacheable

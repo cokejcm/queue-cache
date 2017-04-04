@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import com.demo.app.domain.Message;
@@ -58,5 +59,13 @@ public class MessageController {
 	@Path("/deleteMessage/{id}")
 	public void deleteMessage(@PathParam("id") String id) {
 		messageService.deleteMessage(id);
+	}
+
+	@GET
+	@Path("/onlyAdminMessage")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String onlyAdmin() {
+		return "ACCESSED";
 	}
 }
