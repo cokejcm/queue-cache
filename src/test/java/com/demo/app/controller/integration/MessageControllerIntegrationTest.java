@@ -51,4 +51,18 @@ public class MessageControllerIntegrationTest extends ControllerIntegrationTest 
 		responseEntity = launchRequest(null, "/app/rest/deleteMessage/5002", null, RequestType.DELETE);
 		Assert.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
 	}
+
+	@Test
+	public void whenRoleAdminThenOkNoContent() {
+		ResponseEntity<String> responseEntity = launchRequest(null, "/app/rest/onlyAdminMessage", String.class, RequestType.GET);
+		Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+	}
+
+	@Test
+	public void whenNoRoleAdminThenForbidden() {
+		this.setUser("sudama");
+		ResponseEntity<String> responseEntity = launchRequest(null, "/app/rest/onlyAdminMessage", String.class, RequestType.GET);
+		Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+		this.setUser("krishna");
+	}
 }

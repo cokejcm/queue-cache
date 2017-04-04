@@ -1,6 +1,5 @@
 package com.demo.app.controller.integration;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,6 +23,20 @@ public abstract class ControllerIntegrationTest {
 	@Autowired
 	protected TestRestTemplate restTemplate;
 	protected static HttpHeaders headers;
+	private String user = "krishna";
+	private String password = "12345";
+
+	public void setUser(String user) {
+		this.user = user;
+		ControllerIntegrationTest.headers = null; //Force login
+		generateToken();
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+		ControllerIntegrationTest.headers = null; //Force login
+		generateToken();
+	}
 
 	protected enum RequestType {
 		GET, POST, DELETE
@@ -34,11 +46,9 @@ public abstract class ControllerIntegrationTest {
 	public void generateToken() {
 		if (ControllerIntegrationTest.headers == null) {
 			User user = new User();
-			user.setUsername("krishna");
-			user.setPassword("12345");
+			user.setUsername(this.user);
+			user.setPassword(this.password);
 			ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/login", user, User.class);
-			// Response code 204
-			Assert.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
 			String token = responseEntity.getHeaders().get(Constants.AUTH_HEADER_NAME).get(0);
 			// Set the token in the header
 			ControllerIntegrationTest.headers = new HttpHeaders();
