@@ -58,7 +58,7 @@ public class SecurityIntegrationTest {
 	}
 
 	@Test
-	public void C_WhenTokenThenInsertOkNoContent() {
+	public void C_WhenTokenThenInsertOkResultNoContent() {
 		Message m1 = new Message("5000", "Author1", "Content1");
 		// Set the token in the header
 		HttpHeaders headers = new HttpHeaders();
@@ -67,12 +67,20 @@ public class SecurityIntegrationTest {
 		HttpEntity<Message> entity = new HttpEntity<Message>(m1, headers);
 		ResponseEntity<Message> responseEntity = restTemplate.postForEntity("/app/rest/saveMessage", entity, Message.class);
 		Assert.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+		restTemplate.delete("/app/rest/deleteMessage/5000");
 	}
 
 	// Send a Expired a token
 
-	// Check roles of the user
-
 	// Send invalid credentials
+	@Test
+	public void D_WhenInvalidCredentialsThenUnathorized() {
+		User user = new User();
+		user.setUsername("krishna");
+		user.setPassword("123456");
+		ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/login", user, User.class);
+		// Invalid credentials
+		Assert.assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+	}
 
 }

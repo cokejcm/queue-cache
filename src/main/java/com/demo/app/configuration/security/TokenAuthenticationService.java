@@ -30,6 +30,7 @@ public class TokenAuthenticationService {
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);
 			if (user != null) {
+				user.eraseCredentials(); //No need to hold this. Security reasons.
 				return new UserAuthentication(user);
 			}
 		}

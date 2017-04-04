@@ -21,4 +21,5 @@ CREATE TABLE IF NOT EXISTS security.user_authorities (
 
 INSERT INTO security.user_authorities (ID, USERNAME, AUTHORITY) VALUES
 	('1', 'krishna', 'ROLE_ADMIN'),
-	('2', 'sudama', 'ROLE_USER');
+	('2', 'sudama', 'ROLE_USER'),
+	('2', 'krishna', 'ROLE_USER');
