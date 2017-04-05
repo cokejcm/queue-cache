@@ -15,7 +15,7 @@ Simple App with Hazelcast, MongoDb and Postgres under Spring Boot and Jersey
       Use one of the valid credentials included on the table security.users in Postgres 
       in order the get a JWT Token on the header.
 ##### 2. You can now hit http://localhost:9090/app/rest/saveMessage 
-      Supply a json and including the token in the header. Take a look to the integration tests provided. 
+      Supply a json and include the token in the header. Take a look to the integration tests provided. 
       Postman becomes quite useful to test the rest services. The rest of the url's can be found on the controller folder.
 
 ## **Arquitecture:**
