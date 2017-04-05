@@ -20,3 +20,4 @@ Simple App with Hazelcast, MongoDb and Postgres under Spring Boot and Jersey
 
 ## **Arquitecture:**
 
+![Arquitecture Diagram](docs/arq.jpg "Arquitecture Diagram")
