@@ -3,6 +3,7 @@ package com.demo.app.configuration.cache;
 import java.util.Set;
 
 import org.reflections.Reflections;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,15 @@ import com.hazelcast.config.MapConfig;
 @Configuration
 public class HazelcastConfig {
 
+	@Value("${hz.mancenter.url}")
+	private String mancenterUrl;
+
+	@Value("${hz.mancenter.logging.type}")
+	private String mancenterLogType;
+
+	@Value("${hz.mancenter.logging.value}")
+	private String mancenterLogValue;
+
 	@Bean
 	public Config hazelCastConfig() {
 
@@ -24,9 +34,9 @@ public class HazelcastConfig {
 		// Management center
 		ManagementCenterConfig center = new ManagementCenterConfig();
 		center.setEnabled(true);
-		center.setUrl("http://localhost:9091/mancenter");
+		center.setUrl(this.mancenterUrl);
 		config.setManagementCenterConfig(center);
-		config.setProperty("hazelcast.logging.type", "log4j");
+		config.setProperty(this.mancenterLogType, this.mancenterLogValue);
 		// For every Cacheable domain bean, create and configure a new map
 		Reflections reflections = new Reflections(Constants.SERVICE_PACKAGE);
 		Set<Class<? extends Entity>> allClasses = reflections.getSubTypesOf(Entity.class);
