@@ -164,7 +164,57 @@
 		    <url>https://jitpack.io</url>
 		</repository>
 	</repositories>
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>dev</env>
+			</properties>
+			<build>
+				<resources>		 
+					<resource>
+						<filtering>true</filtering>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>prod.properties</exclude>
+							<exclude>dev.properties</exclude>
+							<exclude>data.sql</exclude>
+							<exclude>schema.sql</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+			</properties>			
+			<build>
+				<resources>		 
+					<resource>
+						<filtering>true</filtering>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>prod.properties</exclude>
+							<exclude>dev.properties</exclude>
+							<exclude>data.sql</exclude>
+							<exclude>schema.sql</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>			
+	</profiles>	
 	<build>
+		<!-- Substitute application.properties values from the corresponding profile -->		
+		<filters>
+		    <filter>src/main/resources/${env}.properties</filter>
+		</filters>	
 		<plugins>
 		    <plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
@@ -182,6 +232,6 @@
 	                <addResources>true</addResources>
 	            </configuration>
 	        </plugin>		    			
-		</plugins>		
+		</plugins>
 	</build>
 </project>
