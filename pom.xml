@@ -182,8 +182,6 @@
 						<excludes>
 							<exclude>prod.properties</exclude>
 							<exclude>dev.properties</exclude>
-							<exclude>data.sql</exclude>
-							<exclude>schema.sql</exclude>
 						</excludes>
 					</resource>
 				</resources>
