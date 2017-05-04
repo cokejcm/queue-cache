@@ -13,7 +13,8 @@ public class SampleAspect {
 
 	@AfterReturning(pointcut = "execution(* com.demo.app.controller.*.*(..))", returning= "result")
 	public void logExecution (JoinPoint joinPoint, Object result){
-		System.out.println("Reading id: " + ((Entity)result).getId());
+		if (result instanceof Entity){
+			System.out.println("Reading id: " + ((Entity)result).getId());
+		}
 	}
-
 }

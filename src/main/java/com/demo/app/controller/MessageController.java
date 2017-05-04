@@ -13,6 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,8 @@ public class MessageController {
 
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private MessageSource messageSource;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -68,4 +72,13 @@ public class MessageController {
 	public String onlyAdmin() {
 		return "ACCESSED";
 	}
+
+	@GET
+	@Path("/messageLocal")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String messageLocal() {
+		System.out.println(messageSource.getMessage("welcome.message", new Object[]{"John Doe"}, LocaleContextHolder.getLocale()));
+		return messageSource.getMessage("welcome.message", new Object[]{"John Doe"}, LocaleContextHolder.getLocale());
+	}
+
 }
