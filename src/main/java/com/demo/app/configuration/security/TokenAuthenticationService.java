@@ -1,5 +1,8 @@
 package com.demo.app.configuration.security;
 
+import java.util.Locale;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +21,19 @@ public class TokenAuthenticationService {
 		tokenHandler = new TokenHandler(secret, userService);
 	}
 
+	private Locale getLocale(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(Constants.COOKIE_LANGUAGE)) {
+					String countryCode = cookie.getValue();
+					return new Locale(countryCode);
+				}
+			}
+		}
+		return new Locale(Constants.DEFAULT_COUNTRY_CODE);
+	}
+
 	public String addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
 		final User user = authentication.getDetails();
 		String token = tokenHandler.createTokenForUser(user);
@@ -30,8 +46,12 @@ public class TokenAuthenticationService {
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);
 			if (user != null) {
-				user.eraseCredentials(); //No need to hold this. Security reasons.
-				return new UserAuthentication(user);
+				// No need to hold passwd for Security reasons.
+				user.eraseCredentials();
+				UserAuthentication userAuthentication = new UserAuthentication(user);
+				// Set the locale from the cookie in the request
+				userAuthentication.setLocale(getLocale(request));
+				return userAuthentication;
 			}
 		}
 		return null;

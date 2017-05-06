@@ -15,5 +15,7 @@ public final class Constants {
 	public static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
 	// Hazelcast
 	public static final MaxSizeConfig MAX_SIZE_CONFIG = new MaxSizeConfig(20, MaxSizeConfig.MaxSizePolicy.FREE_HEAP_PERCENTAGE);
-
+	// i18n
+	public static final String COOKIE_LANGUAGE = "locale-cookie";
+	public static final String DEFAULT_COUNTRY_CODE = "en";
 }

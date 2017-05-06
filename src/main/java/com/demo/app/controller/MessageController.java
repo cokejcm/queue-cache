@@ -1,7 +1,6 @@
 package com.demo.app.controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,10 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
+import com.demo.app.configuration.internationalization.MessageSourceLocale;
 import com.demo.app.domain.Message;
 import com.demo.app.service.MessageService;
 
@@ -28,7 +27,7 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	@Autowired
-	private MessageSource messageSource;
+	private MessageSourceLocale messageSource;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -76,9 +75,7 @@ public class MessageController {
 	@GET
 	@Path("/messageLocal")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String messageLocal(Locale locale) {
-		System.out.println(messageSource.getMessage("welcome.message", new Object[]{"John Doe"}, locale ));
-		return messageSource.getMessage("welcome.message", new Object[]{"John Doe"}, locale);
+	public String messageLocal() {
+		return messageSource.getMessage("welcome.message", new Object[] { "John Doe" });
 	}
-
 }

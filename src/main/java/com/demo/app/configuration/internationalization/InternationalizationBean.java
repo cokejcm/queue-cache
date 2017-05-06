@@ -1,20 +1,21 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.internationalization;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+import com.demo.app.util.Constants;
+
 @Configuration
 public class InternationalizationBean extends WebMvcConfigurerAdapter {
 
 	@Bean
-	public ReloadableResourceBundleMessageSource messageSource(){
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+	public MessageSourceLocale messageSource() {
+		MessageSourceLocale messageSource = new MessageSourceLocale();
 		messageSource.setBasename("classpath:messages");
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
@@ -23,16 +24,12 @@ public class InternationalizationBean extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocaleResolver localeResolver() {
 		CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-		//Locale locale = new Locale("es", "ES");
-		//localeResolver.setDefaultLocale(locale);
-		//localeResolver.setDefaultLocale(Locale.ENGLISH);
-		localeResolver.setCookieName("locale-cookie");
-		//localeResolver.setCookieMaxAge(3600);
+		localeResolver.setCookieName(Constants.COOKIE_LANGUAGE);
 		return localeResolver;
 	}
 
 	@Bean
-	public LocaleChangeInterceptor localeInterceptor(){
+	public LocaleChangeInterceptor localeInterceptor() {
 		LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
 		interceptor.setParamName("lang");
 		return interceptor;
