@@ -1,5 +1,6 @@
 package com.demo.app.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.demo.app.configuration.security.TokenAuthenticationService;
 import com.demo.app.configuration.security.UserAuthentication;
 import com.demo.app.configuration.security.UserService;
+import com.demo.app.util.Constants;
 
 @Path("/")
 @Component
@@ -41,6 +43,10 @@ public class LoginController {
 				// Generate the token and send it back in the header
 				UserAuthentication authentication = new UserAuthentication(user);
 				tokenAuthenticationService.addAuthentication(response, authentication);
+				// Add Locale cookie
+				Cookie cookie = new Cookie(Constants.COOKIE_LANGUAGE, userForm.getCountryCode());
+				cookie.setMaxAge(60 * 60 * 24 * 365 * 10);
+				response.addCookie(cookie);
 			} else {
 				throw new WebApplicationException(Response.status(HttpServletResponse.SC_UNAUTHORIZED).entity("").build());
 			}

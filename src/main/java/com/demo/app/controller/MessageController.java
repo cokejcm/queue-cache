@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
+import com.demo.app.configuration.internationalization.MessageSourceLocale;
 import com.demo.app.domain.Message;
 import com.demo.app.service.MessageService;
 
@@ -25,6 +26,8 @@ public class MessageController {
 
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private MessageSourceLocale messageSource;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -67,5 +70,12 @@ public class MessageController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String onlyAdmin() {
 		return "ACCESSED";
+	}
+
+	@GET
+	@Path("/messageLocal")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String messageLocal() {
+		return messageSource.getMessage("welcome.message", new Object[] { "John Doe" });
 	}
 }

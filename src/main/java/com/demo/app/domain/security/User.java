@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(schema = "security", name = "users")
@@ -31,6 +32,9 @@ public class User implements Serializable {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
+
+	@Transient
+	private String countryCode;
 
 	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER)
 	private List<Authority> authorities;
@@ -91,6 +95,14 @@ public class User implements Serializable {
 
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	public org.springframework.security.core.userdetails.User createSpringUser() {

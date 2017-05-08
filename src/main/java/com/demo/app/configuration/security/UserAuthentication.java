@@ -1,6 +1,7 @@
 package com.demo.app.configuration.security;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,9 +12,15 @@ public class UserAuthentication implements Authentication {
 	private static final long serialVersionUID = -4387968095531358197L;
 	private final User user;
 	private boolean authenticated = true;
+	private Locale locale;
 
 	public UserAuthentication(User user) {
 		this.user = user;
+	}
+
+	public UserAuthentication(User user, Locale locale) {
+		this.user = user;
+		this.locale = locale;
 	}
 
 	@Override
@@ -49,5 +56,13 @@ public class UserAuthentication implements Authentication {
 	@Override
 	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
+	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 }
