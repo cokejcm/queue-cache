@@ -10,7 +10,7 @@ public class InternationalizationBean extends WebMvcConfigurerAdapter {
 	@Bean
 	public MessageSourceLocale messageSource() {
 		MessageSourceLocale messageSource = new MessageSourceLocale();
-		messageSource.setBasename("classpath:messages");
+		messageSource.setBasename("classpath:messages/messages");
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
