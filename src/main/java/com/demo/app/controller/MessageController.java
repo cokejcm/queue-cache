@@ -12,6 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,8 @@ import com.demo.app.service.MessageService;
 @Path("/")
 @Component
 public class MessageController {
+
+	private  final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private MessageService messageService;
@@ -76,6 +80,7 @@ public class MessageController {
 	@Path("/messageLocal")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String messageLocal() {
+		logger.info("Hola");
 		return messageSource.getMessage("welcome.message", new Object[] { "John Doe" });
 	}
 }
