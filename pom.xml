@@ -2,17 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<!-- Your own application should inherit from spring-boot-starter-parent -->
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.0.RELEASE</version>
+	    <groupId>com.demo.app</groupId>
+	    <artifactId>app-multi-module</artifactId>
+	    <version>1.0-SNAPSHOT</version>
 	</parent>
     
 	<artifactId>queue-cache</artifactId>
-	<groupId>com.demo.app</groupId>
 	<name>Queues with caches</name>
 	<description>Example of a queue combined with a cache under Spring Boot with Jersey services</description>
-	<version>1.0-SNAPSHOT</version>
 	
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -205,14 +202,25 @@
 			      <target>1.8</target>
 			    </configuration>
 		    </plugin>
-		    <!-- Security Configuration -->
+		    <!-- Package as an executable jar -->
 	        <plugin>
 	            <groupId>org.springframework.boot</groupId>
 	            <artifactId>spring-boot-maven-plugin</artifactId>
 	            <configuration>
 	                <addResources>true</addResources>
 	            </configuration>
-	        </plugin>		    			
+	            <!-- Let this project to be used as dependency for others. It will generate two jars -->
+		  		<executions>
+		    		<execution>
+		      			<goals>
+		        			<goal>repackage</goal>
+		      			</goals>
+		      			<configuration>
+		        			<classifier>exec</classifier>
+		      			</configuration>
+		    		</execution>
+		  		</executions>	            
+	        </plugin>
 		</plugins>
 	</build>
 </project>
