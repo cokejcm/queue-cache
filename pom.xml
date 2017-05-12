@@ -144,55 +144,7 @@
 		    <url>https://jitpack.io</url>
 		</repository>
 	</repositories>
-	<!-- Profiles -->
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<env>dev</env>
-			</properties>
-			<build>
-				<resources>		 
-					<resource>
-						<filtering>true</filtering>
-						<directory>src/main/resources</directory>
-						<excludes>
-							<exclude>prod.properties</exclude>
-							<exclude>dev.properties</exclude>
-						</excludes>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<env>prod</env>
-			</properties>			
-			<build>
-				<resources>		 
-					<resource>
-						<filtering>true</filtering>
-						<directory>src/main/resources</directory>
-						<excludes>
-							<exclude>prod.properties</exclude>
-							<exclude>dev.properties</exclude>
-							<exclude>data.sql</exclude>
-							<exclude>schema.sql</exclude>
-						</excludes>
-					</resource>
-				</resources>
-			</build>
-		</profile>			
-	</profiles>	
 	<build>
-		<!-- Substitute application.properties values from the corresponding profile -->		
-		<filters>
-		    <filter>src/main/resources/${env}.properties</filter>
-		</filters>	
 		<plugins>
 		    <plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
@@ -221,6 +173,25 @@
 		    		</execution>
 		  		</executions>	            
 	        </plugin>
+	        <!-- Copy the resources from shared-resources to target -->
+			<plugin>
+				<artifactId>maven-remote-resources-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>process-remote-resources</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<resourceBundles>
+								<resourceBundle>com.demo.app:shared-resources:1.0-SNAPSHOT</resourceBundle>
+							</resourceBundles>
+							<outputDirectory>${basedir}/target/classes</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>		        
 		</plugins>
 	</build>
 </project>
