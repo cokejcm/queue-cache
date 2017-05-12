@@ -1,218 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<!-- Your own application should inherit from spring-boot-starter-parent -->
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+    	<relativePath></relativePath>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.0.RELEASE</version>
 	</parent>
+
+    <groupId>com.demo.app</groupId>
+    <artifactId>app-multi-module</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     
-	<artifactId>queue-cache</artifactId>
-	<groupId>com.demo.app</groupId>
-	<name>Queues with caches</name>
-	<description>Example of a queue combined with a cache under Spring Boot with Jersey services</description>
-	<version>1.0-SNAPSHOT</version>
-	
-	<properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jersey.version>2.26-b01</jersey.version>
-        <mockito.version>1.10.19</mockito.version>
-        <datafaker.version>1.2.5</datafaker.version>
-       	<persistence.version>1.0.2</persistence.version>
-       	<reflections.version>0.9.10</reflections.version>
-       	<jjwt.version>0.7.0</jjwt.version>
+    <properties>
+	  <maven.remote.resources.version>1.5</maven.remote.resources.version>
 	</properties>
-	
-	<dependencies>
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-web</artifactId>
-	    </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- Autodiscover parameters -->
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-data-mongodb</artifactId>
-	    </dependency>		
-		 <dependency>
-		 <groupId>org.springframework.boot</groupId>
-		 <artifactId>spring-boot-starter-data-jpa</artifactId>
-		 </dependency>		    
-		<!-- Hot swap after changes in the code -->
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-devtools</artifactId>
-	    </dependency>				
-		<dependency>
-    		<groupId>org.glassfish.jersey.core</groupId>
-    		<artifactId>jersey-common</artifactId>
-    		<version>${jersey.version}</version>
-		</dependency>		
-		<!-- Allows Dependency Injection into Jersey resources -->
-		<dependency>
-		    <groupId>org.glassfish.jersey.ext</groupId>
-		    <artifactId>jersey-spring3</artifactId>
-		</dependency>
-		<!-- Json Support for Jersey resources (MediaType.APPLICATION_JSON) -->
-		<dependency>
-		  <groupId>org.glassfish.jersey.media</groupId>
-		  <artifactId>jersey-media-moxy</artifactId>
-		  <version>${jersey.version}</version>
-		</dependency>
-		<!-- DAO Access -->
-	    <dependency>
-	        <groupId>org.springframework.data</groupId>
-	        <artifactId>spring-data-mongodb</artifactId>
-	    </dependency>		    	
-		<!-- Fake Data -->	
-		<dependency>
-		    <groupId>com.github.blocoio</groupId>
-		    <artifactId>faker</artifactId>
-		    <version>${datafaker.version}</version>
-		</dependency>
-		<!-- Cache -->
-		<dependency>
-		    <groupId>com.hazelcast</groupId>
-		    <artifactId>hazelcast</artifactId>
-		</dependency>		
-		<!-- Log -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter</artifactId>
-		</dependency>		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-aspects</artifactId>
-		</dependency>
-		<dependency>
-		<!-- JPA @MappedSuperclass  -->
-		    <groupId>javax.persistence</groupId>
-		    <artifactId>persistence-api</artifactId>
-		    <version>${persistence.version}</version>
-		</dependency>
-		<!-- Reflections  -->
-		<dependency>
-		    <groupId>org.reflections</groupId>
-		    <artifactId>reflections</artifactId>
-		    <version>${reflections.version}</version>
-		</dependency>
-		<!-- Security  -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>		
-		<!-- jdbc -->
-		<dependency>
-		    <groupId>org.postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		</dependency>			  														
-		<!--  Jersey tests -->
-		<dependency>
-		    <groupId>org.glassfish.jersey.test-framework</groupId>
-		    <artifactId>jersey-test-framework-core</artifactId>
-		    <version>${jersey.version}</version>
-		    <scope>test</scope>		    
-		</dependency>
-		<dependency>
-		    <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-		    <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
-		    <version>${jersey.version}</version>
-		   	<scope>test</scope>	
-		</dependency>
-		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-all</artifactId>
-		    <version>${mockito.version}</version>
-		    <scope>test</scope>
-		</dependency>
-	</dependencies>	
-	<repositories>
-		<!-- Fake Data Test -->
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
-	<!-- Profiles -->
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<env>dev</env>
-			</properties>
-			<build>
-				<resources>		 
-					<resource>
-						<filtering>true</filtering>
-						<directory>src/main/resources</directory>
-						<excludes>
-							<exclude>prod.properties</exclude>
-							<exclude>dev.properties</exclude>
-						</excludes>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<env>prod</env>
-			</properties>			
-			<build>
-				<resources>		 
-					<resource>
-						<filtering>true</filtering>
-						<directory>src/main/resources</directory>
-						<excludes>
-							<exclude>prod.properties</exclude>
-							<exclude>dev.properties</exclude>
-							<exclude>data.sql</exclude>
-							<exclude>schema.sql</exclude>
-						</excludes>
-					</resource>
-				</resources>
-			</build>
-		</profile>			
-	</profiles>	
-	<build>
-		<!-- Substitute application.properties values from the corresponding profile -->		
-		<filters>
-		    <filter>src/main/resources/${env}.properties</filter>
-		</filters>	
-		<plugins>
-		    <plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <configuration>
-			      <source>1.8</source>
-			      <target>1.8</target>
-			    </configuration>
-		    </plugin>
-		    <!-- Security Configuration -->
-	        <plugin>
-	            <groupId>org.springframework.boot</groupId>
-	            <artifactId>spring-boot-maven-plugin</artifactId>
-	            <configuration>
-	                <addResources>true</addResources>
-	            </configuration>
-	        </plugin>		    			
-		</plugins>
-	</build>
+
+    <modules>
+        <module>base-arch</module>
+        <!-- Add your modules here-->
+        <!-- <module>app</module> -->
+		<module>shared-resources</module>
+   </modules>
 </project>
