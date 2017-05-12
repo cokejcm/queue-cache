@@ -188,7 +188,6 @@
 							<resourceBundles>
 								<resourceBundle>com.demo.app:shared-resources:1.0-SNAPSHOT</resourceBundle>
 							</resourceBundles>
-							<outputDirectory> ${project.build.directory}/classes</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>

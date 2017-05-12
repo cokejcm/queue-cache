@@ -22,6 +22,6 @@
         <module>base-arch</module>
         <!-- Add your modules here-->
         <!-- <module>app</module> -->
-		<module>shared-resources</module>
+	<module>shared-resources</module>
    </modules>
 </project>
