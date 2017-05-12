@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	  <groupId>com.demo.app</groupId>
+	  <artifactId>app-multi-module</artifactId>
+	  <version>1.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>shared-resources</artifactId>
+	<name>shared-resources</name>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>dev</env>
+			</properties>
+			<build>
+				<resources>		 
+					<resource>
+						<filtering>true</filtering>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>prod.properties</exclude>
+							<exclude>dev.properties</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+			</properties>			
+			<build>
+				<resources>		 
+					<resource>
+						<filtering>true</filtering>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>prod.properties</exclude>
+							<exclude>dev.properties</exclude>
+							<exclude>data.sql</exclude>
+							<exclude>schema.sql</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>			
+	</profiles>	
+
+	<build>
+		<filters>
+		    <filter>src/main/resources/${env}.properties</filter>
+		</filters>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- Prepare the resources folder for the rest of the modules -->
+			<plugin>
+				<artifactId>maven-remote-resources-plugin</artifactId>
+    			<version>${maven.remote.resources.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>**/*.*</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
