@@ -1,5 +1,5 @@
-# queue-cache
-Simple App with Hazelcast, MongoDb and Postgres under Spring Boot with Spring Data and Jersey
+# spring-boot-arch
+ App Architecture with Hazelcast, MongoDb and Postgres under Spring Boot with Spring Data and Jersey
 
 ## **Steps to run the application:**
 ##### 1. Install mongoDb and Postgres. I used two docker machines:
