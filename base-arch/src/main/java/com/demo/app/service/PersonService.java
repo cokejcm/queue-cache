@@ -1,11 +1,13 @@
 package com.demo.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.demo.app.dao.HzCacheDao;
 import com.demo.app.domain.Person;
 
+@Profile("dev")
 @Service
 public class PersonService extends com.demo.app.service.Service<Person, String> {
 

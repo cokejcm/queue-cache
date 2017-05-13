@@ -1,9 +1,11 @@
 package com.demo.app.domain;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.demo.app.configuration.cache.Cacheable;
 
+@Profile("dev")
 @Document(collection = "person")
 @Cacheable
 public class Person extends Entity {

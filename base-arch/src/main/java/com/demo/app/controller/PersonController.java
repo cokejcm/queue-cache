@@ -8,11 +8,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.demo.app.domain.Person;
 import com.demo.app.service.PersonService;
 
+@Profile("dev")
 @Path("/")
 @Component
 public class PersonController {
