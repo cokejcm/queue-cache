@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
@@ -22,11 +23,12 @@ import com.demo.app.configuration.internationalization.MessageSourceLocale;
 import com.demo.app.domain.Message;
 import com.demo.app.service.MessageService;
 
+@Profile("dev")
 @Path("/")
 @Component
 public class MessageController {
 
-	private  final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private MessageService messageService;

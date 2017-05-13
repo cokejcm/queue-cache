@@ -6,6 +6,7 @@ import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.demo.app.domain.Entity;
 import com.demo.app.util.Constants;
@@ -14,6 +15,7 @@ import com.hazelcast.config.EvictionPolicy;
 import com.hazelcast.config.ManagementCenterConfig;
 import com.hazelcast.config.MapConfig;
 
+@Profile("cache")
 @Configuration
 public class HazelcastConfig {
 

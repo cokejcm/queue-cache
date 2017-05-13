@@ -19,7 +19,7 @@ public class HzCacheDao<T extends Entity, K extends Serializable> implements Cac
 
 	private Class<?> c;
 
-	@Autowired
+	@Autowired(required = false)
 	private HazelcastInstance instance;
 	@Autowired
 	private Environment environment;

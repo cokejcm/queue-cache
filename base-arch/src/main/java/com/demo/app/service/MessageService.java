@@ -3,12 +3,14 @@ package com.demo.app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.demo.app.dao.HzCacheDao;
 import com.demo.app.dao.message.HzMessageCacheDao;
 import com.demo.app.domain.Message;
 
+@Profile("dev")
 @Service
 public class MessageService extends com.demo.app.service.Service<Message, String> {
 
