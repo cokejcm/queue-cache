@@ -18,9 +18,10 @@
 	  <maven.remote.resources.version>1.5</maven.remote.resources.version>
 	</properties>
 
-    <modules>
-        <module>base-arch</module>
-        <module>app</module>
-	<module>shared-resources</module>
-   </modules>
+     <modules>
+     	<module>base-arch</module>
+        <!-- Add your modules here-->
+        <!-- <module>app</module> -->
+ 		<module>shared-resources</module>
+    </modules>
 </project>
