@@ -24,4 +24,8 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 	public void cacheAll() {
 		getCacheDao().cacheAll();
 	}
+
+	public T findOne(K key) {
+		return getCacheDao().findOne(key);
+	}
 }

@@ -50,7 +50,7 @@ public class HzCacheDao<T extends Entity, K extends Serializable> implements Cac
 
 	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<T> findAll() {
+	public Iterable<T> findAll() {
 		if (isCacheable()) {
 			List<T> elements = new ArrayList(instance.getMap(getType().getSimpleName()).values());
 			if (!elements.isEmpty()) {

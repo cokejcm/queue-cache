@@ -1,7 +1,5 @@
 package com.demo.app.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,7 @@ public class MessageService extends com.demo.app.service.Service<Message, String
 		return this.cacheDao;
 	}
 
-	public List<Message> getMessages() {
+	public Iterable<Message> getMessages() {
 		return getCacheDao().findAll();
 	}
 
