@@ -32,4 +32,16 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 	public Iterable<T> findAll() {
 		return getCacheDao().findAll();
 	}
+
+	public void deleteOne(K key) {
+		getCacheDao().deleteOne(key);
+	}
+
+	public void updateOne(T item) {
+		getCacheDao().updateOne(item);
+	}
+
+	public void saveOne(T item) {
+		getCacheDao().saveOne(item);
+	}
 }
