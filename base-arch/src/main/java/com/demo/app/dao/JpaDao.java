@@ -2,12 +2,21 @@ package com.demo.app.dao;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.demo.app.domain.Entity;
 import com.demo.app.repository.JpaGenericRepository;
 
-public abstract class JpaDao<T extends Entity, K extends Serializable> implements CacheDao<T, K> {
+@Repository
+public class JpaDao<T extends Entity, K extends Serializable> implements CacheDao<T, K> {
 
-	public abstract JpaGenericRepository<T, K> getJpaRepository();
+	@Autowired(required = false)
+	JpaGenericRepository<T, K> jpaGenericRepository;
+
+	public JpaGenericRepository<T, K> getJpaRepository() {
+		return this.jpaGenericRepository;
+	}
 
 	private Class<?> c;
 

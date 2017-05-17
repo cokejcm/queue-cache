@@ -1,3 +1,4 @@
+-- Security
 CREATE SCHEMA IF NOT EXISTS security;
 
 CREATE TABLE IF NOT EXISTS security.users (
@@ -6,7 +7,7 @@ CREATE TABLE IF NOT EXISTS security.users (
   ENABLED boolean NOT NULL,
   ACCOUNT_NON_EXPIRED boolean,
   ACCOUNT_NON_LOCKED  boolean, 
-  PRIMARY KEY (username));
+  PRIMARY KEY (USERNAME));
 	
 CREATE TABLE IF NOT EXISTS security.user_authorities (
   ID TEXT NOT NULL,
@@ -14,3 +15,14 @@ CREATE TABLE IF NOT EXISTS security.user_authorities (
   AUTHORITY TEXT NOT NULL,
   UNIQUE (USERNAME, AUTHORITY),
   CONSTRAINT fk_authorities_users FOREIGN KEY (USERNAME) REFERENCES security.users (USERNAME));
+
+  -- Company
+  CREATE SCHEMA IF NOT EXISTS company;
+  
+  CREATE TABLE IF NOT EXISTS company.company (
+  ID TEXT NOT NULL,
+  NAME TEXT NOT NULL,
+  PARENT TEXT,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_company_parent FOREIGN KEY (PARENT) REFERENCES company.company (ID));
+  
