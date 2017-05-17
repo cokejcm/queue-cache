@@ -28,4 +28,8 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 	public T findOne(K key) {
 		return getCacheDao().findOne(key);
 	}
+
+	public Iterable<T> findAll() {
+		return getCacheDao().findAll();
+	}
 }
