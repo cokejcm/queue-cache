@@ -1,7 +1,5 @@
 package com.demo.app.dao;
 
-import java.util.List;
-
 import com.demo.app.domain.Entity;
 
 /**
@@ -12,7 +10,7 @@ import com.demo.app.domain.Entity;
  */
 public interface CacheDao<T extends Entity, K> {
 
-	public List<T> findAll();
+	public Iterable<T> findAll();
 
 	public T findOne(K key);
 

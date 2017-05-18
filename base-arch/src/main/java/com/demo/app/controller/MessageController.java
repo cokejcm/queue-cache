@@ -1,7 +1,5 @@
 package com.demo.app.controller;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -38,7 +36,7 @@ public class MessageController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/messages")
-	public List<Message> messages() {
+	public Iterable<Message> messages() {
 		return messageService.getMessages();
 	}
 
