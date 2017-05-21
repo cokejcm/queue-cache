@@ -1,6 +1,8 @@
 package com.demo.app.configuration;
 
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 /**
@@ -15,5 +17,8 @@ public class JerseyConfig extends ResourceConfig {
 		register(RequestContextFilter.class);
 		packages("com.demo.app.controller");
 		packages("com.demo.app.configuration");
+		register(JacksonFeature.class);
+		property(ServerProperties.MOXY_JSON_FEATURE_DISABLE, true);
 	}
+
 }
