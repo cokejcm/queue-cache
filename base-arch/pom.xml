@@ -32,6 +32,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>		
 		<!-- Autodiscover parameters -->
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -56,12 +60,11 @@
 		    <groupId>org.glassfish.jersey.ext</groupId>
 		    <artifactId>jersey-spring3</artifactId>
 		</dependency>
-		<!-- Json Support for Jersey resources (MediaType.APPLICATION_JSON) -->
+		<!-- Json Support for Jersey resources (MediaType.APPLICATION_JSON) -->		
 		<dependency>
-		  <groupId>org.glassfish.jersey.media</groupId>
-		  <artifactId>jersey-media-moxy</artifactId>
-		  <version>${jersey.version}</version>
-		</dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+		</dependency>		
 		<!-- DAO Access -->
 	    <dependency>
 	        <groupId>org.springframework.data</groupId>
@@ -117,7 +120,7 @@
 		<dependency>
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
-		</dependency>			  														
+		</dependency>				  														
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>
@@ -136,7 +139,7 @@
 		    <artifactId>mockito-all</artifactId>
 		    <version>${mockito.version}</version>
 		    <scope>test</scope>
-		</dependency>
+		</dependency>		
 	</dependencies>	
 	<repositories>
 		<!-- Fake Data Test -->

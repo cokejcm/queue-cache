@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS security.user_authorities (
   -- Company
   CREATE SCHEMA IF NOT EXISTS company;
   
-  CREATE SEQUENCE company.company_seq INCREMENT 1;
+  CREATE SEQUENCE IF NOT EXISTS company.company_seq INCREMENT 1;
   
   CREATE TABLE IF NOT EXISTS company.company (
   ID TEXT NOT NULL DEFAULT NEXTVAL('company.company_seq')::text,
