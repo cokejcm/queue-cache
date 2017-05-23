@@ -25,14 +25,14 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Iterable<T> getCompanies() {
+	public Iterable<T> findAll() {
 		return getService().findAll();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
-	public T entityById(@PathParam("id") K id) {
+	public T findOne(@PathParam("id") K id) {
 		return getService().findOne(id);
 	}
 
