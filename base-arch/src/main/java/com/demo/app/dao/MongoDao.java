@@ -51,13 +51,13 @@ public class MongoDao<T extends Entity, K extends Serializable> implements Cache
 	}
 
 	@Override
-	public void updateOne(T item) {
-		getMongoRepository().save(item);
+	public T updateOne(T item) {
+		return getMongoRepository().save(item);
 	}
 
 	@Override
-	public void saveOne(T item) {
-		getMongoRepository().save(item);
+	public T saveOne(T item) {
+		return getMongoRepository().save(item);
 	}
 
 }

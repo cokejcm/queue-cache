@@ -16,9 +16,9 @@ public interface CacheDao<T extends Entity, K> {
 
 	public void deleteOne(K key);
 
-	public void updateOne(T item);
+	public T updateOne(T item);
 
-	public void saveOne(T item);
+	public T saveOne(T item);
 
 	public void setType(Class<?> c);
 
