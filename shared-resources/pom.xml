@@ -35,6 +35,8 @@
 						<excludes>
 							<exclude>prod.properties</exclude>
 							<exclude>dev.properties</exclude>
+							<exclude>schema.sql</exclude>
+							<exclude>data.sql</exclude>							
 						</excludes>
 					</resource>
 				</resources>
@@ -53,8 +55,8 @@
 						<excludes>
 							<exclude>prod.properties</exclude>
 							<exclude>dev.properties</exclude>
-							<exclude>data.sql</exclude>
 							<exclude>schema.sql</exclude>
+							<exclude>data.sql</exclude>							
 						</excludes>
 					</resource>
 				</resources>
