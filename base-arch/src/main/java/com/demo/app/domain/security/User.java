@@ -11,8 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.demo.app.configuration.hateoas.ControllerClass;
+import com.demo.app.controller.LoginController;
+
 @Entity
 @Table(schema = "security", name = "users")
+@ControllerClass(LoginController.class)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -1833543647066464068L;

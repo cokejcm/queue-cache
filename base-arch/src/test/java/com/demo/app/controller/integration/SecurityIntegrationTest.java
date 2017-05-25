@@ -38,7 +38,7 @@ public class SecurityIntegrationTest {
 		User user = new User();
 		user.setUsername("krishna");
 		user.setPassword("12345");
-		ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/login", user, User.class);
+		ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/user/login", user, User.class);
 		// Response code 204
 		Assert.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
 		String token = responseEntity.getHeaders().get(Constants.AUTH_HEADER_NAME).get(0);
@@ -78,7 +78,7 @@ public class SecurityIntegrationTest {
 		User user = new User();
 		user.setUsername("krishna");
 		user.setPassword("123456");
-		ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/login", user, User.class);
+		ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/user/login", user, User.class);
 		// Invalid credentials
 		Assert.assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
 	}
