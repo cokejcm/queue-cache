@@ -10,7 +10,6 @@ import com.demo.app.repository.JpaGenericRepository;
 @Repository
 public class JpaDao<T extends Entity, K extends Serializable> implements CacheDao<T, K> {
 
-	// @Autowired(required = false)
 	JpaGenericRepository<T, K> jpaGenericRepository;
 
 	public JpaGenericRepository<T, K> getJpaRepository() {
