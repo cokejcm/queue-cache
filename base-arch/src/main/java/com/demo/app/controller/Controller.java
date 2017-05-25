@@ -2,6 +2,7 @@ package com.demo.app.controller;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,14 +40,14 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public T save(T entity) {
+	public T save(@Valid T entity) {
 		return getService().saveOne(entity);
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public T update(T entity) {
+	public T update(@Valid T entity) {
 		return getService().saveOne(entity);
 	}
 
