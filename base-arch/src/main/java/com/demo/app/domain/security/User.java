@@ -13,6 +13,8 @@ import javax.persistence.Transient;
 
 import com.demo.app.configuration.hateoas.ControllerClass;
 import com.demo.app.controller.LoginController;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(schema = "security", name = "users")
@@ -25,6 +27,7 @@ public class User implements Serializable {
 	@Column(name = "USERNAME")
 	private String username;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "PASSWORD")
 	private String password;
 
@@ -41,6 +44,7 @@ public class User implements Serializable {
 	private String countryCode;
 
 	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Authority> authorities;
 
 	public User() {
