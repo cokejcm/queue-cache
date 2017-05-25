@@ -34,11 +34,11 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 		getCacheDao().deleteOne(key);
 	}
 
-	public void updateOne(T item) {
-		getCacheDao().updateOne(item);
+	public T updateOne(T item) {
+		return getCacheDao().updateOne(item);
 	}
 
-	public void saveOne(T item) {
-		getCacheDao().saveOne(item);
+	public T saveOne(T item) {
+		return getCacheDao().saveOne(item);
 	}
 }

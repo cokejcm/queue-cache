@@ -38,14 +38,16 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void saveT(T entity) {
-		getService().saveOne(entity);
+	@Produces(MediaType.APPLICATION_JSON)
+	public T save(T entity) {
+		return getService().saveOne(entity);
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updateT(T entity) {
-		getService().saveOne(entity);
+	@Produces(MediaType.APPLICATION_JSON)
+	public T update(T entity) {
+		return getService().saveOne(entity);
 	}
 
 	@DELETE
