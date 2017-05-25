@@ -48,7 +48,7 @@ public abstract class ControllerIntegrationTest {
 			User user = new User();
 			user.setUsername(this.user);
 			user.setPassword(this.password);
-			ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/login", user, User.class);
+			ResponseEntity<User> responseEntity = restTemplate.postForEntity("/app/rest/user/login", user, User.class);
 			String token = responseEntity.getHeaders().get(Constants.AUTH_HEADER_NAME).get(0);
 			// Set the token in the header
 			ControllerIntegrationTest.headers = new HttpHeaders();

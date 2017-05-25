@@ -20,7 +20,7 @@ import com.demo.app.configuration.security.UserAuthentication;
 import com.demo.app.configuration.security.UserService;
 import com.demo.app.util.Constants;
 
-@Path("/")
+@Path("/user")
 @Component
 public class LoginController {
 
