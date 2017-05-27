@@ -27,7 +27,6 @@ public class User implements Serializable {
 	@Column(name = "USERNAME")
 	private String username;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "PASSWORD")
 	private String password;
 

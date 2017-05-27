@@ -16,14 +16,18 @@ public class EntitySerializer extends JsonSerializer<Entity> {
 	public void serialize(Entity value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 		Class<?> currClass = value.getClass();
 		// Get the controller associated to this entity
-		Class<?> controllerClass = currClass.getAnnotation(ControllerClass.class).value();
-		String entityUrl = controllerClass.getAnnotation(Path.class).value();
-		// Build the uri
-		StringBuilder uri = new StringBuilder();
-		uri.append(entityUrl).append("/").append(value.getId());
-		// Write the uri
-		jgen.writeStartObject();
-		jgen.writeStringField("href", uri.toString());
-		jgen.writeEndObject();
+		if (currClass.getAnnotation(ControllerClass.class) != null) {
+			Class<?> controllerClass = currClass.getAnnotation(ControllerClass.class).value();
+			String entityUrl = controllerClass.getAnnotation(Path.class).value();
+			// Build the uri
+			StringBuilder uri = new StringBuilder();
+			uri.append(entityUrl).append("/").append(value.getId());
+			// Write the uri
+			jgen.writeStartObject();
+			jgen.writeStringField("href", uri.toString());
+			jgen.writeEndObject();
+		} else {
+			jgen.writeNull();
+		}
 	}
 }
