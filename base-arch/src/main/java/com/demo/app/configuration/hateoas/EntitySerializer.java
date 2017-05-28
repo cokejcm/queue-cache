@@ -15,18 +15,29 @@ public class EntitySerializer extends JsonSerializer<Entity> {
 	@Override
 	public void serialize(Entity value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 		Class<?> currClass = value.getClass();
+		StringBuilder uri = new StringBuilder();
 		// Get the controller associated to this entity
 		if (currClass.getAnnotation(ControllerClass.class) != null) {
 			Class<?> controllerClass = currClass.getAnnotation(ControllerClass.class).value();
 			String entityUrl = controllerClass.getAnnotation(Path.class).value();
 			// Build the uri
-			StringBuilder uri = new StringBuilder();
 			uri.append(entityUrl).append("/").append(value.getId());
 			// Write the uri
 			jgen.writeStartObject();
 			jgen.writeStringField("href", uri.toString());
 			jgen.writeEndObject();
-		} else {
+		} /*
+			 * else if (currClass.getAnnotation(DiscriminatorColumn.class) !=
+			 * null) { java.lang.reflect.Method method; String type; try {
+			 * method = value.getClass().getMethod("getType"); type = (String)
+			 * method.invoke(value);
+			 * uri.append(type).append("/").append(value.getId());
+			 * jgen.writeStartObject(); jgen.writeStringField("href",
+			 * uri.toString()); jgen.writeEndObject(); } catch
+			 * (NoSuchMethodException | SecurityException |
+			 * IllegalAccessException | IllegalArgumentException |
+			 * InvocationTargetException e) { e.printStackTrace(); } }
+			 */ else {
 			jgen.writeNull();
 		}
 	}
