@@ -32,13 +32,13 @@ public class IterableSerializer extends JsonSerializer<Iterable> {
 				// Build the uri
 				String entityUrl = controllerClass.getAnnotation(Path.class).value();
 				uri.append(entityUrl).append("/").append(parent.getId()).append("/").append(field);
-				// Write
-				jgen.writeStartArray();
-				jgen.writeStartObject();
-				jgen.writeStringField("href", uri.toString());
-				jgen.writeEndObject();
-				jgen.writeEndArray();
 			}
+			// Write
+			jgen.writeStartArray();
+			jgen.writeStartObject();
+			jgen.writeStringField("href", uri.toString());
+			jgen.writeEndObject();
+			jgen.writeEndArray();
 		}
 	}
 }

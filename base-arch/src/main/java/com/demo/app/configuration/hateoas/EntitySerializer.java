@@ -26,18 +26,7 @@ public class EntitySerializer extends JsonSerializer<Entity> {
 			jgen.writeStartObject();
 			jgen.writeStringField("href", uri.toString());
 			jgen.writeEndObject();
-		} /*
-			 * else if (currClass.getAnnotation(DiscriminatorColumn.class) !=
-			 * null) { java.lang.reflect.Method method; String type; try {
-			 * method = value.getClass().getMethod("getType"); type = (String)
-			 * method.invoke(value);
-			 * uri.append(type).append("/").append(value.getId());
-			 * jgen.writeStartObject(); jgen.writeStringField("href",
-			 * uri.toString()); jgen.writeEndObject(); } catch
-			 * (NoSuchMethodException | SecurityException |
-			 * IllegalAccessException | IllegalArgumentException |
-			 * InvocationTargetException e) { e.printStackTrace(); } }
-			 */ else {
+		} else {
 			jgen.writeNull();
 		}
 	}
