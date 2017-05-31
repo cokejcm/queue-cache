@@ -12,10 +12,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class IterableSerializer extends JsonSerializer<Iterable<?>> {
+@SuppressWarnings("rawtypes")
+public class IterableSerializer extends JsonSerializer<Iterable> {
 
 	@Override
-	public void serialize(Iterable<?> value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+	public void serialize(Iterable value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 		if (value instanceof PersistentBag) {
 			PersistentBag bag = (PersistentBag) value;
 			Object owner = bag.getOwner();

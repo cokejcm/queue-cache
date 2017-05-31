@@ -27,6 +27,7 @@ public class PersonController {
 	@Path("/savePerson")
 	public void savePerson(Person person) {
 		personService.savePerson(person);
+		personService.findOne(person.getId());
 	}
 
 	@DELETE
