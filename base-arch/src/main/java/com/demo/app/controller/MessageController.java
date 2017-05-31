@@ -52,7 +52,6 @@ public class MessageController {
 	@Path("/saveMessage")
 	public void saveMessage(Message message) {
 		messageService.saveMessage(message);
-		messageService.findOne(message.getId());
 	}
 
 	@PUT
@@ -60,7 +59,6 @@ public class MessageController {
 	@Path("/updateMessage")
 	public void updateMessage(Message message) {
 		messageService.saveMessage(message);
-		messageService.findOne(message.getId());
 	}
 
 	@DELETE

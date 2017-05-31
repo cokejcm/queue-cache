@@ -40,19 +40,15 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@SuppressWarnings("unchecked")
 	public T save(@Valid T entity) {
-		getService().saveOne(entity);
-		return findOne((K)entity.getId());
+		return getService().saveOne(entity);
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@SuppressWarnings("unchecked")
 	public T update(@Valid T entity) {
-		getService().saveOne(entity);
-		return findOne((K)entity.getId());
+		return getService().saveOne(entity);
 	}
 
 	@DELETE
