@@ -52,7 +52,6 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	}
 
 	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public void delete(@PathParam("id") K id) {
 		getService().deleteOne(id);
