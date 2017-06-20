@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.demo.app.configuration.ContextProvider;
 import com.google.common.base.Preconditions;
 
 @Component
@@ -25,7 +26,12 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-		UserAuthentication authentication = (UserAuthentication)tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
+		UserAuthentication authentication = (UserAuthentication) tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
+		// Extra Information
+		ContextExtraInfo extraInfo = ContextProvider.getBean(ContextExtraInfo.class);
+		if (extraInfo != null) {
+			authentication.addExtraInfo(extraInfo.getExtraInfo1Name(), extraInfo.getExtraInfo1(authentication));
+		}
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		filterChain.doFilter(request, response);
 		SecurityContextHolder.clearContext();
