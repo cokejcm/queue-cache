@@ -18,4 +18,7 @@ public final class Constants {
 	// i18n
 	public static final String COOKIE_LANGUAGE = "locale-cookie";
 	public static final String DEFAULT_COUNTRY_CODE = "en";
+	//Extra Info params in UserAuthentication
+	public static final String LOCALE = "locale";
+	public static final String ORGANIZATION = "organization";
 }

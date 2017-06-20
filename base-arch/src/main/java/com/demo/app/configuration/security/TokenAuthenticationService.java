@@ -50,7 +50,7 @@ public class TokenAuthenticationService {
 				user.eraseCredentials();
 				UserAuthentication userAuthentication = new UserAuthentication(user);
 				// Set the locale from the cookie in the request
-				userAuthentication.setLocale(getLocale(request));
+				userAuthentication.addExtraInfo(Constants.LOCALE, getLocale(request));
 				return userAuthentication;
 			}
 		}
