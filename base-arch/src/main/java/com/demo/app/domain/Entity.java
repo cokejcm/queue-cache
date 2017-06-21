@@ -2,8 +2,6 @@ package com.demo.app.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -11,23 +9,15 @@ public abstract class Entity implements Serializable {
 
 	private static final long serialVersionUID = 5908519522358747038L;
 
-	@Id
-	@GeneratedValue(generator = "string-seq-generator")
-	private String id;
+	public abstract String getId();
 
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	public abstract void setId(String id);
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (id == null ? 0 : id.hashCode());
+		result = prime * result + (getId() == null ? 0 : getId().hashCode());
 		return result;
 	}
 
@@ -43,11 +33,11 @@ public abstract class Entity implements Serializable {
 			return false;
 		}
 		Entity other = (Entity) obj;
-		if (id == null) {
-			if (other.id != null) {
+		if (getId() == null) {
+			if (other.getId() != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!getId().equals(other.getId())) {
 			return false;
 		}
 		return true;
