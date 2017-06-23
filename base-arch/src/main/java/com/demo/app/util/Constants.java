@@ -21,4 +21,8 @@ public final class Constants {
 	//Extra Info params in UserAuthentication
 	public static final String LOCALE = "locale";
 	public static final String ORGANIZATION = "organization";
+	//Organizations
+	public static final String COMPANY = "company";
+	public static final String SUPPLIER = "supplier";
+
 }
