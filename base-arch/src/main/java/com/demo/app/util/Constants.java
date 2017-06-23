@@ -20,9 +20,4 @@ public final class Constants {
 	public static final String DEFAULT_COUNTRY_CODE = "en";
 	//Extra Info params in UserAuthentication
 	public static final String LOCALE = "locale";
-	public static final String ORGANIZATION = "organization";
-	//Organizations
-	public static final String COMPANY = "company";
-	public static final String SUPPLIER = "supplier";
-
 }
