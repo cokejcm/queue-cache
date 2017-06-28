@@ -1,5 +1,8 @@
 package com.demo.app.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +15,9 @@ public class Message extends Entity {
 
 	private static final long serialVersionUID = -7155764620974043870L;
 
+	@Id
+	@GeneratedValue(generator = "string-seq-generator")
+	private String id;
 	private String author;
 	private String contents;
 
@@ -24,6 +30,17 @@ public class Message extends Entity {
 
 	public Message() {
 		super();
+	}
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id=id;
+
 	}
 
 	public String getAuthor() {

@@ -18,4 +18,14 @@ public class EntityHzRepository<T extends Entity, K extends Serializable>  {
 	protected Iterable<T> getEntitiesFiltered(Class<? extends Entity> clazz, String condition){
 		return new ArrayList(instance.getMap(clazz.getSimpleName()).values(new SqlPredicate(condition)));
 	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected T getEntityFiltered(Class<? extends Entity> clazz, String condition){
+		Iterable<T> elements = new ArrayList(instance.getMap(clazz.getSimpleName()).values(new SqlPredicate(condition)));
+		if (elements.iterator().hasNext()){
+			return (T)new ArrayList(instance.getMap(clazz.getSimpleName()).values(new SqlPredicate(condition))).iterator().next();
+		}
+		return null;
+	}
+
 }

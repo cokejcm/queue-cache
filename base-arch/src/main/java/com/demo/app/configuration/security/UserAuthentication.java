@@ -1,26 +1,32 @@
 package com.demo.app.configuration.security;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
+import com.demo.app.util.Constants;
 
 public class UserAuthentication implements Authentication {
 
 	private static final long serialVersionUID = -4387968095531358197L;
 	private final User user;
 	private boolean authenticated = true;
-	private Locale locale;
+	private Map<String, Object> extraInfo;
 
 	public UserAuthentication(User user) {
 		this.user = user;
+		this.extraInfo = new HashMap<>();
 	}
 
 	public UserAuthentication(User user, Locale locale) {
 		this.user = user;
-		this.locale = locale;
+		this.extraInfo = new HashMap<>();
+		this.extraInfo.put(Constants.LOCALE, locale);
 	}
 
 	@Override
@@ -58,11 +64,12 @@ public class UserAuthentication implements Authentication {
 		this.authenticated = authenticated;
 	}
 
-	public Locale getLocale() {
-		return locale;
+	public Object getExtraInfo(String id) {
+		return this.extraInfo.get(id);
 	}
 
-	public void setLocale(Locale locale) {
-		this.locale = locale;
+	public void addExtraInfo(String id, Object object) {
+		this.extraInfo.put(id, object);
 	}
+
 }

@@ -8,11 +8,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.demo.app.configuration.ContextProvider;
 import com.google.common.base.Preconditions;
 
 @Component
@@ -26,7 +27,17 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-		Authentication authentication = tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
+		UserAuthentication authentication = (UserAuthentication) tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
+		// Extra Information
+		ContextExtraInfo extraInfo=null;
+		try {
+			extraInfo = ContextProvider.getBean(ContextExtraInfo.class);
+			if (authentication != null){
+				authentication.addExtraInfo(extraInfo.getExtraInfo1Name(), extraInfo.getExtraInfo1(authentication));
+			}
+		} catch (NoSuchBeanDefinitionException e) {
+			//Do nothing
+		}
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		filterChain.doFilter(request, response);
 		SecurityContextHolder.clearContext();
