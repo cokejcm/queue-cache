@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.demo.app.configuration.AppException;
 import com.demo.app.domain.Entity;
 import com.demo.app.service.Service;
 
@@ -53,7 +54,7 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 
 	@DELETE
 	@Path("/{id}")
-	public void delete(@PathParam("id") K id) {
+	public void delete(@PathParam("id") K id) throws AppException {
 		getService().deleteOne(id);
 	}
 

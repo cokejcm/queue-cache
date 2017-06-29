@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 
+import com.demo.app.configuration.AppException;
 import com.demo.app.dao.HzCacheDao;
 import com.demo.app.domain.Entity;
 
@@ -30,7 +31,7 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 		return getCacheDao().findAll();
 	}
 
-	public void deleteOne(K key) {
+	public void deleteOne(K key) throws AppException {
 		getCacheDao().deleteOne(key);
 	}
 
