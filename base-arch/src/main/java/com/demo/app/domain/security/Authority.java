@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,8 +26,18 @@ public class Authority implements Serializable, GrantedAuthority {
 	@JoinColumn(name = "username", nullable = false)
 	private User username;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "AUTHORITY")
-	private String authority;
+	private Rol authority;
+
+	public Authority() {
+		super();
+	}
+
+	public Authority(Rol authority) {
+		super();
+		this.authority = authority;
+	}
 
 	public String getId() {
 		return id;
@@ -45,16 +57,44 @@ public class Authority implements Serializable, GrantedAuthority {
 
 	@Override
 	public String getAuthority() {
-		return authority;
+		return authority.toString();
 	}
 
 	public void setAuthority(String authority) {
-		this.authority = authority;
+		this.authority = Rol.valueOf(authority);
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (authority == null ? 0 : authority.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Authority other = (Authority) obj;
+		if (authority != other.authority) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Authority [username=" + username + ", authority=" + authority + "]";
+		return "Authority [username=" + username + ", authority=" + authority.toString() + "]";
 	}
 
 }

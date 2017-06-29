@@ -10,8 +10,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,8 +23,6 @@ import com.demo.app.service.MessageService;
 @Path("/")
 @Component
 public class MessageController {
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private MessageService messageService;
@@ -70,7 +66,7 @@ public class MessageController {
 
 	@GET
 	@Path("/onlyAdminMessage")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String onlyAdmin() {
 		return "ACCESSED";
@@ -80,7 +76,6 @@ public class MessageController {
 	@Path("/messageLocal")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String messageLocal() {
-		logger.info("Hola");
 		return messageSource.getMessage("welcome.message", new Object[] { "John Doe" });
 	}
 }
