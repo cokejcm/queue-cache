@@ -1,11 +1,16 @@
 package com.demo.app.domain;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import javax.persistence.MappedSuperclass;
 
+import com.demo.app.configuration.AppException;
+import com.demo.app.util.Util;
+
 @MappedSuperclass
-public abstract class Entity implements Serializable {
+public abstract class Entity implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 5908519522358747038L;
 
@@ -42,4 +47,27 @@ public abstract class Entity implements Serializable {
 		}
 		return true;
 	}
+
+	public Entity clone(String[] notCloneableFieldNames, Object[] notCloneableFieldValues) throws Exception {
+		if (notCloneableFieldNames.length != notCloneableFieldValues.length) {
+			throw new AppException("exception");
+		}
+		Entity e = (Entity) this.clone();
+		for (int i = 0; i < notCloneableFieldNames.length; i++) {
+			Field field = e.getClass().getDeclaredField(notCloneableFieldNames[i]);
+			Method getMethod = field.getDeclaringClass().getMethod("get" + Util.capitalize(field.getName()));
+			Class<?> c = getMethod.getReturnType();
+			if (!c.isAssignableFrom(notCloneableFieldValues[i].getClass())) {
+				throw new AppException("exception");
+			}
+			Method method = field.getDeclaringClass().getMethod("set" + Util.capitalize(field.getName()), c);
+			method.invoke(e, new Object[] { notCloneableFieldValues[i] });
+		}
+		// set id to null
+		Field fieldId = e.getClass().getDeclaredField("id");
+		Method method = fieldId.getDeclaringClass().getMethod("set" + Util.capitalize(fieldId.getName()), String.class);
+		method.invoke(e, new Object[] { null });
+		return e;
+	}
+
 }
