@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.demo.app.configuration.ContextProvider;
+import com.demo.app.domain.security.Authority;
+import com.demo.app.domain.security.Rol;
+import com.demo.app.util.Constants;
 import com.google.common.base.Preconditions;
 
 @Component
@@ -32,7 +35,8 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
 		ContextExtraInfo extraInfo=null;
 		try {
 			extraInfo = ContextProvider.getBean(ContextExtraInfo.class);
-			if (authentication != null){
+			//Add extra info. APP_ROLE does not belong to an organization.
+			if (authentication != null && !(authentication.getAuthorities().contains(new Authority(Rol.APP_ROLE)) && extraInfo.getExtraInfo1Name().equals(Constants.ORGANIZATION))){
 				authentication.addExtraInfo(extraInfo.getExtraInfo1Name(), extraInfo.getExtraInfo1(authentication));
 			}
 		} catch (NoSuchBeanDefinitionException e) {
