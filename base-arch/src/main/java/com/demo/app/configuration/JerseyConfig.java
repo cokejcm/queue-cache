@@ -31,6 +31,7 @@ public class JerseyConfig extends ResourceConfig {
 		packages("com.demo.app.configuration");
 		register(JacksonFeature.class);
 		property(ServerProperties.MOXY_JSON_FEATURE_DISABLE, true);
+		this.configureSwagger();
 	}
 
 	private void configureSwagger() {
@@ -41,10 +42,12 @@ public class JerseyConfig extends ResourceConfig {
 		BeanConfig config = new BeanConfig();
 		config.setConfigId("springboot-jersey-swagger-docker-example");
 		config.setTitle("Spring Boot + Jersey + Swagger + Docker Example");
-		config.setVersion("v1");
+		//config.setVersion("v2");
+		config.setHost("localhost:9090");
 		config.setContact("Coke");
 		config.setSchemes(new String[] { "http", "https" });
-		config.setBasePath("/app/rest/**");
+		config.setBasePath("/app/rest");
+		//config.setBasePath("/");
 		config.setResourcePackage("com.demo.app.controller");
 		config.setPrettyPrint(true);
 		config.setScan(true);
