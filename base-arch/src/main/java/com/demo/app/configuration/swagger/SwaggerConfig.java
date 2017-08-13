@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.swagger;
 
 import javax.annotation.PostConstruct;
 
@@ -30,9 +30,9 @@ public class SwaggerConfig extends ResourceConfig {
 		this.register(SwaggerSerializers.class);
 
 		BeanConfig beanConfig = new BeanConfig();
-		beanConfig.setConfigId("springboot-jersey-swagger-docker-example");
-		beanConfig.setTitle("Spring Boot + Jersey + Swagger + Docker Example");
-		beanConfig.setVersion("v2");
+		beanConfig.setConfigId("app");
+		beanConfig.setTitle("App Rest Services");
+		beanConfig.setVersion("v1");
 		beanConfig.setHost(Constants.HOST + ":" + Constants.PORT);
 		beanConfig.setContact("Coke");
 		beanConfig.setSchemes(new String[] { "http", "https" });
