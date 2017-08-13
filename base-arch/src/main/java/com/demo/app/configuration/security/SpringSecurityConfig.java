@@ -31,19 +31,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //Stateless
-		.anonymous().and() 																	  // Allows Authentication Object null (for /login)
-		.authorizeRequests().antMatchers("/**/login").permitAll() 							  // Login
-		.anyRequest().authenticated() 														  // Rest of the requests
-		.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
-		.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); //JWT Filter
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // Stateless
+				.anonymous().and() // Allows Authentication Object null (for /login)
+				.authorizeRequests().antMatchers("/**/login", "/swagger.json").permitAll() // Login
+				.anyRequest().authenticated() // Rest of the requests
+				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
+				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); // JWT Filter
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// Debug Spring Security
 		// web.debug(true);
-		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**", "/swagger.json");
+		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
 	}
 
 	@Override

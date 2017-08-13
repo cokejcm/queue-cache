@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.demo.app.configuration.JerseyConfig;
+import com.demo.app.util.Constants;
 
 @Configuration
 @EnableAutoConfiguration
@@ -44,7 +45,7 @@ public class Application {
 	@Bean
 	public ServletRegistrationBean jerseyServlet() {
 		// Adds /rest to host:port/app
-		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), "/rest/*");
+		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), Constants.JERSEY_CONTEXT);
 		registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyConfig.class.getName());
 		return registration;
 	}

@@ -20,7 +20,8 @@
        	<persistence.version>1.0.2</persistence.version>
        	<reflections.version>0.9.10</reflections.version>
        	<jjwt.version>0.7.0</jjwt.version>
-        <swagger.jersey2.version>1.5.16</swagger.jersey2.version>       	
+        <swagger.version>1.5.16</swagger.version>            	
+        <swagger.ui.version>3.1.4</swagger.ui.version>
 	</properties>
 	
 	<dependencies>
@@ -120,8 +121,13 @@
 		<dependency>
 		    <groupId>io.swagger</groupId>
 		    <artifactId>swagger-jersey2-jaxrs</artifactId>
-		    <version>${swagger.jersey2.version}</version>
-		</dependency>														  														
+		    <version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>swagger-ui</artifactId>
+		    <version>${swagger.ui.version}</version>
+		</dependency>																				  														
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>

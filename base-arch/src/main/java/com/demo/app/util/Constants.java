@@ -18,7 +18,14 @@ public final class Constants {
 	// i18n
 	public static final String COOKIE_LANGUAGE = "locale-cookie";
 	public static final String DEFAULT_COUNTRY_CODE = "en";
-	//Extra Info params in UserAuthentication
+	// Extra Info params in UserAuthentication
 	public static final String LOCALE = "locale";
 	public static final String ORGANIZATION = "organization";
+
+	// Server info
+	public static final String HOST = "localhost";
+	public static final String PORT = "9090";
+	public static final int PORT_NUM = 9090;
+	public static final String CONTEXT = "/app";
+	public static final String JERSEY_CONTEXT = "/rest/*";
 }
