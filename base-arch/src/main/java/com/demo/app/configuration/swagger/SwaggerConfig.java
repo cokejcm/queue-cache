@@ -3,6 +3,7 @@ package com.demo.app.configuration.swagger;
 import javax.annotation.PostConstruct;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.springframework.context.annotation.Configuration;
 
 import com.demo.app.util.Constants;
@@ -17,8 +18,14 @@ import io.swagger.jaxrs.listing.SwaggerSerializers;
  * @author coke
  *
  */
+
 @Configuration
 public class SwaggerConfig extends ResourceConfig {
+
+	public SwaggerConfig() {
+		//Avoids sending a 404 error instead of the corresponding exception
+		property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
+	}
 
 	@PostConstruct
 	public void init() {
@@ -28,7 +35,6 @@ public class SwaggerConfig extends ResourceConfig {
 	private void configureSwagger() {
 		this.register(ApiListingResource.class);
 		this.register(SwaggerSerializers.class);
-
 		BeanConfig beanConfig = new BeanConfig();
 		beanConfig.setConfigId("app");
 		beanConfig.setTitle("App Rest Services");
@@ -41,5 +47,4 @@ public class SwaggerConfig extends ResourceConfig {
 		beanConfig.setPrettyPrint(true);
 		beanConfig.setScan(true);
 	}
-
 }

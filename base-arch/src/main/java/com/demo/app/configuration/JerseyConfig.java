@@ -20,6 +20,6 @@ public class JerseyConfig extends ResourceConfig {
 		packages("com.demo.app.configuration");
 		register(JacksonFeature.class);
 		property(ServerProperties.MOXY_JSON_FEATURE_DISABLE, true);
+		property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
 	}
-
 }
