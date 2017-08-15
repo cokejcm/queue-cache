@@ -116,12 +116,17 @@
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		</dependency>	
-		<!-- Jersey Swagger -->
+		<!-- Swagger -->
 		<dependency>
 		    <groupId>io.swagger</groupId>
 		    <artifactId>swagger-jersey2-jaxrs</artifactId>
 		    <version>${swagger.version}</version>
-		</dependency>																								  														
+		</dependency>
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-core</artifactId>
+		    <version>${swagger.version}</version>
+		</dependency>																												  														
 		<!--  Jersey tests -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.test-framework</groupId>
