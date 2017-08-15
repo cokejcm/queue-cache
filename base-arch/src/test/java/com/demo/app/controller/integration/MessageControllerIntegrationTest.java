@@ -60,7 +60,7 @@ public class MessageControllerIntegrationTest extends ControllerIntegrationTest 
 
 	@Test
 	public void whenNoRoleAdminThenForbidden() {
-		this.setUser("sudama");
+		this.setUser("user1");
 		ResponseEntity<String> responseEntity = launchRequest(null, "/app/rest/onlyAdminMessage", String.class, RequestType.GET);
 		Assert.assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
 		this.setUser("krishna");
