@@ -30,19 +30,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //Stateless
-		.anonymous().and() 																	  // Allows Authentication Object null (for /login)
-		.authorizeRequests().antMatchers("/**/login").permitAll() 							  // Login
-		.anyRequest().authenticated() 														  // Rest of the requests
-		.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
-		.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); //JWT Filter
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // Stateless
+				.anonymous().and() // Allows Authentication Object null (for /login)
+				.authorizeRequests().antMatchers("/**" + Constants.LOGIN_URL, "/**" + Constants.SWAGGER_URL).permitAll() // Login and Swagger json
+				.anyRequest().authenticated() // Rest of the requests
+				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
+				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class) // JWT Filter
+				.cors(); // Swagger
 	}
-
-	// Debug Spring Security
-	/*@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.debug(true);
-	}*/
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
