@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.demo.app.util.Constants;
+
 @Configuration
 public class WebMvcConfigurerBean extends WebMvcConfigurerAdapter {
 
@@ -19,7 +21,7 @@ public class WebMvcConfigurerBean extends WebMvcConfigurerAdapter {
 	// CORS For Swagger
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/swagger.json")
+		registry.addMapping(Constants.SWAGGER_URL)
 				.allowedMethods("GET");
 	}
 }

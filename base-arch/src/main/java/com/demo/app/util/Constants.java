@@ -39,5 +39,9 @@ public final class Constants {
 	public static final String TITLE = "App Rest Services";
 	public static final String VERSION = "v1";
 	public static final String[] SCHEMAS = new String[] { "http", "https" };
+	public static final String SWAGGER_URL = "/swagger.json";
+
+	// urls
+	public static final String LOGIN_URL = "/login";
 
 }
