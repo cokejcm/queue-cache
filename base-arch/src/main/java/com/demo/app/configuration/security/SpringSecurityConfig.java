@@ -32,7 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // Stateless
 				.anonymous().and() // Allows Authentication Object null (for /login)
-				.authorizeRequests().antMatchers("/**/login", "/swagger.json").permitAll() // Login
+				.authorizeRequests().antMatchers("/**/login", "/**/swagger.json").permitAll() // Login and Swagger json
 				.anyRequest().authenticated() // Rest of the requests
 				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
 				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class) // JWT Filter
