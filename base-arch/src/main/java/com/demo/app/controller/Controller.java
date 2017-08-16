@@ -17,18 +17,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.demo.app.configuration.AppException;
+import com.demo.app.configuration.internationalization.MessageSourceLocale;
 import com.demo.app.domain.Entity;
 import com.demo.app.service.Service;
+
+import io.swagger.annotations.ApiOperation;
 
 public abstract class Controller<T extends Entity, K extends Serializable> {
 
 	@Autowired
 	public abstract Service<T, K> getService();
 
+	@Autowired
+	private MessageSourceLocale messageSource;
+
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PreAuthorize("hasAnyAuthority('APP_ROLE')")
+	@ApiOperation(value = "Returns an iterable with all the items", responseContainer = "List")
 	public Iterable<T> findAll() {
 		return getService().findAll();
 	}
@@ -36,6 +43,7 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
+	@ApiOperation(value = "Returns a single item by its id")
 	public T findOne(@PathParam("id") K id) {
 		return getService().findOne(id);
 	}
@@ -43,19 +51,30 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public T save(@Valid T entity) {
-		return getService().saveOne(entity);
+	@ApiOperation(value = "Persists a new item")
+	public T save(@Valid T entity) throws AppException {
+		if (entity.getId() == null) {
+			return getService().saveOne(entity);
+		} else {
+			throw new AppException(messageSource.getMessage("exception.id_not_null", null));
+		}
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public T update(@Valid T entity) {
-		return getService().saveOne(entity);
+	@ApiOperation(value = "Updates an existing item")
+	public T update(@Valid T entity) throws AppException {
+		if (entity.getId() != null) {
+			return getService().saveOne(entity);
+		} else {
+			throw new AppException(messageSource.getMessage("exception.entity_not_exist", null));
+		}
 	}
 
 	@DELETE
 	@Path("/{id}")
+	@ApiOperation(value = "Deletes an item")
 	public void delete(@PathParam("id") K id) throws AppException {
 		getService().deleteOne(id);
 	}
