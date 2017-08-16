@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.demo.app.configuration.AppException;
 import com.demo.app.domain.Entity;
@@ -27,6 +28,7 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PreAuthorize("hasAnyAuthority('APP_ROLE')")
 	public Iterable<T> findAll() {
 		return getService().findAll();
 	}
