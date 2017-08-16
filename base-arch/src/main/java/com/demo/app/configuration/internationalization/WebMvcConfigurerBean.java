@@ -1,7 +1,11 @@
 package com.demo.app.configuration.internationalization;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -9,6 +13,9 @@ import com.demo.app.util.Constants;
 
 @Configuration
 public class WebMvcConfigurerBean extends WebMvcConfigurerAdapter {
+
+	@Autowired
+	private Environment environment;
 
 	@Bean
 	public MessageSourceLocale messageSource() {
@@ -21,9 +28,10 @@ public class WebMvcConfigurerBean extends WebMvcConfigurerAdapter {
 	// CORS For Swagger
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		// Do it only for DEV profile
-		registry.addMapping("/**")
-				.allowedOrigins("http://" + Constants.HOST + ":" + Constants.PORT, "http://" + Constants.HOST + ":" + Constants.SWAGGER_PORT)
-				.allowedMethods("GET", "PUT", "POST", "DELETE");
+		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)){
+			registry.addMapping("/**")
+			.allowedOrigins("http://" + Constants.HOST + ":" + Constants.PORT, "http://" + Constants.HOST + ":" + Constants.SWAGGER_PORT)
+			.allowedMethods("GET", "PUT", "POST", "DELETE");
+		}
 	}
 }

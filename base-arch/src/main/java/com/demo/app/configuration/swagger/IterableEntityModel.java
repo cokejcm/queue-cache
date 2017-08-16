@@ -6,16 +6,16 @@ import io.swagger.models.ExternalDocs;
 import io.swagger.models.Model;
 import io.swagger.models.properties.Property;
 
-public class IterableFormModel implements Model {
+public class IterableEntityModel implements Model {
 
 	@Override
 	public String getDescription() {
-		return "List of Forms";
+		return "List of Entities. Swagger struggles with Iterable of T being T a generic. At the end is a List of the corresponding entity";
 	}
 
 	@Override
 	public Object getExample() {
-		return "[{\"name\":\"Form 1\",\"id\":\"15\"},{\"name\":\"Form 2\",\"id\":\"16\"}]";
+		return "[{pojo1}, {pojo2} ...]";
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.web.context.ServletConfigAware;
 
-import com.demo.app.configuration.swagger.IterableFormModel;
+import com.demo.app.configuration.swagger.IterableEntityModel;
 import com.demo.app.util.Constants;
 
 import io.swagger.jaxrs.config.BeanConfig;
@@ -73,8 +73,8 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		apiKey.setDescription("JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5ZTYyYjM5OS02MDdiLTRkMGItOTg1Ny0xZjBmYzM1ZjJhNmIiLCJzdWIiOiJrcmlzaG5hIiwiaWF0IjoxNDkzODE5MTU1LCJleHAiOjE1MjUzNTUxNTV9.H5bCw0UcIQegztc1mEhD0EPxdeaBvV8xOfZjtlPPCjwciqV2DcBsOZa3KxyamGwJCTj_wm9U0wTMw9J0YlfXGw");
 		swagger.securityDefinition("JWT", apiKey);
 		// Iterable<Form> not recognized by Swagger
-		IterableFormModel model = new IterableFormModel();
-		swagger.addDefinition("IterableForm", model);
+		IterableEntityModel model = new IterableEntityModel();
+		swagger.addDefinition("IterableEntity", model);
 		new SwaggerContextService().withServletConfig(servletConfig).updateSwagger(swagger);
 	}
 }
