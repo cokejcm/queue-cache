@@ -1,5 +1,7 @@
 package com.demo.app.configuration;
 
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletConfig;
 
@@ -7,6 +9,8 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.context.ServletConfigAware;
 
 import com.demo.app.configuration.swagger.IterableEntityModel;
@@ -30,6 +34,9 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	private ServletConfig servletConfig;
 
+	@Autowired
+	private Environment environment;
+
 	public JerseyConfig() {
 		register(RequestContextFilter.class);
 		packages(Constants.CONTROLLER_PACKAGE);
@@ -46,7 +53,9 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	@PostConstruct
 	public void init() {
-		this.configureSwagger();
+		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)){
+			this.configureSwagger();
+		}
 	}
 
 	private void configureSwagger() {
