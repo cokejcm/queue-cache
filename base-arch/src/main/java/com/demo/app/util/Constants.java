@@ -34,6 +34,7 @@ public final class Constants {
 	public static final String COMPLETE_CONTEXT = "/app/rest";
 
 	// Swagger
+	public static final String SWAGGER_PORT = "9191";
 	public static final String CONTACT = "Coke";
 	public static final String CONFIG_ID = "App";
 	public static final String TITLE = "App Rest Services";

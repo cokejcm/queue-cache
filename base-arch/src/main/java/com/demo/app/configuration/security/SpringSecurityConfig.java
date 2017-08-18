@@ -1,7 +1,11 @@
 package com.demo.app.configuration.security;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,6 +25,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final UserService userService;
 	private final TokenAuthenticationService tokenAuthenticationService;
+	@Autowired
+	private Environment environment;
 
 	public SpringSecurityConfig() {
 		super(true);
@@ -31,12 +37,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // Stateless
-				.anonymous().and() // Allows Authentication Object null (for /login)
-				.authorizeRequests().antMatchers("/**" + Constants.LOGIN_URL, "/**" + Constants.SWAGGER_URL).permitAll() // Login and Swagger json
-				.anyRequest().authenticated() // Rest of the requests
-				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
-				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class) // JWT Filter
-				.cors(); // Swagger
+		.anonymous().and() // Allows Authentication Object null (for /login)
+		.authorizeRequests().antMatchers("/**" + Constants.LOGIN_URL, "/**" + Constants.SWAGGER_URL).permitAll() // Login and Swagger json
+		.anyRequest().authenticated() // Rest of the requests
+		.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
+		.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); // JWT Filter
+		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)){
+			http.cors(); // Swagger
+		}
+
 	}
 
 	@Override
