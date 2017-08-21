@@ -20,6 +20,7 @@ import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.config.SwaggerContextService;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
+import io.swagger.models.Model;
 import io.swagger.models.Swagger;
 import io.swagger.models.auth.ApiKeyAuthDefinition;
 import io.swagger.models.auth.In;
@@ -81,9 +82,14 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		apiKey.setType("apiKey");
 		apiKey.setDescription("JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5ZTYyYjM5OS02MDdiLTRkMGItOTg1Ny0xZjBmYzM1ZjJhNmIiLCJzdWIiOiJrcmlzaG5hIiwiaWF0IjoxNDkzODE5MTU1LCJleHAiOjE1MjUzNTUxNTV9.H5bCw0UcIQegztc1mEhD0EPxdeaBvV8xOfZjtlPPCjwciqV2DcBsOZa3KxyamGwJCTj_wm9U0wTMw9J0YlfXGw");
 		swagger.securityDefinition("JWT", apiKey);
-		// Iterable<Form> not recognized by Swagger
-		IterableEntityModel model = new IterableEntityModel();
+		// Iterable<AnyEntity> not recognized by Swagger
+		Model model = new IterableEntityModel();
 		swagger.addDefinition("IterableEntity", model);
+		swagger.addDefinition("IterableUserOrganization", model);
+		swagger.addDefinition("IterableSupplier", model);
+		swagger.addDefinition("IterableCompany", model);
+		swagger.addDefinition("IterableServiceType", model);
+		swagger.addDefinition("IterableDocument", model);
 		new SwaggerContextService().withServletConfig(servletConfig).updateSwagger(swagger);
 	}
 }
