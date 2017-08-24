@@ -20,8 +20,12 @@ import com.demo.app.configuration.security.UserAuthentication;
 import com.demo.app.configuration.security.UserService;
 import com.demo.app.util.Constants;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @Path("/user")
 @Component
+@Api(tags = { "User" })
 public class LoginController {
 
 	@Autowired
@@ -34,6 +38,7 @@ public class LoginController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
+	@ApiOperation(value = "Login for the users. Generates the JWT token.", notes = "Anyone can access. In the event of a succesful login it retrieves a token in the header")
 	public void authenticate(@Context HttpServletResponse response, com.demo.app.domain.security.User userForm) {
 		// Validate the credentials against the Db
 		User user;
