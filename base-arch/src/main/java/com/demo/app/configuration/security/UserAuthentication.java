@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.demo.app.domain.security.Authority;
+import com.demo.app.domain.security.Rol;
 import com.demo.app.util.Constants;
 
 public class UserAuthentication implements Authentication {
@@ -70,6 +72,10 @@ public class UserAuthentication implements Authentication {
 
 	public void addExtraInfo(String id, Object object) {
 		this.extraInfo.put(id, object);
+	}
+
+	public boolean isBasicUser() {
+		return this.user.getAuthorities().size() == 1 && this.user.getAuthorities().contains(new Authority(Rol.BASIC_ROLE));
 	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import com.demo.app.service.security.UserService;
 import com.demo.app.util.Constants;
 
 @Configuration
@@ -37,12 +38,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // Stateless
-		.anonymous().and() // Allows Authentication Object null (for /login)
-		.authorizeRequests().antMatchers("/**" + Constants.LOGIN_URL, "/**" + Constants.SWAGGER_URL).permitAll() // Login and Swagger json
-		.anyRequest().authenticated() // Rest of the requests
-		.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
-		.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); // JWT Filter
-		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)){
+				.anonymous().and() // Allows Authentication Object null (for /login)
+				.authorizeRequests().antMatchers("/**" + Constants.LOGIN_URL, "/**" + Constants.SWAGGER_URL).permitAll() // Login and Swagger json
+				.anyRequest().authenticated() // Rest of the requests
+				.and().logout().logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and()
+				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), BasicAuthenticationFilter.class); // JWT Filter
+		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)) {
 			http.cors(); // Swagger
 		}
 

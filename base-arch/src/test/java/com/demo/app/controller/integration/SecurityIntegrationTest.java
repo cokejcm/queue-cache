@@ -17,9 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.demo.app.Application;
 import com.demo.app.configuration.security.TokenHandler;
-import com.demo.app.configuration.security.UserService;
 import com.demo.app.domain.Message;
 import com.demo.app.domain.security.User;
+import com.demo.app.service.security.UserService;
 import com.demo.app.util.Constants;
 
 @RunWith(SpringRunner.class)

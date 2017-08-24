@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS security.users (
   ACCOUNT_NON_EXPIRED boolean,
   ACCOUNT_NON_LOCKED  boolean, 
   PRIMARY KEY (USERNAME));
+  
+CREATE SEQUENCE IF NOT EXISTS security.authority_seq INCREMENT 1;
 	
 CREATE TABLE IF NOT EXISTS security.user_authorities (
   ID TEXT NOT NULL,

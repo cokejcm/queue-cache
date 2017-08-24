@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.demo.app.configuration.security.TokenAuthenticationService;
 import com.demo.app.configuration.security.UserAuthentication;
-import com.demo.app.configuration.security.UserService;
+import com.demo.app.service.security.UserService;
 import com.demo.app.util.Constants;
 
 import io.swagger.annotations.Api;

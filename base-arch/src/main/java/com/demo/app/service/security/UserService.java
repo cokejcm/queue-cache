@@ -1,4 +1,4 @@
-package com.demo.app.configuration.security;
+package com.demo.app.service.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
@@ -24,5 +24,17 @@ public class UserService implements org.springframework.security.core.userdetail
 		org.springframework.security.core.userdetails.User springUser = user.createSpringUser();
 		detailsChecker.check(springUser); // Check locked, enabled, expired
 		return springUser;
+	}
+
+	public final User loadUserAppByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByUsername(username);
+	}
+
+	public User saveOne(User user) {
+		return userRepository.save(user);
+	}
+
+	public void deleteOne(User user) {
+		userRepository.delete(user);
 	}
 }

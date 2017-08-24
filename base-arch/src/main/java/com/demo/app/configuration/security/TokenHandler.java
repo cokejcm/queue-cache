@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.security.core.userdetails.User;
 
+import com.demo.app.service.security.UserService;
 import com.demo.app.util.Constants;
 import com.google.common.base.Preconditions;
 

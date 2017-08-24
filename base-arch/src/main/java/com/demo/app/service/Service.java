@@ -39,7 +39,7 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 		return getCacheDao().updateOne(item);
 	}
 
-	public T saveOne(T item) {
+	public T saveOne(T item) throws AppException {
 		return getCacheDao().saveOne(item);
 	}
 }
