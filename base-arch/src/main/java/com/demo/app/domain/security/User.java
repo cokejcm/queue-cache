@@ -43,7 +43,7 @@ public class User implements Serializable {
 	@Transient
 	private String countryCode;
 
-	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE })
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Authority> authorities;
 

@@ -35,7 +35,7 @@ public abstract class Service<T extends Entity, K extends Serializable> {
 		getCacheDao().deleteOne(key);
 	}
 
-	public T updateOne(T item) {
+	public T updateOne(T item) throws AppException {
 		return getCacheDao().updateOne(item);
 	}
 

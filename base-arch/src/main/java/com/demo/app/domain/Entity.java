@@ -34,9 +34,6 @@ public abstract class Entity implements Serializable, Cloneable {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
 		Entity other = (Entity) obj;
 		if (getId() == null) {
 			if (other.getId() != null) {
