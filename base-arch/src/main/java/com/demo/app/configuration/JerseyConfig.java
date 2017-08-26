@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletConfig;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
@@ -40,6 +41,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	public JerseyConfig() {
 		register(RequestContextFilter.class);
+		register(MultiPartFeature.class);
 		packages(Constants.CONTROLLER_PACKAGE);
 		packages(Constants.CONFIGURATION_PACKAGE);
 		register(JacksonFeature.class);
@@ -54,7 +56,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	@PostConstruct
 	public void init() {
-		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)){
+		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)) {
 			this.configureSwagger();
 		}
 	}
