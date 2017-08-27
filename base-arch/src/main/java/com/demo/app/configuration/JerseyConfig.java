@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.context.ServletConfigAware;
 
+import com.demo.app.configuration.swagger.FormDataBodyPartModel;
 import com.demo.app.configuration.swagger.IterableEntityModel;
 import com.demo.app.util.Constants;
 
@@ -92,6 +93,8 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		swagger.addDefinition("IterableCompany", model);
 		swagger.addDefinition("IterableServiceType", model);
 		swagger.addDefinition("IterableDocument", model);
+		Model model2 = new FormDataBodyPartModel();
+		swagger.addDefinition("FormDataBodyPart", model2);
 		new SwaggerContextService().withServletConfig(servletConfig).updateSwagger(swagger);
 	}
 }
