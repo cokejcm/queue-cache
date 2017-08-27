@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletConfig;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.context.ServletConfigAware;
 
+import com.demo.app.configuration.swagger.FormDataBodyPartModel;
 import com.demo.app.configuration.swagger.IterableEntityModel;
 import com.demo.app.util.Constants;
 
@@ -40,6 +42,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	public JerseyConfig() {
 		register(RequestContextFilter.class);
+		register(MultiPartFeature.class);
 		packages(Constants.CONTROLLER_PACKAGE);
 		packages(Constants.CONFIGURATION_PACKAGE);
 		register(JacksonFeature.class);
@@ -54,7 +57,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	@PostConstruct
 	public void init() {
-		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)){
+		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)) {
 			this.configureSwagger();
 		}
 	}
@@ -90,6 +93,8 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		swagger.addDefinition("IterableCompany", model);
 		swagger.addDefinition("IterableServiceType", model);
 		swagger.addDefinition("IterableDocument", model);
+		Model model2 = new FormDataBodyPartModel();
+		swagger.addDefinition("FormDataBodyPart", model2);
 		new SwaggerContextService().withServletConfig(servletConfig).updateSwagger(swagger);
 	}
 }
