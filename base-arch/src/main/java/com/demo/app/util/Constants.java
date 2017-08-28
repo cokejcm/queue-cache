@@ -9,6 +9,9 @@ public final class Constants {
 	public static final String SERVICE_PACKAGE = "com.demo.app.service";
 	public static final String DOMAIN_PACKAGE = "com.demo.app.domain";
 	public static final String CONFIGURATION_PACKAGE = "com.demo.app.configuration";
+	public static final String CONTROLLER = "Controller";
+	public static final String SERVICE = "Service";
+
 
 	// Token expiration time in days
 	public static int EXPIRATION_DAYS = 365;
