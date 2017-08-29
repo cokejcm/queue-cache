@@ -31,17 +31,6 @@ public abstract class Controller<T extends Entity, K extends Serializable> {
 	@Autowired
 	private MessageSourceLocale messageSource;
 
-	@SuppressWarnings("unchecked")
-	protected void addToCache(Entity e) {
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				findOne((K) e.getId());
-			}
-		};
-		t.start();
-	}
-
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
