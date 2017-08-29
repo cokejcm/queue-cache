@@ -16,7 +16,8 @@ public class EntityHzRepository<T extends Entity, K extends Serializable>  {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Iterable<T> getEntitiesFiltered(Class<? extends Entity> clazz, String condition){
-		return new ArrayList(instance.getMap(clazz.getSimpleName()).values(new SqlPredicate(condition)));
+		Iterable<T> iterable = new ArrayList(instance.getMap(clazz.getSimpleName()).values(new SqlPredicate(condition)));
+		return !iterable.iterator().hasNext() ? null : iterable;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
