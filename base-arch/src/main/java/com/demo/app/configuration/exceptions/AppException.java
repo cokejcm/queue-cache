@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.exceptions;
 
 public class AppException extends Exception {
 

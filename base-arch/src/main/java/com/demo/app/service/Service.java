@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 
-import com.demo.app.configuration.AppException;
+import com.demo.app.configuration.exceptions.AppException;
 import com.demo.app.dao.HzCacheDao;
 import com.demo.app.domain.Entity;
 

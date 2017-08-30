@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import com.demo.app.configuration.AppException;
+import com.demo.app.configuration.exceptions.AppException;
 import com.demo.app.configuration.internationalization.MessageSourceLocale;
 import com.demo.app.domain.Entity;
 import com.demo.app.service.Service;

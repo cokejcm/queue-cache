@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 import javax.persistence.MappedSuperclass;
 
-import com.demo.app.configuration.AppException;
+import com.demo.app.configuration.exceptions.AppException;
 import com.demo.app.util.Util;
 
 @MappedSuperclass
