@@ -1,6 +1,6 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.exceptions;
 
-public class AppException extends Exception {
+public class AppException extends Exception implements AppExceptionInterface{
 
 	private static final long serialVersionUID = 7781059836018578812L;
 

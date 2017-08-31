@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.exceptions;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
