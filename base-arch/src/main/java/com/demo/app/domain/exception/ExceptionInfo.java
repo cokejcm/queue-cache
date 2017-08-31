@@ -85,9 +85,6 @@ public class ExceptionInfo extends Entity implements Serializable {
 		this.username = null;
 		this.dateTime = null;
 		this.type = null;
-		if (!this.type.equals(ExceptionType.APP_EXCEPTION)) {
-			this.message = "ERROR INTERNO";
-		}
 	}
 
 }
