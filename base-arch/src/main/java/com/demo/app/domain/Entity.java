@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 
 import javax.persistence.MappedSuperclass;
 
+import org.apache.commons.lang3.SerializationUtils;
+
 import com.demo.app.configuration.exceptions.AppException;
 import com.demo.app.util.Util;
 
@@ -49,7 +51,8 @@ public abstract class Entity implements Serializable, Cloneable {
 		if (notCloneableFieldNames.length != notCloneableFieldValues.length) {
 			throw new AppException("exception");
 		}
-		Entity e = (Entity) this.clone();
+
+		Entity e = SerializationUtils.clone(this);
 		for (int i = 0; i < notCloneableFieldNames.length; i++) {
 			Field field = e.getClass().getDeclaredField(notCloneableFieldNames[i]);
 			Method getMethod = field.getDeclaringClass().getMethod("get" + Util.capitalize(field.getName()));

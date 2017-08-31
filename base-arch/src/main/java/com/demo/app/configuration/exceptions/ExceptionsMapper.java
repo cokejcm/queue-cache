@@ -31,6 +31,7 @@ public class ExceptionsMapper implements ExceptionMapper<Exception> {
 
 	@Override
 	public Response toResponse(Exception e) {
+		e.printStackTrace();
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ExceptionType type = AppExceptionInterface.class.isAssignableFrom(e.getClass()) ? ExceptionType.APP_EXCEPTION : ExceptionType.EXCEPTION;
 		ExceptionInfo excInfo = new ExceptionInfo(LocalDateTime.now(), username, type, e.getMessage(), e.getStackTrace());
