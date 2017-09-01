@@ -1,7 +1,7 @@
 package com.demo.app.domain.exception;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,7 +11,7 @@ import com.demo.app.domain.Entity;
 public class ExceptionInfo extends Entity implements Serializable {
 
 	private static final long serialVersionUID = 8752756945905434156L;
-	private LocalDateTime dateTime;
+	private Date dateTime;
 	private String username;
 	private ExceptionType type;
 	private String message;
@@ -31,7 +31,7 @@ public class ExceptionInfo extends Entity implements Serializable {
 		// No id will be used
 	}
 
-	public ExceptionInfo(LocalDateTime dateTime, String username, ExceptionType type, String message, StackTraceElement[] stack) {
+	public ExceptionInfo(Date dateTime, String username, ExceptionType type, String message, StackTraceElement[] stack) {
 		super();
 		this.dateTime = dateTime;
 		this.username = username;
@@ -40,11 +40,11 @@ public class ExceptionInfo extends Entity implements Serializable {
 		this.stack = stack;
 	}
 
-	public LocalDateTime getDateTime() {
+	public Date getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void Date(Date dateTime) {
 		this.dateTime = dateTime;
 	}
 
