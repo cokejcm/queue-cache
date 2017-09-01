@@ -49,7 +49,7 @@ public abstract class Entity implements Serializable, Cloneable {
 
 	public Entity clone(String[] notCloneableFieldNames, Object[] notCloneableFieldValues) throws Exception {
 		if (notCloneableFieldNames.length != notCloneableFieldValues.length) {
-			throw new AppException("exception");
+			throw new AppException("The list of elements and values differs when cloning entity when Entity.clone");
 		}
 
 		Entity e = SerializationUtils.clone(this);
@@ -58,7 +58,7 @@ public abstract class Entity implements Serializable, Cloneable {
 			Method getMethod = field.getDeclaringClass().getMethod("get" + Util.capitalize(field.getName()));
 			Class<?> c = getMethod.getReturnType();
 			if (!c.isAssignableFrom(notCloneableFieldValues[i].getClass())) {
-				throw new AppException("exception");
+				throw new AppException("Class not assignable from " + notCloneableFieldValues[i].getClass() + "when Entity.clone");
 			}
 			Method method = field.getDeclaringClass().getMethod("set" + Util.capitalize(field.getName()), c);
 			method.invoke(e, new Object[] { notCloneableFieldValues[i] });
