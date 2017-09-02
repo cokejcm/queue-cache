@@ -78,13 +78,20 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		beanConfig.setScan(true);
 
 		Swagger swagger = new Swagger();
-		// JWT Security
+		// JWT Admin Role Security
 		ApiKeyAuthDefinition apiKey = new ApiKeyAuthDefinition();
 		apiKey.setIn(In.HEADER);
 		apiKey.setName("X-AUTH-TOKEN");
 		apiKey.setType("apiKey");
-		apiKey.setDescription("JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5ZTYyYjM5OS02MDdiLTRkMGItOTg1Ny0xZjBmYzM1ZjJhNmIiLCJzdWIiOiJrcmlzaG5hIiwiaWF0IjoxNDkzODE5MTU1LCJleHAiOjE1MjUzNTUxNTV9.H5bCw0UcIQegztc1mEhD0EPxdeaBvV8xOfZjtlPPCjwciqV2DcBsOZa3KxyamGwJCTj_wm9U0wTMw9J0YlfXGw");
-		swagger.securityDefinition("JWT", apiKey);
+		apiKey.setDescription("ADMIN_ROLE JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5ZTYyYjM5OS02MDdiLTRkMGItOTg1Ny0xZjBmYzM1ZjJhNmIiLCJzdWIiOiJrcmlzaG5hIiwiaWF0IjoxNDkzODE5MTU1LCJleHAiOjE1MjUzNTUxNTV9.H5bCw0UcIQegztc1mEhD0EPxdeaBvV8xOfZjtlPPCjwciqV2DcBsOZa3KxyamGwJCTj_wm9U0wTMw9J0YlfXGw");
+		swagger.addSecurityDefinition("ADMIN_ROLE", apiKey);
+		// JWT App Role Security
+		apiKey = new ApiKeyAuthDefinition();
+		apiKey.setIn(In.HEADER);
+		apiKey.setName("X-AUTH-TOKEN");
+		apiKey.setType("apiKey");
+		apiKey.setDescription("APP_ROLE JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI3MjVhM2U3Ni0wOGFlLTRhZDAtOGM2Yy00ZTY5YTM0YTJjYmMiLCJzdWIiOiJzdXBlcnVzZXIiLCJpYXQiOjE1MDQzODg2NzQsImV4cCI6MTUzNTkyNDY3NH0.2waRMVDB7O6-Pvl-NMtSvW2VSybK5pYdgefeNAQaUSIZPP24Ia88-TFyj9HClH15wmj35lfz-v5kkyXl58x3Kw");
+		swagger.addSecurityDefinition("APP_ROLE", apiKey);
 		// Iterable<AnyEntity> not recognized by Swagger
 		Model model = new IterableEntityModel();
 		swagger.addDefinition("IterableEntity", model);

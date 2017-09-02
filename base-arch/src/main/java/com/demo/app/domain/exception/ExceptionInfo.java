@@ -15,7 +15,7 @@ public class ExceptionInfo extends Entity implements Serializable {
 	private String username;
 	private ExceptionType type;
 	private String message;
-	private StackTraceElement[] stack;
+	private String stack;
 
 	public ExceptionInfo() {
 		super();
@@ -31,7 +31,7 @@ public class ExceptionInfo extends Entity implements Serializable {
 		// No id will be used
 	}
 
-	public ExceptionInfo(Date dateTime, String username, ExceptionType type, String message, StackTraceElement[] stack) {
+	public ExceptionInfo(Date dateTime, String username, ExceptionType type, String message, String stack) {
 		super();
 		this.dateTime = dateTime;
 		this.username = username;
@@ -56,11 +56,11 @@ public class ExceptionInfo extends Entity implements Serializable {
 		this.username = username;
 	}
 
-	public StackTraceElement[] getStack() {
+	public String getStack() {
 		return stack;
 	}
 
-	public void setStack(StackTraceElement[] stack) {
+	public void setStack(String stack) {
 		this.stack = stack;
 	}
 
