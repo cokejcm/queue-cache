@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.jersey;
 
 import java.util.Arrays;
 
@@ -39,6 +39,8 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	@Autowired
 	private Environment environment;
+	@Autowired
+	private ConfigProperties configProperties;
 
 	public JerseyConfig() {
 		register(RequestContextFilter.class);
@@ -69,14 +71,13 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		beanConfig.setConfigId(Constants.CONFIG_ID);
 		beanConfig.setTitle(Constants.TITLE);
 		beanConfig.setVersion(Constants.VERSION);
-		beanConfig.setHost(Constants.HOST + ":" + Constants.PORT);
+		beanConfig.setHost(configProperties.getJsonSwaggerHost() + ":" + Constants.PORT);
 		beanConfig.setContact(Constants.CONTACT);
 		beanConfig.setSchemes(Constants.SCHEMAS);
 		beanConfig.setBasePath(Constants.COMPLETE_CONTEXT);
 		beanConfig.setResourcePackage(Constants.CONTROLLER_PACKAGE);
 		beanConfig.setPrettyPrint(true);
 		beanConfig.setScan(true);
-
 		Swagger swagger = new Swagger();
 		// JWT Admin Role Security
 		ApiKeyAuthDefinition apiKey = new ApiKeyAuthDefinition();

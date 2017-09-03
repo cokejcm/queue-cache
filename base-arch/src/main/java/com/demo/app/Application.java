@@ -27,7 +27,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import com.demo.app.configuration.JerseyConfig;
+import com.demo.app.configuration.jersey.JerseyConfig;
 import com.demo.app.util.Constants;
 
 @Configuration

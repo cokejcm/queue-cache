@@ -24,7 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.demo.app.configuration.JerseyConfig;
+import com.demo.app.configuration.jersey.JerseyConfig;
 import com.demo.app.controller.MessageController;
 import com.demo.app.domain.Message;
 import com.demo.app.service.MessageService;
