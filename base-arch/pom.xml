@@ -36,7 +36,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
-		</dependency>		
+		</dependency>
+		<!-- HikariCP -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>		
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>				
 		<!-- Autodiscover parameters -->
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
