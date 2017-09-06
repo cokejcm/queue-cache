@@ -1,12 +1,13 @@
 package com.demo.app.configuration.exceptions;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,10 @@ public class ExceptionsMapper implements ExceptionMapper<Exception> {
 
 	@Override
 	public Response toResponse(Exception e) {
+		logger.error(e.getMessage(), e);
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ExceptionType type = AppExceptionInterface.class.isAssignableFrom(e.getClass()) ? ExceptionType.APP_EXCEPTION : ExceptionType.EXCEPTION;
-		ExceptionInfo excInfo = new ExceptionInfo(LocalDateTime.now(), username, type, e.getMessage(), e.getStackTrace());
+		ExceptionInfo excInfo = new ExceptionInfo(new Date(), username, type, e.getMessage(), ExceptionUtils.getStackTrace(e));
 		// Insert the exception on the database
 		try {
 			exceptionInfoService.saveOne(excInfo);

@@ -1,4 +1,4 @@
-package com.demo.app.configuration;
+package com.demo.app.configuration.jersey;
 
 import java.util.Arrays;
 
@@ -39,6 +39,8 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 
 	@Autowired
 	private Environment environment;
+	@Autowired
+	private ConfigProperties configProperties;
 
 	public JerseyConfig() {
 		register(RequestContextFilter.class);
@@ -69,22 +71,28 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		beanConfig.setConfigId(Constants.CONFIG_ID);
 		beanConfig.setTitle(Constants.TITLE);
 		beanConfig.setVersion(Constants.VERSION);
-		beanConfig.setHost(Constants.HOST + ":" + Constants.PORT);
+		beanConfig.setHost(configProperties.getJsonSwaggerHost() + ":" + Constants.PORT);
 		beanConfig.setContact(Constants.CONTACT);
 		beanConfig.setSchemes(Constants.SCHEMAS);
 		beanConfig.setBasePath(Constants.COMPLETE_CONTEXT);
 		beanConfig.setResourcePackage(Constants.CONTROLLER_PACKAGE);
 		beanConfig.setPrettyPrint(true);
 		beanConfig.setScan(true);
-
 		Swagger swagger = new Swagger();
-		// JWT Security
+		// JWT Admin Role Security
 		ApiKeyAuthDefinition apiKey = new ApiKeyAuthDefinition();
 		apiKey.setIn(In.HEADER);
 		apiKey.setName("X-AUTH-TOKEN");
 		apiKey.setType("apiKey");
-		apiKey.setDescription("JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5ZTYyYjM5OS02MDdiLTRkMGItOTg1Ny0xZjBmYzM1ZjJhNmIiLCJzdWIiOiJrcmlzaG5hIiwiaWF0IjoxNDkzODE5MTU1LCJleHAiOjE1MjUzNTUxNTV9.H5bCw0UcIQegztc1mEhD0EPxdeaBvV8xOfZjtlPPCjwciqV2DcBsOZa3KxyamGwJCTj_wm9U0wTMw9J0YlfXGw");
-		swagger.securityDefinition("JWT", apiKey);
+		apiKey.setDescription("ADMIN_ROLE JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5ZTYyYjM5OS02MDdiLTRkMGItOTg1Ny0xZjBmYzM1ZjJhNmIiLCJzdWIiOiJrcmlzaG5hIiwiaWF0IjoxNDkzODE5MTU1LCJleHAiOjE1MjUzNTUxNTV9.H5bCw0UcIQegztc1mEhD0EPxdeaBvV8xOfZjtlPPCjwciqV2DcBsOZa3KxyamGwJCTj_wm9U0wTMw9J0YlfXGw");
+		swagger.addSecurityDefinition("ADMIN_ROLE", apiKey);
+		// JWT App Role Security
+		apiKey = new ApiKeyAuthDefinition();
+		apiKey.setIn(In.HEADER);
+		apiKey.setName("X-AUTH-TOKEN");
+		apiKey.setType("apiKey");
+		apiKey.setDescription("APP_ROLE JWT TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI3MjVhM2U3Ni0wOGFlLTRhZDAtOGM2Yy00ZTY5YTM0YTJjYmMiLCJzdWIiOiJzdXBlcnVzZXIiLCJpYXQiOjE1MDQzODg2NzQsImV4cCI6MTUzNTkyNDY3NH0.2waRMVDB7O6-Pvl-NMtSvW2VSybK5pYdgefeNAQaUSIZPP24Ia88-TFyj9HClH15wmj35lfz-v5kkyXl58x3Kw");
+		swagger.addSecurityDefinition("APP_ROLE", apiKey);
 		// Iterable<AnyEntity> not recognized by Swagger
 		Model model = new IterableEntityModel();
 		swagger.addDefinition("IterableEntity", model);
