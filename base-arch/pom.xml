@@ -21,6 +21,7 @@
        	<reflections.version>0.9.10</reflections.version>
        	<jjwt.version>0.7.0</jjwt.version>
         <swagger.version>1.5.16</swagger.version>
+        <hazelcast.version>3.8.4</hazelcast.version>
 	</properties>
 	
 	<dependencies>
@@ -96,6 +97,7 @@
 		<dependency>
 		    <groupId>com.hazelcast</groupId>
 		    <artifactId>hazelcast</artifactId>
+		     <version>${hazelcast.version}</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>		
 		<!-- Log -->
 		<dependency>
