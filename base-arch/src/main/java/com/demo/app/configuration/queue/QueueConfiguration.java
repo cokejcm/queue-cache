@@ -17,17 +17,17 @@ import com.demo.app.util.Constants;
 public class QueueConfiguration {
 
 	@Bean
-	Queue queue() {
+	Queue queueAll() {
 		return new Queue(Constants.QUEUE_ALL, false);
 	}
 
 	@Bean
-	TopicExchange exchange() {
+	TopicExchange exchangeAll() {
 		return new TopicExchange(Constants.EXCHANGE_ALL);
 	}
 
 	@Bean
-	Binding binding(Queue queue, TopicExchange exchange) {
+	Binding bindingAll(Queue queue, TopicExchange exchange) {
 		return BindingBuilder.bind(queue).to(exchange).with(Constants.QUEUE_ALL);
 	}
 
@@ -43,6 +43,21 @@ public class QueueConfiguration {
 	@Bean
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
+	}
+
+	@Bean
+	public Queue createQueue(String queueName) {
+		return new Queue(queueName);
+	}
+
+	@Bean
+	public Binding createBinding(Queue queue, TopicExchange exchange, String routingKey) {
+		return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+	}
+
+	@Bean
+	public TopicExchange createExchange(String name) {
+		return new TopicExchange(name);
 	}
 
 }

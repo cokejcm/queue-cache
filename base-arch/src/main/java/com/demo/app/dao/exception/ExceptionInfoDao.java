@@ -12,7 +12,7 @@ import com.demo.app.repository.exception.ExceptionInfoRepository;
 public class ExceptionInfoDao extends MongoDao<ExceptionInfo, String> {
 
 	@Autowired
-	ExceptionInfoRepository exceptionInfoRepository;
+	private ExceptionInfoRepository exceptionInfoRepository;
 
 	@Override
 	public MongoGenericRepository<ExceptionInfo, String> getMongoRepository() {
