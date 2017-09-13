@@ -49,5 +49,6 @@ public final class Constants {
 	// Queues
 	public static final String QUEUE_ALL = "app-diffusion";
 	public static final String EXCHANGE_ALL = "app-diffusion-exchange";
+	public static final String EXCHANGE_USER = "user-exchange";
 
 }
