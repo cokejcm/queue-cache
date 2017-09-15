@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.demo.app.util.Constants;
 
-@Component
+//@Component
 public class TestQueue implements CommandLineRunner {
 
 	private final RabbitTemplate rabbitTemplate;

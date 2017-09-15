@@ -18,54 +18,47 @@ import com.demo.app.util.Constants;
 @Configuration
 public class QueueConfiguration {
 
-	//@Bean
+	//Exchange, queue and binding for everyone
 	Queue queueAll() {
 		return new Queue(Constants.QUEUE_ALL, false);
 	}
 
-	//@Bean
 	TopicExchange exchangeAll() {
 		return new TopicExchange(Constants.EXCHANGE_ALL);
 	}
 
-	//@Bean
-	DirectExchange userExchange(){
-		return new DirectExchange(Constants.EXCHANGE_USER);
-	}
-
-	//@Bean
 	Binding bindingAll(Queue queue, TopicExchange exchange) {
 		return BindingBuilder.bind(queue).to(exchange).with(Constants.QUEUE_ALL);
+	}
+
+	//Exchange to route messages to specific users
+	@Bean
+	DirectExchange userExchange(){
+		return new DirectExchange(Constants.EXCHANGE_USER);
 	}
 
 	@Bean
 	public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
 		RabbitAdmin admin = new RabbitAdmin(connectionFactory);
+		//Exchange and Queue for everyone
 		Queue queueDifussion = queueAll();
 		admin.declareQueue(queueDifussion);
 		TopicExchange exchangeDifussion = exchangeAll();
 		admin.declareExchange(exchangeDifussion);
 		admin.declareBinding(bindingAll(queueDifussion, exchangeDifussion));
+		//Per user
+		DirectExchange directExchange = userExchange();
+		admin.declareExchange(directExchange);
 		return admin;
 	}
 
 	@Bean
 	public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-		RabbitTemplate rabbitTemplate=new RabbitTemplate(connectionFactory);
+		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
 		rabbitTemplate.setRoutingKey(Constants.QUEUE_ALL);
 		rabbitTemplate.setQueue(Constants.QUEUE_ALL);
 		return rabbitTemplate;
 	}
-
-	//¿NEcesario?????????????????????????????? usar rabbitadmin¿???????????????????????????
-	/*@Bean
-	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
-		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(Constants.QUEUE_ALL);
-		container.setMessageListener(listenerAdapter);
-		return container;
-	}*/
 
 	@Bean
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
