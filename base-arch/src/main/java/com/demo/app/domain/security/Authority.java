@@ -16,6 +16,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.demo.app.configuration.hateoas.UserSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 @Table(schema = "security", name = "user_authorities")
 @GenericGenerator(name = "string-seq-generator", strategy = "com.demo.app.configuration.StringSequenceIdentifier", parameters = {
@@ -33,6 +36,7 @@ public class Authority implements Serializable, GrantedAuthority {
 	@ManyToOne
 	@JoinColumn(name = "username", nullable = false)
 	@NotNull
+	@JsonSerialize(using = UserSerializer.class)
 	private User username;
 
 	@Enumerated(EnumType.STRING)
