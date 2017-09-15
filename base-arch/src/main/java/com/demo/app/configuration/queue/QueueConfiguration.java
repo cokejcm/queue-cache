@@ -18,11 +18,12 @@ import com.demo.app.util.Constants;
 @Configuration
 public class QueueConfiguration {
 
-	//Exchange, queue and binding for everyone
+	// Exchange, queue and binding for everyone
 	Queue queueAll() {
 		return new Queue(Constants.QUEUE_ALL, true);
 	}
 
+	@Bean
 	TopicExchange exchangeAll() {
 		return new TopicExchange(Constants.EXCHANGE_ALL);
 	}
@@ -31,22 +32,22 @@ public class QueueConfiguration {
 		return BindingBuilder.bind(queue).to(exchange).with(Constants.QUEUE_ALL);
 	}
 
-	//Exchange to route messages to specific users
+	// Exchange to route messages to specific users
 	@Bean
-	DirectExchange userExchange(){
+	DirectExchange userExchange() {
 		return new DirectExchange(Constants.EXCHANGE_USER);
 	}
 
 	@Bean
 	public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
 		RabbitAdmin admin = new RabbitAdmin(connectionFactory);
-		//Exchange and Queue for everyone
+		// Exchange and Queue for everyone
 		Queue queueDifussion = queueAll();
 		admin.declareQueue(queueDifussion);
 		TopicExchange exchangeDifussion = exchangeAll();
 		admin.declareExchange(exchangeDifussion);
 		admin.declareBinding(bindingAll(queueDifussion, exchangeDifussion));
-		//Per user
+		// Per user
 		DirectExchange directExchange = userExchange();
 		admin.declareExchange(directExchange);
 		return admin;
