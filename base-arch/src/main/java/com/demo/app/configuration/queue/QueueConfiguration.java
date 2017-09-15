@@ -20,7 +20,7 @@ public class QueueConfiguration {
 
 	//Exchange, queue and binding for everyone
 	Queue queueAll() {
-		return new Queue(Constants.QUEUE_ALL, false);
+		return new Queue(Constants.QUEUE_ALL, true);
 	}
 
 	TopicExchange exchangeAll() {
