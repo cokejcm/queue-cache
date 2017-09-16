@@ -45,11 +45,13 @@ public final class Constants {
 
 	// urls
 	public static final String LOGIN_URL = "/login";
-
-	// Queues
-	public static final String QUEUE_ALL = "app-diffusion_queue";
+	// Exchanges
 	public static final String EXCHANGE_ALL = "app-diffusion-exchange";
+	public static final String EXCHANGE_ORG = "app-org-exchange";
 	public static final String EXCHANGE_USER = "app-user-exchange";
-	public static final String QUEUE_SUFFIX = "_queue";
+	// Queues
+	// public static final String QUEUE_ALL = "app-diffusion-queue";
+	public static final String QUEUE_SUFFIX = "-queue";
+	// public static final String KEY_ALL = "app-diffusion";
 
 }
