@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import com.demo.app.configuration.hateoas.ControllerClass;
 import com.demo.app.controller.LoginController;
 import com.demo.app.queue.QueueReceiver;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -44,7 +45,7 @@ public class User implements Serializable, QueueReceiver {
 	@Transient
 	private String countryCode;
 
-	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE})
+	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE })
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Authority> authorities;
 
@@ -147,4 +148,11 @@ public class User implements Serializable, QueueReceiver {
 		}
 		return true;
 	}
+
+	@Override
+	@JsonIgnore
+	public String getId() {
+		return this.username;
+	}
+
 }
