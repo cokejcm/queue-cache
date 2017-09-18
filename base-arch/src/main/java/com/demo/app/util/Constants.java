@@ -50,8 +50,5 @@ public final class Constants {
 	public static final String EXCHANGE_ORG = "app-org-exchange";
 	public static final String EXCHANGE_USER = "app-user-exchange";
 	// Queues
-	// public static final String QUEUE_ALL = "app-diffusion-queue";
 	public static final String QUEUE_SUFFIX = "-queue";
-	// public static final String KEY_ALL = "app-diffusion";
-
 }
