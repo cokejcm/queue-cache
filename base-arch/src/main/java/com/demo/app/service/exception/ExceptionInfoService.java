@@ -11,7 +11,7 @@ import com.demo.app.domain.exception.ExceptionInfo;
 public class ExceptionInfoService extends com.demo.app.service.Service<ExceptionInfo, String> {
 
 	@Autowired
-	HzExceptionInfoCacheDao hzExceptionInfoCacheDao;
+	private HzExceptionInfoCacheDao hzExceptionInfoCacheDao;
 
 	@Override
 	public Class<?> getType() {

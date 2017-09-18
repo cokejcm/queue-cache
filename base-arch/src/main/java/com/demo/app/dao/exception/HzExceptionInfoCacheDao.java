@@ -11,7 +11,7 @@ import com.demo.app.domain.exception.ExceptionInfo;
 public class HzExceptionInfoCacheDao extends HzCacheDao<ExceptionInfo, String> {
 
 	@Autowired
-	ExceptionInfoDao exceptionInfoDao;
+	private ExceptionInfoDao exceptionInfoDao;
 
 	@Override
 	public CacheDao<ExceptionInfo, String> getDao() {

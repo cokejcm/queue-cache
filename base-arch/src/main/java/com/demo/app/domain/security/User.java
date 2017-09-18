@@ -14,13 +14,15 @@ import javax.persistence.Transient;
 
 import com.demo.app.configuration.hateoas.ControllerClass;
 import com.demo.app.controller.LoginController;
+import com.demo.app.queue.QueueReceiver;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(schema = "security", name = "users")
 @ControllerClass(LoginController.class)
-public class User implements Serializable {
+public class User implements Serializable, QueueReceiver {
 
 	private static final long serialVersionUID = -1833543647066464068L;
 
@@ -43,7 +45,7 @@ public class User implements Serializable {
 	@Transient
 	private String countryCode;
 
-	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE})
+	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE })
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Authority> authorities;
 
@@ -146,4 +148,11 @@ public class User implements Serializable {
 		}
 		return true;
 	}
+
+	@Override
+	@JsonIgnore
+	public String getId() {
+		return this.username;
+	}
+
 }
