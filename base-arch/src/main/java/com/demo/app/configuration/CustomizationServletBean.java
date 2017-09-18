@@ -2,6 +2,7 @@ package com.demo.app.configuration;
 
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.demo.app.util.Constants;
@@ -13,5 +14,7 @@ public class CustomizationServletBean implements EmbeddedServletContainerCustomi
 		// Specific configuration. The entry point will be <<local>>host:9090/app
 		container.setContextPath(Constants.CONTEXT);
 		container.setPort(Constants.PORT_NUM);
+		// Let AOP access SecurityContext
+		SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
 	}
 }
