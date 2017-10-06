@@ -51,4 +51,5 @@ public final class Constants {
 	public static final String EXCHANGE_USER = "app-user-exchange";
 	// Queues
 	public static final String QUEUE_SUFFIX = "-queue";
+	public static final String STOMP_URL = "/app/stomp";
 }

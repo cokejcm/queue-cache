@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,8 @@ public class LoginController {
 	TokenAuthenticationService tokenAuthenticationService;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	@Value("${domain}")
+	private String domain;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -47,11 +50,20 @@ public class LoginController {
 			if (passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {
 				// Generate the token and send it back in the header
 				UserAuthentication authentication = new UserAuthentication(user);
-				tokenAuthenticationService.addAuthentication(response, authentication);
+				String token = tokenAuthenticationService.addAuthentication(response, authentication);
 				// Add Locale cookie
 				Cookie cookie = new Cookie(Constants.COOKIE_LANGUAGE, userForm.getCountryCode());
-				cookie.setMaxAge(60 * 60 * 24 * 365 * 10);
+				cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // 10 years
+				cookie.setDomain(domain);
+				cookie.setPath(Constants.CONTEXT);
 				response.addCookie(cookie);
+				// Add JWT cookie for stomp
+				Cookie jwtCookie = new Cookie(Constants.AUTH_HEADER_NAME, token);
+				jwtCookie.setPath(Constants.STOMP_URL);
+				jwtCookie.setDomain(domain);
+				cookie.setMaxAge(60 * 60 * 24 * 365); // 1 year
+				// jwtCookie.setSecure(true);
+				response.addCookie(jwtCookie);
 			} else {
 				throw new WebApplicationException(Response.status(HttpServletResponse.SC_UNAUTHORIZED).entity("").build());
 			}
