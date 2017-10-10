@@ -4,14 +4,17 @@ import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletConfig;
+import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
+import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletConfigAware;
 
 import com.demo.app.configuration.swagger.FormDataBodyPartModel;
@@ -42,14 +45,29 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 	@Autowired
 	private ConfigProperties configProperties;
 
-	public JerseyConfig() {
+	private void registry() {
 		register(RequestContextFilter.class);
 		register(MultiPartFeature.class);
-		packages(Constants.CONTROLLER_PACKAGE);
-		packages(Constants.CONFIGURATION_PACKAGE);
 		register(JacksonFeature.class);
 		property(ServerProperties.MOXY_JSON_FEATURE_DISABLE, true);
 		property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
+	}
+
+	public JerseyConfig() {
+		registry();
+		// Register components manually due to a bug in Jersey and Spring Boot. It replaces "packages"
+		scan(Constants.CONFIGURATION_PACKAGE);
+		scan(Constants.CONTROLLER_PACKAGE);
+
+	}
+
+	public JerseyConfig(boolean scanControllers) {
+		registry();
+		// Register components manually due to a bug in Jersey and Spring Boot. It replaces "packages"
+		scan(Constants.CONFIGURATION_PACKAGE);
+		if (scanControllers) {
+			scan(Constants.CONTROLLER_PACKAGE);
+		}
 	}
 
 	@Override
@@ -104,5 +122,27 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		Model model2 = new FormDataBodyPartModel();
 		swagger.addDefinition("FormDataBodyPart", model2);
 		new SwaggerContextService().withServletConfig(servletConfig).updateSwagger(swagger);
+	}
+
+	protected void scan(String... packages) {
+		for (String pack : packages) {
+			Reflections reflections = new Reflections(pack);
+			reflections.getTypesAnnotatedWith(Component.class)
+					.forEach((clazz) -> {
+						try {
+							register(clazz);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
+			reflections.getTypesAnnotatedWith(Provider.class)
+					.forEach((clazz) -> {
+						try {
+							register(clazz);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
+		}
 	}
 }
