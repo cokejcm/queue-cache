@@ -45,17 +45,29 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 	@Autowired
 	private ConfigProperties configProperties;
 
-	public JerseyConfig() {
+	private void registry(){
 		register(RequestContextFilter.class);
 		register(MultiPartFeature.class);
-		// packages(Constants.CONTROLLER_PACKAGE);
-		// packages(Constants.CONFIGURATION_PACKAGE);
-		// Register components manually due to a bug in Jersey and Spring Boot. It replaces "packages"
-		// scan(Constants.CONTROLLER_PACKAGE);
-		scan(Constants.CONFIGURATION_PACKAGE);
 		register(JacksonFeature.class);
 		property(ServerProperties.MOXY_JSON_FEATURE_DISABLE, true);
 		property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
+	}
+
+	public JerseyConfig() {
+		registry();
+		// Register components manually due to a bug in Jersey and Spring Boot. It replaces "packages"
+		scan(Constants.CONFIGURATION_PACKAGE);
+		scan(Constants.CONTROLLER_PACKAGE);
+
+	}
+
+	public JerseyConfig(boolean scanControllers) {
+		registry();
+		// Register components manually due to a bug in Jersey and Spring Boot. It replaces "packages"
+		scan(Constants.CONFIGURATION_PACKAGE);
+		if (scanControllers){
+			scan(Constants.CONTROLLER_PACKAGE);
+		}
 	}
 
 	@Override
@@ -116,15 +128,15 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		for (String pack : packages) {
 			Reflections reflections = new Reflections(pack);
 			reflections.getTypesAnnotatedWith(Component.class)
-					.parallelStream()
-					.forEach((clazz) -> {
-						register(clazz);
-					});
+			.parallelStream()
+			.forEach((clazz) -> {
+				register(clazz);
+			});
 			reflections.getTypesAnnotatedWith(Provider.class)
-					.parallelStream()
-					.forEach((clazz) -> {
-						register(clazz);
-					});
+			.parallelStream()
+			.forEach((clazz) -> {
+				register(clazz);
+			});
 		}
 	}
 }
