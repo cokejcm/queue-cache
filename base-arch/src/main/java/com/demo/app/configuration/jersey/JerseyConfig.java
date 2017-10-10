@@ -45,7 +45,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 	@Autowired
 	private ConfigProperties configProperties;
 
-	private void registry(){
+	private void registry() {
 		register(RequestContextFilter.class);
 		register(MultiPartFeature.class);
 		register(JacksonFeature.class);
@@ -65,7 +65,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		registry();
 		// Register components manually due to a bug in Jersey and Spring Boot. It replaces "packages"
 		scan(Constants.CONFIGURATION_PACKAGE);
-		if (scanControllers){
+		if (scanControllers) {
 			scan(Constants.CONTROLLER_PACKAGE);
 		}
 	}
@@ -128,15 +128,21 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		for (String pack : packages) {
 			Reflections reflections = new Reflections(pack);
 			reflections.getTypesAnnotatedWith(Component.class)
-			.parallelStream()
-			.forEach((clazz) -> {
-				register(clazz);
-			});
+					.forEach((clazz) -> {
+						try {
+							register(clazz);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
 			reflections.getTypesAnnotatedWith(Provider.class)
-			.parallelStream()
-			.forEach((clazz) -> {
-				register(clazz);
-			});
+					.forEach((clazz) -> {
+						try {
+							register(clazz);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
 		}
 	}
 }

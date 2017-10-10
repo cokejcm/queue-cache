@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.demo.app.util.Constants;
@@ -31,12 +32,22 @@ public class WebMvcConfigurerBean extends WebMvcConfigurerAdapter {
 	}
 
 	// CORS For Swagger
-	@Override
+	/*@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		if (Arrays.stream(this.environment.getActiveProfiles()).anyMatch("dev"::equals) && Arrays.stream(this.environment.getActiveProfiles()).anyMatch("swagger"::equals)) {
 			registry.addMapping("/**")
 					.allowedOrigins("http://" + Constants.HOST + ":" + Constants.PORT, "http://" + swaggerUiHost + ":" + swaggerUiPort)
 					.allowedMethods("GET", "PUT", "POST", "DELETE");
 		}
+	}*/
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**");
+			}
+		};
 	}
 }
