@@ -61,7 +61,7 @@ public class LoginController {
 				Cookie jwtCookie = new Cookie(Constants.AUTH_HEADER_NAME, token);
 				jwtCookie.setPath(Constants.STOMP_URL);
 				jwtCookie.setDomain(domain);
-				cookie.setMaxAge(60 * 60 * 24 * 365); // 1 year
+				jwtCookie.setMaxAge(60 * 60 * 24 * 365); // 1 year
 				// jwtCookie.setSecure(true);
 				response.addCookie(jwtCookie);
 			} else {
