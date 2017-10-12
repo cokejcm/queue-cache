@@ -16,7 +16,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>2.26-b01</jersey.version>
         <mockito.version>1.10.19</mockito.version>
-        <datafaker.version>1.2.5</datafaker.version>
        	<persistence.version>1.0.2</persistence.version>
        	<reflections.version>0.9.10</reflections.version>
        	<jjwt.version>0.7.0</jjwt.version>
@@ -87,12 +86,6 @@
 	        <groupId>org.springframework.data</groupId>
 	        <artifactId>spring-data-mongodb</artifactId>
 	    </dependency>		    	
-		<!-- Fake Data -->	
-		<dependency>
-		    <groupId>com.github.blocoio</groupId>
-		    <artifactId>faker</artifactId>
-		    <version>${datafaker.version}</version>
-		</dependency>
 		<!-- Cache -->
 		<dependency>
 		    <groupId>com.hazelcast</groupId>
@@ -169,13 +162,6 @@
 		    <scope>test</scope>
 		</dependency>		
 	</dependencies>	
-	<repositories>
-		<!-- Fake Data Test -->
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
 	<build>
 		<plugins>
 		    <plugin>
