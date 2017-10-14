@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.demo.app.configuration.fakedata.CommonEntity;
+import com.demo.app.configuration.fakedata.FakerData;
 import com.demo.app.configuration.hateoas.ControllerClass;
 import com.demo.app.controller.LoginController;
 import com.demo.app.queue.QueueReceiver;
@@ -22,15 +24,18 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Entity
 @Table(schema = "security", name = "users")
 @ControllerClass(LoginController.class)
-public class User implements Serializable, QueueReceiver {
+@FakerData(position = 0)
+public class User implements Serializable, QueueReceiver, CommonEntity {
 
 	private static final long serialVersionUID = -1833543647066464068L;
 
 	@Id
 	@Column(name = "USERNAME")
+	@FakerData(fakerMethod = "name.firstName")
 	private String username;
 
 	@Column(name = "PASSWORD")
+	@FakerData(fakerMethod = "name.firstName")
 	private String password;
 
 	@Column(name = "ACCOUNT_NON_EXPIRED")
