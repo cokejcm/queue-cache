@@ -39,7 +39,7 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-remote-resoures-plugin</artifactId>
+										<artifactId>maven-remote-resources-plugin</artifactId>
 										<versionRange>[1.0,)</versionRange>
 										<goals>
 											<goal>process</goal>
@@ -57,4 +57,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
- </project>
+</project>
