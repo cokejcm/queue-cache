@@ -10,7 +10,9 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 public @interface FakerData {
 
-	int position() default -1; // Order to follow when creating the data
+	int position() default -1;       // CLASS LEVEL. Order to follow when creating the data
+	boolean reuse() default false;   // CLASS LEVEL. If the class will be reused as field property in other classes.
 
-	String fakerMethod() default "";
+	String fakerMethod() default ""; // FIELD LEVEL. Faker method used to populate the data
+	boolean ignore() default false;  // FIELD LEVEL.  Ignore field
 }
