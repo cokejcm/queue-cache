@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 		@org.hibernate.annotations.Parameter(name = "sequence_name", value = "security.authority_seq"),
 		@org.hibernate.annotations.Parameter(name = "sequence_prefix", value = "")
 })
-@FakerData(position = 1)
+@FakerData(position = 1, numItems=10)
 public class Authority implements Serializable, GrantedAuthority, CommonEntity {
 
 	private static final long serialVersionUID = 9171141200000360825L;
