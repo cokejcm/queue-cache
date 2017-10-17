@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Entity
 @Table(schema = "security", name = "users")
 @ControllerClass(LoginController.class)
-@FakerData(position = 0, reuse=true, numItems=10)
+@FakerData(position = 0, reuse=true)
 public class User implements Serializable, QueueReceiver, CommonEntity {
 
 	private static final long serialVersionUID = -1833543647066464068L;
