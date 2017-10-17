@@ -37,7 +37,7 @@
 							<exclude>dev.properties</exclude>
 							<exclude>local.properties</exclude>
 							<exclude>schema.sql</exclude>
-							<exclude>data.sql</exclude>							
+							<exclude>data.sql</exclude>	
 						</excludes>
 					</resource>
 				</resources>
@@ -58,7 +58,7 @@
 							<exclude>dev.properties</exclude>
 							<exclude>local.properties</exclude>							
 							<exclude>schema.sql</exclude>
-							<exclude>data.sql</exclude>							
+							<exclude>data.sql</exclude>						
 						</excludes>
 					</resource>
 				</resources>
@@ -79,7 +79,8 @@
 							<exclude>dev.properties</exclude>
 							<exclude>local.properties</exclude>							
 							<exclude>schema.sql</exclude>
-							<exclude>data.sql</exclude>							
+							<exclude>data.sql</exclude>
+							<exclude>fakedata.properties</exclude>							
 						</excludes>
 					</resource>
 				</resources>
