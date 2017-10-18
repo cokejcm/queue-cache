@@ -27,6 +27,14 @@ public class FakeDataProperties {
 	private int serviceTypeIter = 1;
 	private int form = 2;
 	private int formIter = 1;
+	private int section= 1;
+	private int sectionIter = 2;
+	private int questionType = 1;
+	private int questionTypeIter = 2;
+	private int questionValues= 1;
+	private int questionValuesIter = 2;
+	private int question= 1;
+	private int questionIter = 2;
 
 	public int getUser() {
 		return user;
@@ -123,5 +131,53 @@ public class FakeDataProperties {
 	}
 	public void setFormIter(int formIter) {
 		this.formIter = formIter;
+	}
+	public int getSection() {
+		return section;
+	}
+	public void setSection(int section) {
+		this.section = section;
+	}
+	public int getSectionIter() {
+		return sectionIter;
+	}
+	public void setSectionIter(int sectionIter) {
+		this.sectionIter = sectionIter;
+	}
+	public int getQuestionType() {
+		return questionType;
+	}
+	public void setQuestionType(int questionType) {
+		this.questionType = questionType;
+	}
+	public int getQuestionTypeIter() {
+		return questionTypeIter;
+	}
+	public void setQuestionTypeIter(int questionTypeIter) {
+		this.questionTypeIter = questionTypeIter;
+	}
+	public int getQuestionValues() {
+		return questionValues;
+	}
+	public void setQuestionValues(int questionValues) {
+		this.questionValues = questionValues;
+	}
+	public int getQuestionValuesIter() {
+		return questionValuesIter;
+	}
+	public void setQuestionValuesIter(int questionValuesIter) {
+		this.questionValuesIter = questionValuesIter;
+	}
+	public int getQuestion() {
+		return question;
+	}
+	public void setQuestion(int question) {
+		this.question = question;
+	}
+	public int getQuestionIter() {
+		return questionIter;
+	}
+	public void setQuestionIter(int questionIter) {
+		this.questionIter = questionIter;
 	}
 }
