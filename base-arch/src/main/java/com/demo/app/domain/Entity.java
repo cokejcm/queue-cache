@@ -9,10 +9,11 @@ import javax.persistence.MappedSuperclass;
 import org.apache.commons.lang3.SerializationUtils;
 
 import com.demo.app.configuration.exceptions.AppException;
+import com.demo.app.configuration.fakedata.CommonEntity;
 import com.demo.app.util.Util;
 
 @MappedSuperclass
-public abstract class Entity implements Serializable, Cloneable {
+public abstract class Entity implements Serializable, Cloneable, CommonEntity {
 
 	private static final long serialVersionUID = 5908519522358747038L;
 

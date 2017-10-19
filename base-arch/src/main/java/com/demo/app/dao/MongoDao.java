@@ -60,4 +60,8 @@ public class MongoDao<T extends Entity, K extends Serializable> implements Cache
 		return getMongoRepository().save(item);
 	}
 
+	@Override
+	public void deleteAll() {
+		//
+	}
 }
