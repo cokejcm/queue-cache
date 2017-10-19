@@ -24,4 +24,6 @@ public interface CacheDao<T extends Entity, K> {
 
 	public Class<?> getType();
 
+	public void deleteAll();
+
 }

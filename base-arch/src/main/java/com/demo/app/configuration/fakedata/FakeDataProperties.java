@@ -35,6 +35,9 @@ public class FakeDataProperties {
 	private int questionValuesIter = 2;
 	private int question= 1;
 	private int questionIter = 2;
+	private int document= 1;
+	private int documentIter = 2;
+
 
 	public int getUser() {
 		return user;
@@ -179,5 +182,17 @@ public class FakeDataProperties {
 	}
 	public void setQuestionIter(int questionIter) {
 		this.questionIter = questionIter;
+	}
+	public int getDocument() {
+		return document;
+	}
+	public void setDocument(int document) {
+		this.document = document;
+	}
+	public int getDocumentIter() {
+		return documentIter;
+	}
+	public void setDocumentIter(int documentIter) {
+		this.documentIter = documentIter;
 	}
 }

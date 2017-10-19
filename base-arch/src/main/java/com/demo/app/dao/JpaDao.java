@@ -57,4 +57,12 @@ public class JpaDao<T extends Entity, K extends Serializable> implements CacheDa
 		return getJpaRepository().save(item);
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public void deleteAll() {
+		Iterable<T> items = findAll();
+		for (T t : items) {
+			deleteOne((K)t.getId());
+		}
+	}
 }

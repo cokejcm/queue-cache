@@ -108,4 +108,11 @@ public class HzCacheDao<T extends Entity, K extends Serializable> implements Cac
 		return getDao().saveOne(item);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void deleteAll(){
+		Iterable<T> items = findAll();
+		for (T t : items) {
+			deleteOne((K)t.getId());
+		}
+	}
 }
