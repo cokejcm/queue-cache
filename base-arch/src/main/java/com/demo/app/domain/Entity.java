@@ -13,7 +13,7 @@ import com.demo.app.configuration.fakedata.CommonEntity;
 import com.demo.app.util.Util;
 
 @MappedSuperclass
-public abstract class Entity implements Serializable, Cloneable, CommonEntity {
+public abstract class Entity implements Serializable, Cloneable, CommonEntity, Comparable<Entity> {
 
 	private static final long serialVersionUID = 5908519522358747038L;
 
@@ -69,6 +69,17 @@ public abstract class Entity implements Serializable, Cloneable, CommonEntity {
 		Method method = fieldId.getDeclaringClass().getMethod("set" + Util.capitalize(fieldId.getName()), String.class);
 		method.invoke(e, new Object[] { null });
 		return e;
+	}
+
+	@Override
+	public int compareTo(Entity o) {
+		return this.getId().compareTo(o.getId());
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 }
