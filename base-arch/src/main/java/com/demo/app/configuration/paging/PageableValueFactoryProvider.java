@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 
 import org.glassfish.hk2.api.Factory;
@@ -41,11 +40,9 @@ public class PageableValueFactoryProvider implements ValueFactoryProvider {
 	private static class PageableValueFactory extends AbstractContainerRequestValueFactory<Pageable> {
 
 		@QueryParam("page")
-		@DefaultValue("0")
 		Integer page;
 
 		@QueryParam("size")
-		@DefaultValue("1000")
 		Integer size;
 
 		@QueryParam("sort")
@@ -61,10 +58,19 @@ public class PageableValueFactoryProvider implements ValueFactoryProvider {
 		public Pageable provide() {
 			locator.inject(this);
 			List<Sort.Order> orders = new ArrayList<>();
-			// Order by id by default
+			// Default values
+			if (page == null) {
+				page = 0;
+				size = 1000;
+			} else {
+				if (size == null) {
+					size = 5;
+				}
+			}
 			if (sort.isEmpty()) {
 				sort.add("id,ASC");
 			}
+			//
 			for (String propOrder : sort) {
 				String[] propOrderSplit = propOrder.split(",");
 				String property = propOrderSplit[0];

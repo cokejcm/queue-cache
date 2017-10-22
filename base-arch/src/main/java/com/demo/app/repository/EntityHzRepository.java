@@ -32,7 +32,7 @@ public class EntityHzRepository<T extends Entity, K extends Serializable> {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected Iterable<T> getEntitiesFilteredPaging(Class<? extends Entity> clazz, String condition, Pageable p) {
+	protected Iterable<T> getEntitiesFiltered(Class<? extends Entity> clazz, String condition, Pageable p) {
 		PagingPredicate pagingPredicate = new PagingPredicate<>(new SqlPredicate(condition), p.getPageSize());
 		pagingPredicate.setPage(p.getPageNumber());
 		Iterable<T> iterable = new ArrayList(instance.getMap(clazz.getSimpleName()).values(pagingPredicate));

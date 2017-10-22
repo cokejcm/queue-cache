@@ -67,6 +67,13 @@ public class HzCacheDao<T extends Entity, K extends Serializable> implements Cac
 		}
 	}
 
+	public void cacheList(List<T> items) {
+		if (isCacheable()) {
+			instance.getMap(getType().getSimpleName()).putAll(
+					Util.ListToMap(items));
+		}
+	}
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public T findOne(K key) {
@@ -108,11 +115,13 @@ public class HzCacheDao<T extends Entity, K extends Serializable> implements Cac
 		return getDao().saveOne(item);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
-	public void deleteAll(){
+	public void deleteAll() {
 		Iterable<T> items = findAll();
 		for (T t : items) {
-			deleteOne((K)t.getId());
+			deleteOne((K) t.getId());
 		}
 	}
+
 }
