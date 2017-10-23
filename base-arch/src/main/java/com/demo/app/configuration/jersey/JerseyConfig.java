@@ -3,13 +3,16 @@ package com.demo.app.configuration.jersey;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Singleton;
 import javax.servlet.ServletConfig;
 import javax.ws.rs.ext.Provider;
 
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.spi.internal.ValueFactoryProvider;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletConfigAware;
 
+import com.demo.app.configuration.paging.PageableValueFactoryProvider;
 import com.demo.app.configuration.swagger.FormDataBodyPartModel;
 import com.demo.app.configuration.swagger.IterableEntityModel;
 import com.demo.app.util.Constants;
@@ -49,6 +53,7 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		register(RequestContextFilter.class);
 		register(MultiPartFeature.class);
 		register(JacksonFeature.class);
+		register(new AbstractBinderPagination());
 		property(ServerProperties.MOXY_JSON_FEATURE_DISABLE, true);
 		property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
 	}
@@ -67,6 +72,15 @@ public class JerseyConfig extends ResourceConfig implements ServletConfigAware {
 		scan(Constants.CONFIGURATION_PACKAGE);
 		if (scanControllers) {
 			scan(Constants.CONTROLLER_PACKAGE);
+		}
+	}
+
+	private class AbstractBinderPagination extends AbstractBinder {
+		@Override
+		protected void configure() {
+			bind(PageableValueFactoryProvider.class)
+					.to(ValueFactoryProvider.class)
+					.in(Singleton.class);
 		}
 	}
 
