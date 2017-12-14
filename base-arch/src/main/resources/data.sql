@@ -10,3 +10,5 @@ INSERT INTO security.user_authorities (ID, USERNAME, AUTHORITY) VALUES
 	('3', 'krishna', 'BASIC_ROLE'),
 	('4', 'superuser', 'APP_ROLE'),
 	('5', 'user1', 'BASIC_ROLE');
+
+SELECT setval('security.authority_seq', 6, true);
