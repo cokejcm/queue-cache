@@ -19,10 +19,10 @@
 	</properties>
 
      <modules>
+      	<module>shared-resources</module>
      	<module>base-arch</module>
         <!-- Add your modules here-->
         <!-- <module>app</module> -->
- 		<module>shared-resources</module>
     </modules>
 
 	<!-- Get rid of warnings with the goal process and m2e not being executed  -->
